@@ -2,16 +2,24 @@
   "category": "01_couple_video",
   "project": "Template Couple Game",
   "raw_video": "raw/Project Name/IMG_0001.MOV",
+  "transcript_json": "transcripts/Project Name/IMG_0001_acoustic.json",
+  "brand_kit": "templates/01_couple_video/brand_kit.json",
   "resolution": [2160, 3840],
   "fps": 30,
+  "base_speed": 1.10,
+  "color_grade": "@couple-grade",
+  "caption_style": "@one-word-captions",
   "max_duration_sec": 150.0,
   "storyboard_approved": true,
   "hook_title": {
     "shortcut": "@hook-bean-boozle",
+    "behind_head": false,
     "line1_setup": "challenge",
-    "line2_title": "NAMA GAME 🔥",
+    "line2_title": "NAMA GAME",
+    "line2_emoji": "🔥",
     "start_sec": 0.0,
-    "end_sec": 3.5
+    "end_sec": 3.5,
+    "cover_raw_sec": 1.40
   },
   "music": "audio/music/nocturne_op9_in_eb.wav",
   "music_envelope": {
@@ -24,10 +32,11 @@
       "id": 1,
       "start": 0.98,
       "end": 5.20,
-      "speed": 1.0,
+      "speed": 1.10,
       "phase": "hook",
       "camera_mode": "@wide",
-      "notes": "Start on exact first spoken syllable (Rule C2)"
+      "suppress_captions": true,
+      "notes": "Start on exact first spoken syllable at 1.10x base speed (Rules C2, C16)"
     },
     {
       "id": 2,

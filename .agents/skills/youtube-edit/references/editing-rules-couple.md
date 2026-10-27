@@ -75,3 +75,41 @@
 15. **Rule C15 — Dedicated Caption & Header QC Subagent + Native 4K Studio Master Export**:
     - **Mandatory QC Subagent (`caption-qc-reviewer`)**: Cross-examine 100% of transcribed dialogue against the `.ass` and header schedule to guarantee zero dropped banter words and exact sub-second sync.
     - **Native 4K Ultra HD (`2160×3840`) Studio Master**: Never downscale 4K raw footage. Encode at `2160×3840`, H.264 High@L5.2, `-preset slow -crf 14`, target `45–50 Mbps` (`-maxrate 65M -bufsize 90M`), explicit Rec.709 color tags (`-color_primaries bt709 -color_trc bt709 -colorspace bt709`), and `320k` 48kHz AAC stereo audio normalized to `-14 LUFS`.
+
+---
+
+## IV. Couple Video 2.0: `1.10x` Base Speed, `@couple-grade` 4K Color Grading, Locked Brand Kit & Google Flow Integration (Rules C16–C20)
+
+16. **Rule C16 — Default `1.10x` Base Speed (`@couple-speed-1.1x`) & Frame-Quantized Timestamp Mapping**:
+    - **Anti-Pattern**: Running normal dialogue at `1.00x` (feels slightly sluggish on short-form Reels/Shorts) or computing segment durations as unrounded floats `(end - start) / speed` (which drifts up to `0.5s` across 35 segments).
+    - **Exact Parameterized Standard**:
+      - **Hook / Dialogue / Banter / Guess Segments**: Default to **`1.10x` playback speed** (`setpts=PTS/1.1000` + pitch-preserving `atempo=1.1000`).
+      - **Card Opening / Point Tally Segments**: Run at **`1.25x–1.35x`**.
+      - **Uncut Card Searching / Placing Segments**: Run at **`1.45x–1.70x`** so total duration finishes under `< 150.0s` (`2:30`).
+      - **30s Card Memorization**: Run at **`4.00x`** (`@timelapse-4x` + `clock_ticking.wav`).
+      - **B&W Loser Zooms & Reaction Memes**: Run at **`1.00x`** for natural comedic timing.
+      - **Frame-Quantized Timestamp Math**: For every segment $k$ with raw duration $\Delta r_k = r_{k,1} - r_{k,0}$ and nominal speed $v_k$ at $F=30.0\text{ fps}$, quantize to integer frames $N_k = \max(1, \operatorname{round}((\Delta r_k / v_k) \cdot 30.0))$, set exact segment duration $D_k = N_k / 30.0$, and effective speed $\hat{v}_k = \Delta r_k / D_k$. Map any raw word/event $t_{\text{raw}} \in [r_{k,0}, r_{k,1}]$ to $t_{\text{out}} = T_k + (t_{\text{raw}} - r_{k,0}) / \hat{v}_k$ where $T_k = \sum_{j<k} D_j$.
+17. **Rule C17 — Mandatory 4K Warm Studio Color Grade (`@couple-grade`)**:
+    - **Anti-Pattern**: Exporting ungraded raw indoor iPhone `yuv420p` footage (leaving shadows muddy and tabletop cards flat).
+    - **Exact Parameterized Standard**: Apply `@couple-grade` across 100% of gameplay segments and the `*_cover.png` thumbnail from `0:00` to end:
+      ```text
+      curves=m='0/0.015 0.20/0.21 0.50/0.52 0.78/0.80 1/0.985',colorbalance=rs=0.010:gs=0.000:bs=-0.010:rm=0.035:gm=0.008:bm=-0.025:rh=0.015:gh=0.005:bh=-0.010,eq=contrast=1.05:brightness=0.010:saturation=1.12:gamma=0.98,unsharp=5:5:0.45:3:3:0.0
+      ```
+18. **Rule C18 — Locked 4K Brand Kit (`templates/01_couple_video/brand_kit.json`) & 2-Pass CoreText Renderer (`scripts/couple_overlays.swift`)**:
+    - **Anti-Pattern**: Drawing text in a single pass with `.strokeWidth: -8.0` (which swallows the white interior fill and turns titles hollow dark-gray/black), using `text.count` instead of `(str as NSString).length` (which drops or shrinks emojis), or leaving a wide blank space before emojis.
+    - **Exact Parameterized Standard**:
+      - Always use [`scripts/couple_overlays.swift`](../../../../scripts/couple_overlays.swift) and [`templates/01_couple_video/brand_kit.json`](../../../../templates/01_couple_video/brand_kit.json).
+      - **2-Pass Text + Tight Emoji Rendering**: Pass 1 draws outer black stroke (`-9.0`) + drop shadow + `AppleColorEmoji` run (with `-18.0` kerning on the preceding space); Pass 2 draws pure unstroked solid interior fill (`#FFFFFF` White for `CARI`/neutral, `#4ADE80` Green for `DAPAT`/correct, `#FFD60A` Gold for tally/winner, `#FF453A` Red for blunder, `#FF6FAE` Pink for Angel, `#38BDF8` Blue for Arthur) directly on top.
+      - **Safe-Zone Coordinates at 4K (`2160×3840`)**:
+        - Hook Line 1 (`challenge`): `HelveticaNeue-Bold 136pt`, `y_from_top = 380` (`NSRect(80, 3365, 2000, 190)`).
+        - Hook Line 2 (`GAME NAME 🔥`): `Arial-Black 176pt`, `y_from_top = 560` (`NSRect(40, 3140, 2080, 280)`).
+        - Top Turn/Action Header: `Arial-Black 116pt`, `y_from_top = 470` (`NSRect(40, 3230, 2080, 260)`).
+        - Above-Head Pops: `Arial-Black 240pt` (letter) / `148pt` (word) at `Angel = (610, 1020)` and `Arthur = (1520, 1020)` (`NSRect` `y=2670`).
+        - Bottom 1-Word Captions: `Arial-Black 116pt`, `PlayRes 2160×3840`, `y = 3120` (`MarginV = 720`, shifting to `y = 3180` when a table word tracker is active at `y = 2880`).
+19. **Rule C19 — 60fps Kinetic Spring Animations on Captions, Head-Pops & Top Headers**:
+    - **Bottom 1-Word Captions (`@one-word-captions`)**: Include the 3-frame scale pop tag `{\fscx72\fscy72\t(0,95,\fscx106\fscy106)\t(95,150,\fscx100\fscy100)}` on every single-word `.ass` event so each word bounces in on its 10ms RMS onset.
+    - **Above-Head Pops (`@head-pop-angel` / `@head-pop-arthur`)**: Animate entrance (`0.65 -> 1.10 -> 1.00` over `140ms`) and smooth exit (`110ms` fade-out) so head-pops never hard-cut off screen.
+    - **Top Headers (`@header-cari` / `@header-dapat` / `@top-word`)**: Animate a `180ms` slide-down entrance (`y = -50 -> 0`).
+20. **Rule C20 — Talking Head & Google Flow MCP Integration (`@couple-hook-behind-head`, `@flow-sticker-pop`, `@flow-cutaway`)**:
+    - **`@couple-hook-behind-head`**: Optionally run `swift ./scripts/person_cutout.swift` on the opening `0.0s–3.5s` hook to sandwich the giant Game Title **behind Angel & Arthur's heads** for a 3D depth cover & intro.
+    - **`@flow-sticker-pop` & `@flow-cutaway`**: Use Google Flow MCP (`tools/flow-mcp`) to generate 3D die-cut sticker illustrations (`420×420px` @ 4K) of funny guessed words/animals (`SANTET`, `ANJINGS`, `TRAKTOR BIRU`, `DUBAI CHOCOLATE`) or 2-second Veo 3.1 comedic cutaways on major punchlines.

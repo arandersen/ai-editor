@@ -156,20 +156,25 @@ Our subagent audited both [`GTAI-1/flow-mcp`](https://github.com/GTAI-1/flow-mcp
 
 Use these `@shortcut` keywords in your prompts to trigger exact, deterministic effects across all 3 categories:
 
-### Category 1: Couple Video Shortcuts (`editing-rules-couple.md`)
+### Category 1: Couple Video Shortcuts (`editing-rules-couple.md` & `brand_kit.json`)
 | `@shortcut` Keyword | Effect Description & Exact Parameters |
 | :--- | :--- |
-| **`@hook-bean-boozle`** | 2-line title (`challenge` in `HelveticaNeue-Bold` black fill/white stroke + `GAME NAME 🔥` in `Arial-Black` white fill/dark edge) shown immediately from `0:00:00` on first syllable; saves `*_cover.png` (`Rules C2, C7`). |
+| **`@hook-bean-boozle`** | 2-line title (`challenge` in `HelveticaNeue-Bold 136pt` at `y=380` + `GAME NAME 🔥` in `Arial-Black 176pt` at `y=560` using 2-Pass Outer Stroke + Pure Fill) from `0:00:00`; saves `*_cover.png` (`Rules C2, C7, C18`). |
+| **`@couple-hook-behind-head`** | Runs Apple Vision `scripts/person_cutout.swift` on the `0:00–3.5s` hook to sandwich the giant Game Title **behind Angel & Arthur's heads** for a 3D depth cover & intro (`Rule C20`). |
+| **`@couple-speed-1.1x`** | Default **`1.10x` base speed** (`setpts=PTS/1.10` + `atempo=1.10`) on all normal dialogue/hook/guess segments with frame-quantized timestamp mapping so captions never drift (`Rule C16`). |
+| **`@couple-grade`** | Mandatory 4K Warm Studio Color Grade (`curves` S-curve + warm skin-tone `colorbalance` + `eq=saturation=1.12:contrast=1.05` + 4K luma `unsharp`) applied across 100% of segments and cover (`Rule C17`). |
 | **`@wide`** | Steady `1.00x` side-by-side framing showing both **Angel** (Left) and **Arthur** (Right) with zero jump-cut zoom alternation (`Rule C3`). |
-| **`@one-word-captions`** | Pops strictly **one word at a time** at bottom (`PlayRes 2160x3840`, `Arial Black 108pt`) synced to 10ms RMS acoustic onset; vanishes during silence (`Rule C9`). |
-| **`@head-pop-angel`** / **`@head-pop-arthur`** | Pops bold letter/guess above Angel (`x=610, y=1020` @ 4K) or Arthur (`x=1520, y=1020` @ 4K) on spoken onset + `pop.wav` for `1.4s–1.8s` max (`Rule C10`). |
-| **`@top-word`** | Borderless completed-word callout (`API! 🔥`) at top (`y=470` @ 4K) strictly **after** the word is solved, auto-hiding after `3.0s–4.0s` (`Rule C11`). |
-| **`@header-cari`** $\rightarrow$ **`@header-dapat`** | Turn-based card search header (`ARTHUR: CARI TRAKTOR BIRU 🚜`) that switches to `DAPAT` (`+ correct_ding.wav`) **only** when the matching card is physically flipped (`Rule C11`). |
+| **`@one-word-captions`** | Pops strictly **one word at a time** at bottom (`PlayRes 2160x3840`, `Arial Black 116pt`, `y=3120`) with a 3-frame elastic spring pop (`0.72 -> 1.06 -> 1.00`) synced to 10ms RMS onset (`Rules C9, C19`). |
+| **`@head-pop-angel`** / **`@head-pop-arthur`** | Pops bold letter/guess above Angel (`x=610, y=1020` @ 4K, `#FF6FAE`) or Arthur (`x=1520, y=1020` @ 4K, `#38BDF8`) on spoken onset + `pop.wav` for `1.4s–1.8s` max (`Rules C10, C18, C19`). |
+| **`@top-word`** | Borderless completed-word callout (`API! 🔥`) at top (`y=470` @ 4K) strictly **after** the word is solved with `180ms` slide-down entrance, auto-hiding after `3.0s–4.0s` (`Rules C11, C19`). |
+| **`@header-cari`** $\rightarrow$ **`@header-dapat`** | Turn-based card search header (`ARTHUR: CARI TRAKTOR BIRU 🚜` in `#FFFFFF`) that switches to `DAPAT` (`#4ADE80` + `correct_ding.wav`) **only** when the matching card is physically flipped (`Rules C11, C18`). |
+| **`@flow-sticker-pop`** | Uses **Google Flow MCP** (`tools/flow-mcp`) to generate a 4K 3D die-cut sticker (`420×420px`) of funny guessed words/animals (`SANTET`, `ANJINGS`, `TRAKTOR BIRU`, `DUBAI CHOCOLATE`) popping in with `pop.wav` (`Rule C20`). |
+| **`@flow-cutaway`** | Uses **Google Flow MCP** (**Veo 3.1**) to generate a `1.5s–2.2s` comedic visual cutaway on major verbal punchlines (`Rule C20`). |
 | **`@timelapse-4x`** | Fast-forwards 30s memorization phase at **`4.0x` speed** with `clock_ticking.wav` and no bottom caption (`Rule C5`). |
-| **`@uncut-speed`** | Preserves 100% uncut card placing/searching/flipping at `1.25x–1.70x` so the audience plays along mentally while finishing under `< 2:30` (`150s`) (`Rules C4, C5`). |
+| **`@uncut-speed`** | Preserves 100% uncut card placing/searching/flipping at `1.35x–1.70x` so the audience plays along mentally while finishing under `< 2:30` (`150s`) (`Rules C4, C5, C16`). |
 | **`@bw-zoom-arthur`** / **`@bw-zoom-angel`** | Fast punch-in zoom (`1.15x -> 2.15x` in `0.17s`) + instant Black & White + Chopin Nocturne swell (`0.48`) on blunders/losses (`Rule C13`). |
 | **`@meme-what`** / **`@meme-okay`** | Loss-only cutaway to 9:16 framed reaction meme (`What_ Meme.mp4` or `Hi! Okay,,,.mp4` `4.00s–6.64s`) with **`+14 dB` boost** and `0.03` music dip (`Rule C13`). |
-| **`@header-tally`** $\rightarrow$ **`@winner-parade`** | Shows `HITUNG POIN! 🃏` during card counting, then triggers Winner Header + 4K 3D confetti (`confetti_loop.mov`, zero emojis over faces) + `party_cheer.wav` (`1.1x`) (`Rule C12`). |
+| **`@header-tally`** $\rightarrow$ **`@winner-parade`** | Shows `HITUNG POIN! 🃏` (`#FFD60A`) during card counting, then triggers Winner Header + 4K 3D confetti (`confetti_loop.mov`, zero emojis over faces) + `party_cheer.wav` (`1.1x`) (`Rule C12`). |
 | **`@chopin-eb`** | Permanent Couple Game background track: **Chopin Nocturne in E-flat major, Op. 9, No. 2** (`audio/music/nocturne_op9_in_eb.wav`) (`Rule C14`). |
 
 ### Category 2: Talking Head Shortcuts (`editing-rules-talking-head.md` — FeedMedia Notion 14 Effects)

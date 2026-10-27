@@ -1,0 +1,221 @@
+{
+  "$schema": "https://antigravity.google/schemas/couple-brand-kit-v1.json",
+  "version": "1.0.0",
+  "category": "01_couple_video",
+  "canvas": {
+    "width": 2160,
+    "height": 3840,
+    "fps": 30,
+    "overlay_fps": 60,
+    "color_space": "bt709",
+    "safe_zones_4k": {
+      "top_ui_margin_px": 220,
+      "bottom_ui_margin_px": 640,
+      "left_margin_px": 100,
+      "right_margin_px": 180
+    }
+  },
+  "pacing_and_grading": {
+    "base_dialogue_speed": 1.10,
+    "card_search_speed_range": [1.35, 1.70],
+    "memorization_timelapse_speed": 4.00,
+    "bw_loser_zoom_speed": 1.00,
+    "max_silence_gap_sec": 0.22,
+    "max_total_duration_sec": 150.0,
+    "couple_4k_color_grade_filter": "curves=m='0/0.015 0.20/0.21 0.50/0.52 0.78/0.80 1/0.985',colorbalance=rs=0.010:gs=0.000:bs=-0.010:rm=0.035:gm=0.008:bm=-0.025:rh=0.015:gh=0.005:bh=-0.010,eq=contrast=1.05:brightness=0.010:saturation=1.12:gamma=0.98,unsharp=5:5:0.45:3:3:0.0",
+    "couple_bw_loser_zoom_filter": "hue=s='if(lt(n,3),1-n*0.33,0)',curves=m='0/0.00 0.25/0.20 0.75/0.82 1/0.98',eq=contrast=1.22:brightness=-0.02,unsharp=5:5:0.65:3:3:0.0"
+  },
+  "players": {
+    "default_indoor_layout": {
+      "left": {
+        "name": "Angel",
+        "role": "Cewek",
+        "head_pop_center_x_4k": 610,
+        "head_pop_center_y_4k": 1020,
+        "accent_hex": "#FF6FAE"
+      },
+      "right": {
+        "name": "Arthur",
+        "role": "Cowok",
+        "head_pop_center_x_4k": 1520,
+        "head_pop_center_y_4k": 1020,
+        "accent_hex": "#38BDF8"
+      }
+    },
+    "swapped_standing_layout_override": {
+      "note": "Used when Arthur stands on Left and Angel stands on Right (e.g., Tebak Snack)",
+      "left_center_x_4k": 610,
+      "right_center_x_4k": 1520,
+      "head_pop_center_y_4k": 1180
+    }
+  },
+  "color_palette": {
+    "caption_white": "#FFFFFF",
+    "pitch_black": "#000000",
+    "primary_brand_yellow": "#FFD60A",
+    "correct_point_green": "#34D399",
+    "neon_win_lime": "#4ADE80",
+    "angel_accent_pink": "#FF6FAE",
+    "arthur_accent_blue": "#38BDF8",
+    "alert_blunder_red": "#FF453A",
+    "confetti_palette": [
+      "#FFD60A",
+      "#FF2D85",
+      "#00D9FF",
+      "#34D399",
+      "#A855F7",
+      "#FF7A1A"
+    ]
+  },
+  "typography_kit_4k": {
+    "hook_line1_setup": {
+      "text_default": "challenge",
+      "font_family": "HelveticaNeue-Bold",
+      "font_size_4k": 136,
+      "case": "lowercase",
+      "fill_hex": "#000000",
+      "outer_stroke_hex": "#FFFFFF",
+      "outer_stroke_width_4k": 28.0,
+      "shadow": {
+        "color_hex": "#000000",
+        "alpha": 0.55,
+        "blur_4k": 16.0,
+        "offset_x_4k": 0,
+        "offset_y_4k": 6
+      },
+      "center_x_4k": 1080,
+      "center_y_from_top_4k": 380,
+      "cocoa_rect_4k": [80, 3365, 2000, 190]
+    },
+    "hook_line2_game_name": {
+      "font_family": "Arial-Black",
+      "emoji_font_family": "AppleColorEmoji",
+      "font_size_4k": 176,
+      "min_auto_shrink_size_4k": 124,
+      "case": "UPPERCASE",
+      "fill_hex": "#FFFFFF",
+      "render_mode": "two_pass_outer_stroke_plus_separate_emoji",
+      "pass1_outer_stroke_hex": "#000000",
+      "pass1_outer_stroke_width_4k": -9.0,
+      "pass2_inner_fill_hex": "#FFFFFF",
+      "emoji_gap_kern_adjust_4k": -24.0,
+      "shadow": {
+        "color_hex": "#000000",
+        "alpha": 0.90,
+        "blur_4k": 20.0,
+        "offset_x_4k": 0,
+        "offset_y_4k": 12
+      },
+      "center_x_4k": 1080,
+      "center_y_from_top_4k": 560,
+      "cocoa_rect_4k": [40, 3140, 2080, 280]
+    },
+    "top_turn_and_action_header": {
+      "font_family": "Arial-Black",
+      "emoji_font_family": "AppleColorEmoji",
+      "font_size_4k": 116,
+      "emoji_size_4k": 120,
+      "min_auto_shrink_size_4k": 84,
+      "case": "UPPERCASE",
+      "render_mode": "two_pass_outer_stroke_plus_separate_emoji",
+      "variants": {
+        "cari_or_neutral": { "fill_hex": "#FFFFFF" },
+        "dapat_or_correct": { "fill_hex": "#4ADE80" },
+        "blunder_or_wrong": { "fill_hex": "#FF453A" },
+        "tally_or_highlight": { "fill_hex": "#FFD60A" }
+      },
+      "pass1_outer_stroke_hex": "#000000",
+      "pass1_outer_stroke_width_4k": -9.0,
+      "shadow": {
+        "color_hex": "#000000",
+        "alpha": 0.88,
+        "blur_4k": 18.0,
+        "offset_x_4k": 0,
+        "offset_y_4k": 10
+      },
+      "center_x_4k": 1080,
+      "center_y_from_top_4k": 470,
+      "cocoa_rect_4k": [40, 3230, 2080, 260]
+    },
+    "above_head_pops": {
+      "font_family": "Arial-Black",
+      "single_letter_font_size_4k": 240,
+      "guessed_word_font_size_4k": 148,
+      "fill_hex_default": "#FFFFFF",
+      "fill_hex_angel_accent": "#FF6FAE",
+      "fill_hex_arthur_accent": "#38BDF8",
+      "pass1_outer_stroke_hex": "#000000",
+      "pass1_outer_stroke_width_4k": -8.0,
+      "shadow": {
+        "color_hex": "#000000",
+        "alpha": 0.90,
+        "blur_4k": 18.0,
+        "offset_x_4k": 0,
+        "offset_y_4k": 10
+      },
+      "angel_center_4k": [610, 1020],
+      "arthur_center_4k": [1520, 1020],
+      "max_duration_sec": 1.65,
+      "min_duration_sec": 1.35
+    },
+    "bottom_one_word_captions": {
+      "font_family": "Arial-Black",
+      "font_size_4k": 116,
+      "fill_hex": "#FFFFFF",
+      "stressed_or_punchline_fill_hex": "#FFD60A",
+      "ass_outline_4k": 7.0,
+      "ass_shadow_4k": 8.0,
+      "center_x_4k": 1080,
+      "center_y_from_top_4k": 3120,
+      "ass_margin_v_4k": 720,
+      "word_tracker_table_y_4k": 2880,
+      "caption_shifted_y_when_tracker_active_4k": 3180,
+      "min_flash_dur_sec": 0.14,
+      "max_hold_dur_sec": 0.65
+    },
+    "winner_banner": {
+      "font_family": "Arial-Black",
+      "emoji_font_family": "AppleColorEmoji",
+      "font_size_4k": 124,
+      "fill_hex": "#FFD60A",
+      "pass1_outer_stroke_hex": "#000000",
+      "pass1_outer_stroke_width_4k": -10.0,
+      "center_x_4k": 1080,
+      "center_y_from_top_4k": 470,
+      "confetti_overlay": "broll/shared/confetti_loop_4k.mov",
+      "sfx": "audio/sfx/party_cheer.wav",
+      "sfx_volume": 1.10
+    }
+  },
+  "animation_kit_60fps": {
+    "one_word_caption_pop": {
+      "type": "spring_scale_pop",
+      "entrance_frames_30fps": 3,
+      "entrance_frames_60fps": 6,
+      "scale_keyframes": [0.72, 1.06, 1.00],
+      "ass_override_tag": "{\\fscx72\\fscy72\\t(0,95,\\fscx106\\fscy106)\\t(95,150,\\fscx100\\fscy100)}",
+      "gsap_ease": "back.out(2.4)"
+    },
+    "above_head_pop": {
+      "type": "elastic_pop_in_smooth_fade_out",
+      "entrance_ms": 140,
+      "exit_ms": 120,
+      "scale_keyframes": [0.60, 1.12, 1.00],
+      "ass_override_tag": "{\\fscx65\\fscy65\\t(0,110,\\fscx110\\fscy110)\\t(110,170,\\fscx100\\fscy100)\\fad(0,110)}",
+      "gsap_ease": "back.out(3.0)"
+    },
+    "top_header_transition": {
+      "type": "slide_down_spring",
+      "entrance_ms": 180,
+      "exit_ms": 120,
+      "delta_y_4k": -50,
+      "ffmpeg_overlay_y_expr": "if(lt(t-T0,0.18), -50*(1-(t-T0)/0.18)*(1-(t-T0)/0.18), 0)",
+      "gsap_ease": "power3.out"
+    },
+    "hook_title_entrance": {
+      "type": "staggered_two_line_rise",
+      "line1_start_sec": 0.00,
+      "line2_delay_sec": 0.06
+    }
+  }
+}
