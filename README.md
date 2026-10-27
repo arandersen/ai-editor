@@ -76,47 +76,29 @@ flowchart LR
 
 ---
 
-### Scenario 2: Talking Head (`FeedMedia Notion 14-Effect System + Antigravity M4`)
+### Scenario 2: Talking Head (`FeedMedia Notion 14-Effect System via HyperFrames + Researcher + Google Flow`)
 
 - **Rulebook Loaded**: [`.agents/skills/youtube-edit/references/editing-rules-talking-head.md`](./.agents/skills/youtube-edit/references/editing-rules-talking-head.md) (`Rules TH1–TH25`)
 - **Templates Used**: [`templates/02_talking_head/storyboard_template.md`](./templates/02_talking_head/storyboard_template.md) · [`templates/02_talking_head/edl_template.json`](./templates/02_talking_head/edl_template.json)
-- **Engines Used**: [`scripts/talking_head_engine.py`](./scripts/talking_head_engine.py) · [`scripts/talking_head_overlays.swift`](./scripts/talking_head_overlays.swift) · [`scripts/person_cutout.swift`](./scripts/person_cutout.swift)
+- **Why HyperFrames Replaces Remotion (and When `person_cutout.swift` Is Used)**:
+  - In the FeedMedia Notion guide, the creator used **Remotion** (headless Chrome React/CSS) to render animated overlays. In our stack, **HyperFrames (`npx hyperframes` HTML/CSS/GSAP)** replaces Remotion **1-to-1** for all 14 Notion motion graphics (`@coral-captions`, `@tool-label`, `@repo-card`, `@prompt-bar`, `@color-slider`, `@moody-grade`, `@wall-of-reels`, `@pause-explain`, `@whip-pan`)—so we do **not** need static Swift PNG cards for Talking Head!
+  - **Apple Vision (`scripts/person_cutout.swift`)** is used **strictly ONLY** when you want 3D depth sandwiching **behind your head** (`@text-behind-head` and `@magazine-cover`), matching the Notion guide's rule: *"For anything behind your head you need a person cutout. On a Mac it's built in: tell Claude to use Apple Vision person segmentation."*
 
-#### How to Run Scenario 2 Step-by-Step:
-1. **Drop Raw Footage**: Place your talking-head recording into `raw/<Project Name>/<clip>.MOV` (e.g., `raw/AI Workflow Hook/IMG_0800.MOV`).
-2. **Step 1 & 2 (AI Analysis)**: Tell the AI:
-   > *"Category 2 (Talking Head). Analyze `raw/AI Workflow Hook/IMG_0800.MOV`."*
-   - The AI runs:
-     ```bash
-     ./scripts/transcribe.sh "raw/AI Workflow Hook/IMG_0800.MOV" --lang en
-     ./scripts/inspect_video.sh "raw/AI Workflow Hook/IMG_0800.MOV"
-     ```
-   - The AI watches the clip via `view_file`, automatically identifies repeated takes (**Last-Take Wins**, `Rule TH2`), and reports the clean keeper sentences with exact timestamps.
-3. **Step 3 (Your `@shortcut` Prompt $\rightarrow$ Storyboard First)**:
-   Tell the AI which of the **14 FeedMedia Notion Effects** you want on each beat:
-   > *"Write `@storyboard-first` using:*
-   > - *`@jump-cuts` (`< 0.22s` pause removal, smart `1.00x / 1.15x` eye-line framing at `y=42%`)*
-   > - *`@coral-captions` (3 words at `61.5%` height, `#D97757` coral box only on the active spoken word)*
-   > - *Beat 1 (`0:00–0:04`): `@text-behind-head` (`"HOW I EDIT"` / `"WITH AI"`) using `@person-cutout`*
-   > - *Beat 2: `@tool-label` when I say `"FFmpeg"` and `"HyperFrames"`*
-   > - *Beat 3: `@repo-card` for `heygen-com/hyperframes` + `@prompt-bar` typing my prompt*
-   > - *Beat 4: `@whip-pan` transition into `@real-screenshot` of my timeline + `@color-slider` warm-to-natural wipe*
-   > - *Beat 5: `@pause-explain` on the demo video clip + `@wall-of-reels` on the outro."*
-4. **Step 4 (Approve Storyboard $\rightarrow$ Automated Apple Vision Cutout + 4K Render)**:
-   - Once you approve the Storyboard Table, the AI runs:
-     ```bash
-     # 1. Lint the Talking Head EDL
-     python3 ./scripts/lint_edl.py --edl "renders/drafts/<Project>/edl.json" --category talking_head
-
-     # 2. Extract hardware-accelerated Apple Vision person cutouts (for @text-behind-head / @magazine-cover)
-     swift -module-cache-path /tmp/swift_cache ./scripts/person_cutout.swift \
-       --input "raw/<Project>/<clip>.MOV" --start 0.85 --end 4.40 --output "broll/<Project>/cutout.mov"
-
-     # 3. Render Native 4K Talking Head Master
-     python3 ./scripts/talking_head_engine.py \
-       --edl "renders/drafts/<Project>/edl.json" \
-       --output "renders/final/<Project>/<name>.mp4"
-     ```
+#### The 5-Phase Talking Head Collaborative Flow:
+1. **Phase 1 — Understand Raw Video**:
+   Drop your clip into `raw/<Project Name>/<clip>.MOV`. The AI runs `./scripts/transcribe.sh --lang en` (10ms RMS onset) and `./scripts/inspect_video.sh` + `view_file` to watch your delivery and strip retakes (**Last-Take Wins**, `Rule TH2`).
+2. **Phase 2 — Discuss & Align**:
+   We review the cleaned keeper script, hook strategy, and where visual proof vs. motion graphics should land.
+3. **Phase 3 — Unified Storyboard First (`Researcher + Google Flow MCP + HyperFrames`)**:
+   Before any rendering, the AI presents the **Unified Storyboard Table** ([`templates/02_talking_head/storyboard_template.md`](./templates/02_talking_head/storyboard_template.md)) mapping every beat to:
+   - **Your Spoken Words & Smart Framing (`1.00x / 1.15x`)**
+   - **🔎 Researcher (`capture_broll.mjs` / `yt-dlp`)**: Real 4K Retina screenshots of websites/repos/timelines, SVG tool logos, and reference reels.
+   - **🎨 Google Flow MCP (`@flow-image` / `@flow-video`)**: Bespoke **Nano Banana / Imagen 4K** images or **Veo 3.1** cinematic B-roll metaphors ($0 API cost).
+   - **⚡ HyperFrames (`npx hyperframes` HTML/CSS/GSAP)**: 60fps animated Notion effects (`@text-behind-head`, `@coral-captions`, `@tool-label`, `@repo-card`, `@prompt-bar`, `@moody-grade`, `@pause-explain`).
+4. **Phase 4 — Build Assets & Render 60fps HyperFrames Motion Graphics**:
+   Once you approve the Storyboard Table, the Researcher captures real screenshots/logos, Google Flow MCP generates bespoke B-roll, `npx hyperframes render` renders the 60fps HTML/CSS/GSAP animations, and `person_cutout.swift` runs only if `@text-behind-head` or `@magazine-cover` is used.
+5. **Phase 5 — Master FFmpeg 4K Assembly & QC**:
+   Assembles `< 0.22s` silence jump cuts (`1.00x / 1.15x` eye-line framing at `y=42%`), `-14 LUFS` voice + ducked BGM + 48kHz studio SFX into `renders/final/<Project Name>/` and runs QC verification.
 
 ---
 

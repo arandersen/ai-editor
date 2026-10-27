@@ -5,12 +5,15 @@
 
 ---
 
-## I. Collaborative Workflow & Storyboard-First Protocol (Rules TH1–TH3)
+## I. The 5-Phase Collaborative Workflow & Storyboard-First Protocol (Rules TH1–TH3)
 
-1. **Rule TH1 — Storyboard First Before Any Render (Notion Effect #1)**:
-   - Before cutting footage or rendering overlays, run `./scripts/transcribe.sh` (with 10ms RMS acoustic onset verification) and `./scripts/inspect_video.sh` + `view_file` to watch the raw delivery.
-   - Present a **Beat-by-Beat Storyboard Table** (`Beat # | Raw Time | Output Time | Exact Spoken Words | Visual Effect / What's On Screen | Tool/Engine (FFmpeg / Swift / HyperFrames)`).
-   - **Approval Gate**: Wait for user approval or tweaks on the storyboard table before executing the full master render (unless the user explicitly asks to one-shot render).
+1. **Rule TH1 — 5-Phase Collaborative Flow & Storyboard First (Notion Effect #1)**:
+   - Every Talking Head project follows our **5-Phase Flow**:
+     1. **Phase 1 — Understand Raw Video**: Run `./scripts/transcribe.sh` (with 10ms RMS onset verification) and `./scripts/inspect_video.sh` + `view_file` to watch the raw delivery and identify **Last-Take Wins** keeper lines.
+     2. **Phase 2 — Discuss & Align**: Present the cleaned keeper script, hook strategy, and suggested visual beats to the user for quick creative alignment.
+     3. **Phase 3 — Unified Storyboard First**: Present the **Unified Storyboard Table** (`templates/02_talking_head/storyboard_template.md`) mapping every beat to its spoken words, **Researcher real captures** (`capture_broll.mjs` / `yt-dlp`), **Google Flow MCP AI B-roll** (`@flow-image` / `@flow-video`), and **HyperFrames Motion Graphics** (`npx hyperframes` HTML/CSS/GSAP — replacing Notion's Remotion 1-to-1). **Wait for user approval before rendering.**
+     4. **Phase 4 — Asset Sourcing & HyperFrames Rendering**: Researcher fetches real screenshots/logos/reels, Google Flow MCP generates bespoke visual metaphors, **HyperFrames (`npx hyperframes`)** renders all 60fps animated overlays/scenes, and `scripts/person_cutout.swift` (Apple Vision) runs **strictly only** if `@text-behind-head` or `@magazine-cover` is used.
+     5. **Phase 5 — Master FFmpeg Assembly & QC**: Assemble `<0.22s` jump cuts, `1.00x / 1.15x` smart framing, `-14 LUFS` voice + ducked BGM + 48kHz SFX, and verify via `view_file` + `caption-qc-reviewer`.
 2. **Rule TH2 — Last-Take Wins & Retake Stripping**:
    - Creators frequently record multiple takes of the same sentence back-to-back. Read the word-level transcript from bottom to top—select the **final complete take** of repeated lines unless visual inspection via `view_file` reveals a stumble or eye-line break.
    - Strip all leading/trailing black frames, setup slates, and frames where the speaker looks down at the mouse/keyboard/phone to start or stop recording.
