@@ -12,6 +12,18 @@
         "-y",
         "chrome-devtools-mcp@latest"
       ]
+    },
+    "flow": {
+      "command": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/arthurandersen/Documents/AI_Video_Editor_Gemini/tools/flow-mcp/dist/index.js"
+      ],
+      "env": {
+        "FLOW_MCP_OUTPUT": "/Users/arthurandersen/Documents/AI_Video_Editor_Gemini/broll/flow",
+        "FLOW_MCP_HOME": "/Users/arthurandersen/.flow-mcp",
+        "FLOW_MCP_CDP_PORT": "9333",
+        "FLOW_MCP_PORT": "8787"
+      }
     }
   }
 }
