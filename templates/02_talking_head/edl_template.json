@@ -1,0 +1,97 @@
+{
+  "category": "02_talking_head",
+  "project": "Template Talking Head",
+  "raw_video": "raw/Talking Head/IMG_0001.MOV",
+  "resolution": [2160, 3840],
+  "fps": 60,
+  "storyboard_approved": true,
+  "caption_style": {
+    "shortcut": "@coral-captions",
+    "mode": "coral_pill_3word",
+    "font": "HelveticaNeue-Bold",
+    "font_size_4k": 128,
+    "y_percent": 61.5,
+    "active_box_color": "#D97757",
+    "corner_radius_4k": 16
+  },
+  "jump_cuts": {
+    "shortcut": "@jump-cuts",
+    "max_pause_sec": 0.22,
+    "pre_pad_sec": 0.04,
+    "post_pad_sec": 0.06,
+    "auto_alternate": true,
+    "alternate_zoom": [1.0, 1.15],
+    "eyeline_y": 0.42
+  },
+  "music": "audio/music/nocturne_op9_in_eb.wav",
+  "music_volume": 0.08,
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.85,
+      "end": 4.40,
+      "speed": 1.0,
+      "zoom": 1.0,
+      "transition_out": "none",
+      "notes": "Hook with @text-behind-head active from 0:00"
+    },
+    {
+      "id": 2,
+      "start": 4.75,
+      "end": 8.90,
+      "speed": 1.0,
+      "zoom": 1.15,
+      "transition_out": "@whip-pan",
+      "notes": "1.15x tight framing at y=42% eye-line, whip-pan out"
+    },
+    {
+      "id": 3,
+      "start": 9.30,
+      "end": 14.50,
+      "speed": 1.0,
+      "zoom": 1.0,
+      "grade": "@color-slider",
+      "transition_out": "none",
+      "notes": "Auto-locked to 1.0x while @repo-card / @prompt-bar sits above head"
+    }
+  ],
+  "effects": [
+    {
+      "type": "@text-behind-head",
+      "start_raw": 0.85,
+      "end_raw": 4.20,
+      "lines": ["Text behind", "your head"],
+      "y_percents": [20.0, 27.0],
+      "stagger_frames": 4
+    },
+    {
+      "type": "@tool-label",
+      "trigger_raw": 5.60,
+      "duration": 2.2,
+      "name": "FFmpeg",
+      "logo": "broll/logos/ffmpeg.png",
+      "y_percent": 61.5,
+      "sfx": "audio/sfx/pop.wav"
+    },
+    {
+      "type": "@repo-card",
+      "trigger_raw": 9.50,
+      "duration": 3.0,
+      "repo": "heygen-com/hyperframes",
+      "description": "Deterministic HTML/CSS/GSAP video animation CLI",
+      "stars": "4.8k",
+      "forks": "340",
+      "width_percent": 85.0,
+      "sfx": "audio/sfx/whoosh.wav"
+    },
+    {
+      "type": "@prompt-bar",
+      "trigger_raw": 12.60,
+      "duration": 3.2,
+      "prompt_text": "Cut every pause longer than 0.22 s, never inside a word.",
+      "y_percent": 22.5,
+      "width_percent": 92.6,
+      "sfx": "audio/sfx/click.wav"
+    }
+  ]
+}

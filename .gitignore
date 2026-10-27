@@ -1,0 +1,19 @@
+# Ignore heavy raw footage and rendered video masters while tracking all scripts, skills, rules, and templates
+raw/
+renders/
+broll/*.mp4
+broll/*.mov
+broll/*/*.mp4
+broll/*/*.mov
+broll/*/*.png
+transcripts/*/*.wav
+VOX-TEST_race/02_assets/
+VOX-TEST_race/03_vo/
+VOX-TEST_race/04_hyperframes/node_modules/
+VOX-TEST_race/05_renders/
+node_modules/
+tools/flow-mcp/node_modules/
+tools/google-flow-mcp/node_modules/
+.DS_Store
+__pycache__/
+*.pyc

@@ -1,0 +1,43 @@
+{
+  "category": "03_animation_motion_graphics",
+  "project": "Template Vox & HyperFrames Animation",
+  "resolution": [1080, 1920],
+  "fps": 30,
+  "duration_sec": 60.0,
+  "storyboard_approved": true,
+  "style_preset": "@vox-collage",
+  "voiceover": {
+    "shortcut": "@british-neural-vo",
+    "voice": "en-GB-RyanNeural",
+    "zero_hyphens": true,
+    "loudnorm_lufs": -14.0
+  },
+  "caption_banner": {
+    "shortcut": "@paper-banner-captions",
+    "bg_color": "#F4EDDE",
+    "border_color": "#191713",
+    "highlight_color": "#FFD51F"
+  },
+  "assets": [
+    {
+      "id": "runner_01",
+      "source_type": "search_real",
+      "shortcut": "@vox-cutout",
+      "src": "02_assets/processed/runner_01_cutout.png",
+      "min_dimension_px": 1200,
+      "license": "CC0 / Public Domain (Wikimedia Commons)",
+      "unification_pass": ["duotone_sepia", "halftone_dots", "torn_white_border", "drop_shadow"]
+    }
+  ],
+  "beats": [
+    {
+      "beat_id": 1,
+      "start_sec": 0.0,
+      "end_sec": 7.5,
+      "clean_plate": "02_assets/clean_plates/beat01_empty_track.jpg",
+      "shortcuts": ["@empty-canvas", "@vox-cutout", "@unequal-lines"],
+      "vo_text": "Imagine a race where nobody started at the same line.",
+      "sfx": ["audio/sfx/paper_thock.wav", "audio/sfx/marker_squeak.wav"]
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Video Editor Hook Title</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0A0D14;
+      --text-primary: #F8FAFC;
+      --accent-primary: #38BDF8;
+      --accent-highlight: #FACC15;
+      --accent-success: #4ADE80;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 35%, #162038 0%, var(--bg-dark) 75%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+      color: var(--text-primary);
+    }
+    #stage {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 108px 192px;
+      gap: 32px;
+    }
+    .badge {
+      background: rgba(56, 189, 248, 0.14);
+      border: 2px solid var(--accent-primary);
+      color: var(--accent-primary);
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(24px) scale(0.9);
+    }
+    .headline {
+      font-size: 96px;
+      font-weight: 800;
+      line-height: 1.08;
+      text-align: center;
+      letter-spacing: -0.03em;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .highlight {
+      color: var(--accent-highlight);
+      display: inline-block;
+    }
+    .metrics-row {
+      display: flex;
+      gap: 40px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 28px 48px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .metric-value {
+      font-size: 56px;
+      font-weight: 800;
+      color: var(--accent-success);
+    }
+    .metric-label {
+      font-size: 22px;
+      color: #94A3B8;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="stage" data-composition data-width="1920" data-height="1080" data-fps="60" data-duration="3.5">
+    <div class="badge">Gemini 4 Argon • Antigravity</div>
+    <h1 class="headline">
+      Fully Automated <br />
+      <span class="highlight">AI Video Editing</span>
+    </h1>
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-value">2:46 → 0:31</div>
+        <div class="metric-label">Frame-Accurate Cuts</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">4K 60fps</div>
+        <div class="metric-label">HyperFrames Motion</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">36 Rules</div>
+        <div class="metric-label">Self-Improving Skill</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline();
+    tl.to('.badge', { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.6)' }, 0.1)
+      .to('.headline', { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.25)
+      .fromTo('.highlight', { scale: 0.92 }, { scale: 1.04, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' }, 0.6)
+      .to('.metric-card', { opacity: 1, y: 0, duration: 0.45, stagger: 0.12, ease: 'power3.out' }, 0.7);
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

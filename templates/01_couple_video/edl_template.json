@@ -1,0 +1,116 @@
+{
+  "category": "01_couple_video",
+  "project": "Template Couple Game",
+  "raw_video": "raw/Project Name/IMG_0001.MOV",
+  "resolution": [2160, 3840],
+  "fps": 30,
+  "max_duration_sec": 150.0,
+  "storyboard_approved": true,
+  "hook_title": {
+    "shortcut": "@hook-bean-boozle",
+    "line1_setup": "challenge",
+    "line2_title": "NAMA GAME 🔥",
+    "start_sec": 0.0,
+    "end_sec": 3.5
+  },
+  "music": "audio/music/nocturne_op9_in_eb.wav",
+  "music_envelope": {
+    "dialogue_vol": 0.10,
+    "bw_zoom_vol": 0.48,
+    "meme_vol": 0.03
+  },
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.98,
+      "end": 5.20,
+      "speed": 1.0,
+      "phase": "hook",
+      "camera_mode": "@wide",
+      "notes": "Start on exact first spoken syllable (Rule C2)"
+    },
+    {
+      "id": 2,
+      "start": 5.50,
+      "end": 35.50,
+      "speed": 4.0,
+      "phase": "memorize",
+      "camera_mode": "@timelapse-4x",
+      "sfx": "audio/sfx/clock_ticking.wav",
+      "suppress_captions": true,
+      "notes": "30s memorization fast-forwarded 4.0x with clock ticking (Rule C5)"
+    },
+    {
+      "id": 3,
+      "start": 36.00,
+      "end": 75.00,
+      "speed": 1.45,
+      "phase": "search",
+      "camera_mode": "@wide",
+      "notes": "100% uncut card searching/matching so audience plays along (Rule C4)"
+    },
+    {
+      "id": 4,
+      "start": 75.20,
+      "end": 76.80,
+      "speed": 1.0,
+      "phase": "reaction",
+      "camera_mode": "@bw-zoom-arthur",
+      "meme_after": "broll/What_ Meme.mp4",
+      "notes": "Fast B&W zoom on blunder/loss followed by +14dB meme cutaway (Rule C13)"
+    }
+  ],
+  "headers": [
+    {
+      "shortcut": "@header-cari",
+      "raw_trigger": 36.50,
+      "raw_end": 42.10,
+      "text": "ARTHUR: CARI TRAKTOR BIRU 🚜",
+      "sfx": "pop.wav"
+    },
+    {
+      "shortcut": "@header-dapat",
+      "raw_trigger": 42.10,
+      "raw_end": 45.50,
+      "text": "ARTHUR: DAPAT TRAKTOR BIRU! 🚜",
+      "sfx": "correct_ding.wav"
+    },
+    {
+      "shortcut": "@header-tally",
+      "raw_trigger": 110.00,
+      "raw_end": 125.00,
+      "text": "HITUNG POIN! 🃏"
+    },
+    {
+      "shortcut": "@winner-parade",
+      "raw_trigger": 125.10,
+      "raw_end": 132.00,
+      "text": "ANGEL: 11 POIN — DOUBLE GUYS! ✌️🎉",
+      "confetti": "broll/confetti_loop.mov",
+      "sfx": "audio/sfx/party_cheer.wav",
+      "sfx_volume": 1.1
+    }
+  ],
+  "head_pops": [
+    {
+      "shortcut": "@head-pop-angel",
+      "raw_trigger": 14.20,
+      "duration": 1.5,
+      "player": "Angel",
+      "x_4k": 610,
+      "y_4k": 1020,
+      "text": "G",
+      "sfx": "pop.wav"
+    },
+    {
+      "shortcut": "@head-pop-arthur",
+      "raw_trigger": 15.10,
+      "duration": 1.5,
+      "player": "Arthur",
+      "x_4k": 1520,
+      "y_4k": 1020,
+      "text": "S",
+      "sfx": "pop.wav"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "free-audio": {
+      "command": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/arthurandersen/Documents/AI_Video_Editor_Gemini/scripts/free_audio_mcp.mjs"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "/opt/homebrew/bin/npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    }
+  }
+}
