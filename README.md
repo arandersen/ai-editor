@@ -24,9 +24,10 @@ Every new video project in this workspace follows this exact 4-step workflow:
 
 ```mermaid
 flowchart LR
-    STEP1["1️⃣ Choose Category\n[1] Couple Video\n[2] Talking Head\n[3] Animation / Motion"] --> STEP2["2️⃣ Analyze Raw Video\ntranscribe.sh (10ms RMS)\n+ inspect_video.sh\n+ Gemini view_file"]
-    STEP2 --> STEP3["3️⃣ @shortcut Edits ->\n📋 Storyboard First\nVisualize every beat & effect\nbefore rendering"]
-    STEP3 --> STEP4["4️⃣ Conductor + Flash Editor\nlint_edl.py -> Render 4K\n-> QC Subagent ->\nUpdate Rules Forever"]
+    STEP1["1️⃣ Choose Category\n[1] Couple Video\n[2] Talking Head\n[3] Animation / Motion"] --> STEP2["2️⃣ Watch + Local ASR\ntranscribe.sh (Metal Whisper/Parakeet + 10ms RMS)\n+ inspect_video.sh (5x6 Sheet + <15MB Proxy MP4)\n+ Gemini Native view_file"]
+    STEP2 --> STEP3["3️⃣ Discuss & Storyboard First\nVisualize every beat, Researcher asset,\nFlow B-roll & HyperFrames effect\nbefore rendering"]
+    STEP3 --> STEP4["4️⃣ Conductor + 3.8 Flash Editor\nlint_edl.py -> Render 4K\n-> QC Subagent"]
+    STEP4 --> STEP5["5️⃣ Revision -> Flash-Proof Rule Loop\nFix Video + Add Exact Parameterized Rule\nto Domain Rulebook + lint_edl.py"]
 ```
 
 1. **Step 1 — Pick Your Video Category (3 Options)**:
@@ -34,12 +35,17 @@ flowchart LR
    - **`[1] Couple Video`** (`9:16 Vertical Couple Game / Challenge` — `Angel` & `Arthur`)
    - **`[2] Talking Head`** (`Solo Creator / Tutorial / Demo` — **FeedMedia Notion 14-Effect System**)
    - **`[3] Animation / Motion Graphics`** (`HyperFrames 4K HTML/CSS/GSAP & Vox Editorial Paper Collage`)
-2. **Step 2 — Analyze & Understand the Raw Video**:
-   The AI transcribes the clip with 10ms RMS acoustic onset verification (`./scripts/transcribe.sh`), generates a full-duration 5×6 contact sheet (`./scripts/inspect_video.sh`), and watches the footage via `view_file` to summarize all takes and timestamps.
-3. **Step 3 — Describe Edits with `@shortcut` Keywords $\rightarrow$ Always Storyboard First**:
-   You tell the AI what edits you want using the `@shortcut` keywords below. **Before rendering any video**, the AI **ALWAYS** builds the **Beat-by-Beat Storyboard Table** so you can visualize and approve every cut, text callout, and effect first.
-4. **Step 4 — Lint, Render in Native 4K & Self-Update Rules**:
-   The Conductor validates the EDL via `scripts/lint_edl.py`, executes the 4K studio master render (directly or via a `Gemini 3 Flash` Editor subagent), verifies 100% word/visual sync via QC, and permanently logs any revision you request into the rulebook and this `README.md`.
+2. **Step 2 — Watch the Video + Run Local Speech-to-Text**:
+   The AI runs local Apple Silicon Metal speech-to-text with 10ms RMS acoustic onset verification (`./scripts/transcribe.sh`), generates both a full-duration 5×6 contact sheet and a `< 15 MB` 540p H.264+AAC **Vision Proxy MP4** (`./scripts/inspect_video.sh`), and watches + listens to the footage natively via `read_file` to summarize all takes and timestamps.
+3. **Step 3 — Discuss & Describe Edits with `@shortcut` Keywords $\rightarrow$ Always Storyboard First**:
+   You tell the AI what edits you want using the `@shortcut` keywords below. **Before rendering any video**, the AI **ALWAYS** builds the **Beat-by-Beat Storyboard Table** so you can visualize and approve every cut, text callout, Researcher screenshot, Google Flow asset, and HyperFrames motion graphic first.
+4. **Step 4 — Lint & Render in Native 4K (`Conductor + 3.8 Flash Editor`)**:
+   The Conductor validates the EDL via `scripts/lint_edl.py`, executes the 4K studio master render (directly or via a `Gemini 3.8 Flash` Editor subagent), and verifies 100% word/visual sync via QC.
+5. **Step 5 — Mandatory Post-Render Revision $\rightarrow$ Flash-Proof Rule Training Loop**:
+   At the end of every video, whenever you request a revision or fix, the AI:
+   - **(a) Fixes & Re-Renders Immediately**
+   - **(b) Writes a Flash-Proof Parameterized Rule** (exact pixel coordinates, font sizes, durations, dB levels, hex colors, and anti-patterns—never vague advice) into the category rulebook (`editing-rules-couple.md`, `editing-rules-talking-head.md`, or `editing-rules-animation.md`)
+   - **(c) Adds a Pre-Render Check in `scripts/lint_edl.py`** and logs the lesson in `editing-rules.md` so **Gemini 3.8 Flash** is permanently trained and mechanically prevented from ever repeating that mistake.
 
 ---
 

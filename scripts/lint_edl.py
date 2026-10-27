@@ -61,8 +61,51 @@ def lint_edl(edl: dict, category: str) -> list:
         # Rule TH1: Storyboard check
         if not edl.get("storyboard_approved", True):
             warnings.append("[Rule TH1] 'storyboard_approved' is false. Present the Storyboard Table to user first.")
-        # Rule TH4 & TH5: Check for caption & tool-label collisions at y=61.5%
+
         effects = edl.get("effects", [])
+        top_zone_types = {
+            "repo_card", "@repo-card",
+            "real_screenshot", "@real-screenshot",
+            "text_behind_head", "@text-behind-head",
+            "magazine_cover", "@magazine-cover",
+            "pause_explain", "@pause-explain",
+        }
+        cutout_required_types = {"text_behind_head", "@text-behind-head", "magazine_cover", "@magazine-cover"}
+
+        for fx in effects:
+            fx_type = fx.get("type", "")
+            fx_s0 = float(fx.get("start", 0.0))
+            fx_s1 = float(fx.get("end", fx_s0 + 2.0))
+
+            # Rule TH5: Smart Framing collision check (lock 1.00x when top card is active)
+            if fx_type in top_zone_types:
+                for seg_idx, seg in enumerate(segments):
+                    seg_s0 = float(seg.get("timeline_start", seg.get("start", 0.0)))
+                    seg_s1 = float(seg.get("timeline_end", seg.get("end", 0.0)))
+                    zoom = float(seg.get("zoom", 1.0))
+                    if zoom > 1.02 and max(fx_s0, seg_s0) < min(fx_s1, seg_s1):
+                        errors.append(
+                            f"[Rule TH5 Violation] Top-zone effect '{fx_type}' ({fx_s0:.2f}s-{fx_s1:.2f}s) overlaps "
+                            f"Segment #{seg_idx + 1} with zoom={zoom}x. Lock zoom to 1.00x during top-card overlays!"
+                        )
+
+            # Rule TH9/TH10: Person cutout requirement check
+            if fx_type in cutout_required_types and not fx.get("cutout_mov"):
+                warnings.append(
+                    f"[Rule TH9/TH10] Effect '{fx_type}' ({fx_s0:.2f}s-{fx_s1:.2f}s) requires a ProRes 4444 person cutout "
+                    "('cutout_mov' via `swift ./scripts/person_cutout.swift`)."
+                )
+
+        # Rule TH11: Max 3 words per caption chunk in @coral-captions
+        for cap_idx, cap in enumerate(edl.get("captions", [])):
+            words = cap.get("words") or str(cap.get("text", "")).split()
+            if len(words) > 3:
+                errors.append(
+                    f"[Rule TH11 Violation] Caption #{cap_idx + 1} has {len(words)} words ('{' '.join(words)}'). "
+                    "Maximum 3 words per @coral-captions group!"
+                )
+
+        # Rule TH11 & TH12: Check for caption & tool-label collisions at y=61.5%
         tool_labels = [fx for fx in effects if fx.get("type") in ("tool_label", "@tool-label")]
         if tool_labels:
             print(f"ℹ️  [Lint] {len(tool_labels)} @tool-label effect(s) found; ensure y=61.5% captions auto-hide during label windows (Rule TH11/TH12).")

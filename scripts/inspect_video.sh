@@ -48,4 +48,17 @@ if [ "$TABLE_CROP" = "--table-crop" ]; then
         -frames:v 1 -q:v 2 "$TABLE_SHEET"
 fi
 
-echo "✅ [Inspect] Complete! View contact sheet at: $CONTACT_SHEET"
+# Generate lightweight <15MB 540p H.264+AAC Vision Proxy MP4 so Gemini view_file can ALWAYS watch & listen natively
+# even when raw 4K .MOV files exceed the 100MB tool limit.
+VISION_PROXY="$DRAFT_DIR/${BASENAME}_vision_proxy.mp4"
+echo "🎬 [Inspect] Generating lightweight <15MB Vision Proxy MP4 (with audio + burned timecode) -> $VISION_PROXY"
+ffmpeg -y -v error -i "$INPUT_VIDEO" \
+    -vf "scale=-2:540,fps=15,drawtext=text='%{pts\:hms}':x=12:y=12:fontsize=20:fontcolor=white:box=1:boxcolor=black@0.7" \
+    -c:v libx264 -preset ultrafast -crf 28 -pix_fmt yuv420p \
+    -c:a aac -b:a 64k -ac 1 \
+    -movflags +faststart "$VISION_PROXY"
+
+echo "✅ [Inspect] Complete!"
+echo "   • Contact Sheet: $CONTACT_SHEET"
+echo "   • Vision Proxy:  $VISION_PROXY (Always <15MB for Gemini native video+audio watching)"
+ls -lh "$CONTACT_SHEET" "$VISION_PROXY"
