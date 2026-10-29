@@ -1,0 +1,23 @@
+{
+  "shortcut": "@grease-pencil",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "grease-pencil",
+  "rule": "Rule TH55",
+  "title": "3-Row Film Strip Contact Sheet + Red Grease-Pencil Dead-Air X Slash",
+  "composition_path": "animations/_fx_library/grease-pencil/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+  "variables": {
+    "header": "dead air",
+    "strokeColor": "#C06672"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/grease-pencil --format mov --output broll/<Project>/grease-pencil.mov"
+}

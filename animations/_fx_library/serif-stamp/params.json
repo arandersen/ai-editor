@@ -1,0 +1,23 @@
+{
+  "shortcut": "@serif-stamp",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "serif-stamp",
+  "rule": "Rule TH53",
+  "title": "Editorial Gold Italic Prefix + Letter-by-Letter Giant Cream Serif Stamp",
+  "composition_path": "animations/_fx_library/serif-stamp/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/paper_thock.wav",
+  "variables": {
+    "prefix": "serif",
+    "word": "STAMP"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/serif-stamp --format mov --output broll/<Project>/serif-stamp.mov"
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@digital-zoom — Camera Viewfinder HUD & Focal-Length Lens Ring (Camcorder | Lens-Ring Styles)</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .cam-hud { position: absolute; inset: 0; pointer-events: none; }
+      .face-box { position: absolute; left: 26%; top: 20%; width: 48%; height: 34%; }
+      .c { position: absolute; width: 44px; height: 44px; border-color: rgba(255,255,255,0.9); border-style: solid; }
+      .tl { top: 0; left: 0; border-width: 5px 0 0 5px; }
+      .tr { top: 0; right: 0; border-width: 5px 5px 0 0; }
+      .bl { bottom: 0; left: 0; border-width: 0 0 5px 5px; }
+      .br { bottom: 0; right: 0; border-width: 0 5px 5px 0; }
+      .hud-bottom { position: absolute; left: 6%; right: 6%; bottom: 28%; display: flex; justify-content: space-between; align-items: center; font-family: 'SF Mono', Menlo, monospace; font-size: 32px; color: #FFFFFF; text-shadow: 0 4px 12px rgba(0,0,0,0.8); }
+      .rec { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+      .dot { width: 22px; height: 22px; border-radius: 50%; background: #EF4444; display: inline-block; }
+      .ruler { opacity: 0.65; letter-spacing: 0.14em; }
+      .zval { font-size: 44px; font-weight: 800; color: #F6E478; }
+      .lens-bar { position: absolute; top: 14%; left: 4%; width: 58%; background: rgba(18, 48, 36, 0.92); border: 2px solid #2A5240; border-radius: 20px; padding: 24px 32px; overflow: hidden; opacity: 0; }
+      .ticks { display: flex; gap: 72px; font-size: 40px; font-weight: 700; color: #F0EADE; }
+      .ticks .gold { color: #C6A254; font-weight: 900; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.0"
+       data-composition-variables='[{"id": "style", "type": "string", "label": "style", "default": "camcorder"}, {"id": "startZoom", "type": "number", "label": "startZoom", "default": 1.0}, {"id": "endZoom", "type": "number", "label": "endZoom", "default": 1.3}, {"id": "focalLengths", "type": "string", "label": "focalLengths", "default": "[85, 70, 50, 35, 24]"}]'>
+
+      <div class="cam-hud" id="cam">
+        <div class="face-box" id="fbox">
+          <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+        </div>
+        <div class="hud-bottom">
+          <div class="rec"><span class="dot"></span> REC <span class="tc">00:00:08:14</span></div>
+          <div class="ruler">I · · · · I · · · · I · · · · I</div>
+          <div class="zval" id="zv">1.30×</div>
+        </div>
+        <div class="lens-bar" id="lbar">
+          <div class="ticks" id="lticks"><span>85</span><span>70</span><span>50</span><span>35</span><span class="gold">24</span></div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"style": "camcorder", "startZoom": 1.0, "endZoom": 1.3, "focalLengths": [85, 70, 50, 35, 24]};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+text('#zv',vars.startZoom.toFixed(2)+' → '+vars.endZoom.toFixed(2)+'×');items('#lticks',vars.focalLengths,'span','');
+style('#lbar',{opacity:vars.style==='lens-ring'?'1':'0'});style('.hud-bottom,.face-box',{display:vars.style==='lens-ring'?'none':''});
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#fbox', { opacity: 0, scale: 1.18 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'power3.out' }, 0.0)
+        .fromTo('#zv', { opacity: 0.5, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }, 0.1)
+        .fromTo('#lticks', { x: 0 }, { x: -120, duration: 1.2, ease: 'power2.inOut' }, 0.1);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

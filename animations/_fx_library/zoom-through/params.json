@@ -1,0 +1,23 @@
+{
+  "shortcut": "@zoom-through",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "zoom-through",
+  "rule": "Rule TH29",
+  "title": "Camera Zoom-Through Punch Transition + 2-Frame Warm White Flash",
+  "composition_path": "animations/_fx_library/zoom-through/index.html",
+  "duration_sec": 0.65,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "peakScale": 6.5,
+    "flashColor": "#FFFDF5"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/zoom-through --format mov --output broll/<Project>/zoom-through.mov"
+}

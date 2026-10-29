@@ -1,0 +1,23 @@
+{
+  "shortcut": "@film-look",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "film-look",
+  "rule": "Rule TH47",
+  "title": "Top-to-Bottom Horizontal Scanline Film Grade Wipe + 16mm Grain",
+  "composition_path": "animations/_fx_library/film-look/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "lineColor": "#F0EADE",
+    "grainOverlay": "@asset/video/overlays/film_grain_16mm.mov"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/film-look --format mov --output broll/<Project>/film-look.mov"
+}

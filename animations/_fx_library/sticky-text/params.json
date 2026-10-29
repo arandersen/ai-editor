@@ -1,0 +1,24 @@
+{
+  "shortcut": "@sticky-text",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "sticky-text",
+  "rule": "Rule TH39",
+  "title": "HUD List Detach -> Tilted Yellow Adhesive Sticker Slap",
+  "composition_path": "animations/_fx_library/sticky-text/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+  "variables": {
+    "number": "12",
+    "label": "sticky text",
+    "tiltDeg": -5.5
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/sticky-text --format mov --output broll/<Project>/sticky-text.mov"
+}

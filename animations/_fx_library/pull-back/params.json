@@ -1,0 +1,27 @@
+{
+  "shortcut": "@pull-back",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "pull-back",
+  "rule": "Rule TH41",
+  "title": "3D Perspective Pull-Back into NLE Editor Window + Checklist + Waveform",
+  "composition_path": "animations/_fx_library/pull-back/index.html",
+  "duration_sec": 2.4,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "windowTitle": "effects reel",
+    "checklist": [
+      "cut pauses",
+      "add effects",
+      "export"
+    ]
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/pull-back --format mov --output broll/<Project>/pull-back.mov"
+}

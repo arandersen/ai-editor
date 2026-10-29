@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-reels-editor"
+version = "0.1.0"
+description = "Model-neutral local reels editing and revision history"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+reels-editor = "editor.__main__:main"
+
+[tool.setuptools]
+packages = ["editor"]

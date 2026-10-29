@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@ui-world — Floating 3D Glassmorphism Editor HUD (Prompt + Timeline + Live Preview)</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .ui-card { position: absolute; background: rgba(16, 18, 22, 0.84); border: 2px solid rgba(255,255,255,0.16); border-radius: 28px; padding: 26px 32px; color: #FFFFFF; box-shadow: 0 28px 64px rgba(0,0,0,0.7); opacity: 0; }
+      .ui-kicker { font-size: 20px; font-weight: 800; letter-spacing: 0.1em; color: rgba(255,255,255,0.55); display: flex; justify-content: space-between; margin-bottom: 14px; }
+      .send-dot { background: #F6E478; color: #141413; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+      .ui-prompt { top: 28%; left: 4%; width: 38%; }
+      .ui-input { font-size: 40px; font-weight: 800; margin-bottom: 18px; }
+      .caret { color: #F6E478; }
+      .ui-prog-row { display: flex; justify-content: space-between; font-size: 24px; color: #F6E478; margin-bottom: 8px; font-weight: 700; }
+      .ui-bar { height: 10px; background: rgba(255,255,255,0.14); border-radius: 99px; overflow: hidden; }
+      .ui-fill { height: 100%; width: 100%; background: #F6E478; transform-origin: left center; transform: scaleX(0); }
+      .ui-tl { top: 48%; left: 4%; width: 52%; }
+      .ui-strip { position: relative; display: flex; gap: 10px; height: 84px; }
+      .th { flex: 1; background: rgba(255,255,255,0.12); border-radius: 12px; }
+      .playhead { position: absolute; top: -8px; bottom: -8px; left: 0; width: 4px; background: #F6E478; }
+      .ui-prev { top: 38%; right: 4%; width: 36%; }
+      .live { color: #4ADE80; }
+      .prev-box { height: 260px; border-radius: 18px; background: linear-gradient(145deg, #1E293B, #0F172A); display: flex; align-items: flex-end; justify-content: center; padding: 20px; font-size: 38px; font-weight: 900; color: #F6E478; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.4"
+       data-composition-variables='[{"id": "promptText", "type": "string", "label": "promptText", "default": "edit my reel"}, {"id": "previewLabel", "type": "string", "label": "previewLabel", "default": "doodle boil"}]'>
+
+      <div class="ui-card ui-prompt" id="up">
+        <div class="ui-kicker">PROMPT <span class="send-dot">↑</span></div>
+        <div class="ui-input">edit my reel<span class="caret">|</span></div>
+        <div class="ui-prog-row"><span>editing...</span><span class="pct" id="upct">100% ✓</span></div>
+        <div class="ui-bar"><div class="ui-fill" id="ufill"></div></div>
+      </div>
+      <div class="ui-card ui-tl" id="utl">
+        <div class="ui-kicker">TIMELINE <span>reel_v2.mp4</span></div>
+        <div class="ui-strip">
+          <div class="th"></div><div class="th"></div><div class="th"></div><div class="th"></div><div class="th"></div>
+          <div class="playhead" id="uph"></div>
+        </div>
+      </div>
+      <div class="ui-card ui-prev" id="upr">
+        <div class="ui-kicker">PREVIEW <span class="live">● LIVE</span></div>
+        <div class="prev-box">doodle boil</div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"promptText": "edit my reel", "previewLabel": "doodle boil"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('.ui-input',vars.promptText);text('.prev-box',vars.previewLabel);
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#up', { opacity: 0, x: -60, y: 20 }, { opacity: 1, x: 0, y: 0, duration: 0.3, ease: 'power3.out' }, 0.0)
+        .fromTo('#utl', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power3.out' }, 0.10)
+        .fromTo('#upr', { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.3, ease: 'power3.out' }, 0.16)
+        .to('#ufill', { scaleX: 1, duration: 0.9, ease: 'power2.inOut' }, 0.25)
+        .fromTo('#uph', { x: 40 }, { x: 460, duration: 1.2, ease: 'none' }, 0.25);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

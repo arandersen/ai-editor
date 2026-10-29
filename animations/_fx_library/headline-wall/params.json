@@ -1,0 +1,29 @@
+{
+  "shortcut": "@headline-wall",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "headline-wall",
+  "rule": "Rule TH28",
+  "title": "Torn-Paper Newspaper Clippings Slam + Yellow Marker Highlight",
+  "composition_path": "animations/_fx_library/headline-wall/index.html",
+  "duration_sec": 2.2,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/paper_thock.wav",
+  "variables": {
+    "kicker": "CREATOR NEWS \u00b7 TODAY",
+    "headlineLine1": "claude can now",
+    "headlineLine2": "edit your videos",
+    "subClippings": [
+      "claude did the edit",
+      "video, edited by claude",
+      "claude now edits your videos"
+    ]
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/headline-wall --format mov --output broll/<Project>/headline-wall.mov"
+}

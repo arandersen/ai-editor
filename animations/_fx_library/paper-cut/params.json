@@ -1,0 +1,25 @@
+{
+  "shortcut": "@paper-cut",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "paper-cut",
+  "rule": "Rule TH34",
+  "title": "Stop-Motion Torn-Paper Cutout + Ransom-Note Letters + Vertical Tear Exit",
+  "composition_path": "animations/_fx_library/paper-cut/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/paper_thock.wav",
+  "variables": {
+    "word1": "PAPER",
+    "word2": "CUT",
+    "cutoutHandle": "@project/cutout/papercut_cutout.mov",
+    "gridTexture": "@asset/photo/textures/notebook_grid_paper.svg"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/paper-cut --format mov --output broll/<Project>/paper-cut.mov"
+}

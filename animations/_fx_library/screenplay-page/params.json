@@ -1,0 +1,25 @@
+{
+  "shortcut": "@screenplay-page",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "screenplay-page",
+  "rule": "Rule TH49",
+  "title": "Courier Screenplay Page Slide-In + Yellow Highlighter Sweep",
+  "composition_path": "animations/_fx_library/screenplay-page/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/paper_slide.wav",
+  "variables": {
+    "slugline": "INT. GREEN ROOM - DAY",
+    "character": "JUSTYN",
+    "parenthetical": "(to camera)",
+    "highlightedLine": "Screenplay page."
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/screenplay-page --format mov --output broll/<Project>/screenplay-page.mov"
+}

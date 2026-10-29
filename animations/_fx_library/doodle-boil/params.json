@@ -1,0 +1,28 @@
+{
+  "shortcut": "@doodle-boil",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "doodle-boil",
+  "rule": "Rule TH38",
+  "title": "Hand-Drawn Neon Chalk Outline + Boiling Stop-Motion Spark Bursts",
+  "composition_path": "animations/_fx_library/doodle-boil/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+  "variables": {
+    "colors": [
+      "#FFFFFF",
+      "#F6E478",
+      "#FF7EB6",
+      "#38BDF8"
+    ],
+    "boilFps": 12
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/doodle-boil --format mov --output broll/<Project>/doodle-boil.mov"
+}

@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "gsap": "3.12.5",
+    "hyperframes": "0.8.214"
+  },
+  "name": "ai-video-editor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pinned scene rendering dependencies for the local reels editor",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "python3 -m unittest discover -s tests -v",
+    "doctor": "python3 -m editor doctor",
+    "effects:build": "python3 scripts/build_fx_library.py --refresh-scenes",
+    "postinstall": "python3 scripts/build_fx_library.py"
+  }
+}

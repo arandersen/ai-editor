@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@vertigo — Dolly-Zoom (Contrazoom) Background Expansion Behind Locked Person Cutout</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .vertigo-bg { position: absolute; inset: -15%; border: 3px solid rgba(246,228,120,0.18); display: flex; align-items: center; justify-content: center; }
+      .persp-grid { width: 80%; height: 80%; border: 4px dashed rgba(255,255,255,0.16); border-radius: 32px; }
+      .vertigo-badge { position: absolute; bottom: 10%; padding: 16px 36px; border-radius: 999px; background: rgba(18,18,20,0.78); color: #F6E478; font-size: 36px; font-weight: 800; opacity: 0; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="1.4"
+       data-composition-variables='[{"id": "bgStartScale", "type": "number", "label": "bgStartScale", "default": 1.0}, {"id": "bgEndScale", "type": "number", "label": "bgEndScale", "default": 1.38}, {"id": "fgScale", "type": "number", "label": "fgScale", "default": 1.02}, {"id": "cutoutHandle", "type": "string", "label": "cutoutHandle", "default": "@project/cutout/vertigo_cutout.mov"}]'>
+
+      <div class="vertigo-bg" id="vbg">
+        <div class="persp-grid"></div>
+      </div>
+      <div class="vertigo-badge" id="vbdg">03 vertigo · dolly zoom</div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"bgStartScale": 1.0, "bgEndScale": 1.38, "fgScale": 1.02, "cutoutHandle": "@project/cutout/vertigo_cutout.mov"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+foreground(vars.cutoutHandle);style('#subject-layer',{transform:'scale('+vars.fgScale+')'});
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#vbg', { scale: vars.bgStartScale }, { scale: vars.bgEndScale, duration: 1.2, ease: 'sine.inOut' }, 0.0)
+        .fromTo('#vbdg', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power2.out' }, 0.1);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "status": "historical-evidence",
+  "source": ".agents/skills/youtube-edit/references/editing-rules.md",
+  "note": "Preserved history, not unconditional current policy. Promote scoped lessons with evidence through the CLI.",
+  "entries": [
+    {
+      "date": "2026-10-19",
+      "domain": "Talking Head / Core",
+      "project_or_clip": "Initial Setup",
+      "feedback": "Initialized 36-rule baseline from Christian Peverelli's automated editing workflow (`HzXD4GVqXwM`) adapted for Gemini 4 Argon (Antigravity).",
+      "rule_reference": "Rules 1–36 (`TH1–TH25`, `AM1–AM6`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Core Audio / Screen",
+      "project_or_clip": "Workflow Revision #1",
+      "feedback": "Skip Tella (not used currently) and replace paid Epidemic Sound with a 100% free song & SFX MCP alternative (`free-audio` MCP + local studio SFX pack).",
+      "rule_reference": "Rules 13, 31, 33 (`TH8`, `TH22`, `TH23`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Bikin Kata Challenge/IMG_0662.MOV` (v1)",
+      "feedback": "Act as Creative Director & Video Editor; cut empty/filler words; lower-bottom white captions with black outline; bold letter pop above each speaker's head; point transition when a word is formed; upbeat copyright-free background song.",
+      "rule_reference": "Rules 37–41 (`C1–C11`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Bikin Kata Challenge/IMG_0662.MOV` (v2 Revision)",
+      "feedback": "Use names Angel (Cewek) & Arthur (Cowok); make \"Challenge Bikin Kata\" a big-font Kinetic Hook with background change (and cover image) without bottom caption; align above-head letters on same Y level; use smaller Liquid Glass card for completed words (only show word + point, no extra sentence, don't cover letters, and hide bottom word caption when completed); at Santet keep 0 points (not baku), zoom Angel, then freeze-zoom Arthur -> cut to portrait `What_ Meme.mp4` (green hoodie guy) -> return to original laugh and close.",
+      "rule_reference": "Rules 37–43 (`C1`, `C7–C13`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Bikin Kata Challenge/IMG_0662.MOV` (v3 Final Fixes)",
+      "feedback": "Match reference image for cover/title (`challenge` black w/ white outline + `BIKIN KATA 🔥` white w/ black outline, remove blue overlay, keep color grading 100% consistent start-to-end); remove scoreboard/points (`Angel - Arthur`) so focus is purely on playing together; remove top Liquid Glass border (show just word + emoji in consistent title font); fast zoom-in transition to Arthur + turn Black & White; zoom out slightly on `What_ Meme.mp4` green hoodie guy; change song to Chopin Nocturne Op. 9 No. 2.",
+      "rule_reference": "Rules 37–44 (`C1`, `C7`, `C8`, `C13`, `C14`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Universal",
+      "project_or_clip": "Project Folder Organization",
+      "feedback": "For each project, create a dedicated folder matching the `raw/<Project Name>/` folder name and place the final video and cover results inside `renders/final/<Project Name>/` to keep production clean.",
+      "rule_reference": "Rule 45 (`U7`, `C6`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Bikin Kata Challenge/IMG_0662.MOV` (v4 Polish)",
+      "feedback": "Show full `challenge / BIKIN KATA 🔥` title right from `0:00`; refine font & outline/shadow styling to match the clean `yang kena bomb makan / BEAN BOOZLE` reference image without muddy/cartoonish strokes.",
+      "rule_reference": "Rules 38, 39, 44 (`C7`, `C8`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Match Kartu/IMG_0648.MOV` (v2 Revision)",
+      "feedback": "Remove (STEAL) from point callout; at 21s freeze/pause on Arthur and cut to meme Hi! Okay,,, (4s-6s); ensure top scoreboard font never covers hair or face.",
+      "rule_reference": "Rules 44, 46 (`C1`, `C13`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Match Kartu/IMG_0648.MOV` (v3 Meme Polish)",
+      "feedback": "Extend meme cutaway to 3s–6s for natural head-turn lead-in; boost meme dialogue audio (+14 dB w/ limiter) and dip background music sharply to 0.03 so the \"Okay...\" punchline cuts through loud and clear.",
+      "rule_reference": "Rule 46 (`C13`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Match Kartu/IMG_0648.MOV` (v4 User Fixes)",
+      "feedback": "Lock song permanently to authentic Chopin Nocturne in E-flat major, Op. 9, No. 2 (downloaded from Musopen); remove '+1' and '!' from animal callouts; fully show both lamb (domba) cards; synchronize kambing & sapi reveals so callouts appear only after both cards of the pair are revealed; fix Arthur's last word caption to 'Gak terima!'.",
+      "rule_reference": "Rules 44, 46 (`C11`, `C14`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Hafal Kartu/IMG_0658.MOV` (v3 Pacing & Matching)",
+      "feedback": "Keep 30s memorization phase at 2.0x speed with clock ticking SFX; do not cut matching/deliberation phases (include both Angel & Arthur matching at 1.25x speed); allow vertical Shorts/Reels to pass 1 minute up to 3.5 minutes max ceiling.",
+      "rule_reference": "Rules 2, 47 (`C4`, `C5`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Hafal Kartu/IMG_0658.MOV` (v4 Audience Participation & Full Uncut Gameplay)",
+      "feedback": "Fast-forward 30s memorization as a 3–5x (`4.0x`) timelapse with clock ticking SFX and remove bottom caption; include 100% uncut card placing (matching) and 100% uncut card opening (results) so the audience can participate mentally in the game; limit memes strictly to when a player loses (Arthur or Angel).",
+      "rule_reference": "Rules 47, 48 (`C4`, `C5`, `C13`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Hafal Kartu/IMG_0658.MOV` (v5 One-Word Captions & Exact Final Score Timing)",
+      "feedback": "Show captions strictly one word at a time synced to the spoken word (e.g. \"Babi\" appears when spoken and immediately disappears, never full sentences); delay top score headers (`ANGEL: 8 POIN 👏` and `8 — 8 SERI 🤝`) until the final card pair is actually opened and shown on camera (`383.00s` and `594.20s`).",
+      "rule_reference": "Rules 46, 49 (`C9`, `C12`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Match Kartu/IMG_0648.MOV` (v5 Final Polish)",
+      "feedback": "Lock song to authentic Chopin Nocturne in E-flat major, Op. 9, No. 2; run 'Hi! Okay,,,' meme till end (second 4.00 -> 6.64s) with +14 dB volume boost and 0.03 music ducking; implement dynamic spoken one-word captions without emoji glyph boxes; ensure zero face/hair occlusion.",
+      "rule_reference": "Rules 44, 46, 49 (`C8`, `C9`, `C13`, `C14`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Lengkapin Kata/IMG_0671.MOV` (v2 Revision)",
+      "feedback": "Fix top word header timing so it never spoils words during countdowns (appears strictly when vocalized); fix letter speaker attribution (Angel said 'G', Arthur said 'S' for 'Ganas'); ensure above-head letter pops appear strictly when letters are spoken, not during countdown.",
+      "rule_reference": "Rules 40, 41, 50 (`C10`, `C11`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Nyambung Kata/IMG_0685.MOV` (v2 Revision)",
+      "feedback": "Start opening directly on first spoken syllable (0.98s, zero empty voice); keep opening in steady wide 1.00x shot with no sudden zoom; keep steady 1.00x wide framing across entire dialogue (zoom only on funny flirt reaction); trigger top word callouts strictly after words are vocalized and confirmed with 3-4s cap; remove above-head pops after 1.4-1.8s (fix stuck 'Manis'); synchronize bottom captions to exact acoustic speech onsets.",
+      "rule_reference": "Rules 8, 9, 38, 41, 49, 51 (`U1`, `C2`, `C3`, `C9–C11`)"
+    },
+    {
+      "date": "2026-10-20",
+      "domain": "Couple",
+      "project_or_clip": "`Kartu Pasangan/IMG_0651.MOV` (v2 Revision)",
+      "feedback": "100% complete one-word dynamic bottom captions across all spoken dialogue; synchronize top header strictly to active gameplay and spoken words; header consistently alternates between Arthur's turns and Angel's turns and reveal moments without missing emojis; preserve 100% unbroken card search and flipping gameplay so audience follows each card; integrate dedicated Caption & Header QC Subagent protocol into workflow.",
+      "rule_reference": "Rules 48, 49, 52, 53 (`U3`, `U7`, `C4`, `C11`, `C15`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Couple",
+      "project_or_clip": "`Kartu Pasangan/IMG_0651.MOV` (v3 Header & Card Sync)",
+      "feedback": "Strict sub-second separation between 'CARI' (searching) and 'DAPAT' (match made) headers; verify physical cards on table so failed searches remain 'CARI' and card artwork ('TRAKTOR' vs 'GUDANG') is 100% accurate.",
+      "rule_reference": "Rules 48, 52, 54 (`C11`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Couple",
+      "project_or_clip": "`Kartu Pasangan/IMG_0651.MOV` (v4 Traktor Biru, Point Count & Winner Party Parade)",
+      "feedback": "Distinguish color variants ('TRAKTOR BIRU' vs 'TRAKTOR MERAH'); keep header on active card counting ('HITUNG POIN! 🃏' / 'ANGEL: HITUNG KARTU 🃏') during card count; trigger victory header strictly after Angel finishes counting her 11 cards (~2:56) with celebratory SFX ('party_cheer.wav') and visual confetti.",
+      "rule_reference": "Rules 52, 54, 55 (`C11`, `C12`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Couple",
+      "project_or_clip": "`Kartu Pasangan/IMG_0651.MOV` (v5 Pure Confetti & Prominent Victory SFX)",
+      "feedback": "Remove all floating emoji glyphs from celebration overlay (keep clean, dense multi-colored 3D fluttering confetti particles and streamers only, zero floating emojis over faces); boost celebration sound effect ('party_cheer.wav') to 1.1 volume.",
+      "rule_reference": "Rule 55 (`C12`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Couple / Universal",
+      "project_or_clip": "`Kartu Pasangan/IMG_0651.MOV` (v6 Upload Quality & < 2:30 Ceiling)",
+      "feedback": "Mandate strict duration ceiling < 2:30 (< 150s) across all couple videos; tune dynamic playback speeds (1.30x–1.70x) to fit complete uncut searches in 2:24; render at highest studio master upload quality (CRF 14, 28-35 Mbps, Rec.709 color metadata, 320k 48kHz AAC, -14 LUFS).",
+      "rule_reference": "Rule 56 (`U6`, `C5`, `C15`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Couple / Universal",
+      "project_or_clip": "`Kartu Pasangan/IMG_0651.MOV` (v7 Native 4K Master Cut)",
+      "feedback": "Mandate native 4K Ultra HD (2160×3840) studio master output whenever raw footage is shot in 4K; scale Swift overlays, ASS subtitles (PlayRes 2160x3840, 108pt font), and confetti simulation to 4K; master encode at CRF 14, 48-65 Mbps bitrate.",
+      "rule_reference": "Rule 57 (`U6`, `C15`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Couple",
+      "project_or_clip": "`Tebak Snack/IMG_2439.MOV` (v2 Native 4K Master & < 2:30 Ceiling)",
+      "feedback": "Followed Rules 56 & 57; trimmed pauses down to 141.53s (< 150s / 2:30 ceiling); scaled all overlays, headers, and subtitles to native 4K Ultra HD (2160×3840); rendered studio master at CRF 14 (47.2 Mbps), Rec.709 color metadata, and 320k 48kHz AAC stereo audio.",
+      "rule_reference": "Rules 56, 57 (`U6`, `C5`, `C15`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Animation (Vox)",
+      "project_or_clip": "`VOX-TEST_race` (Animatic v2)",
+      "feedback": "Make background caption natural (cream paper banner `#F4EDDE`, dark ink border, yellow marker highlight `#FFD51F`); use natural British English neural voiceover narrator; strictly eliminate hyphens in wording (\"twenty two\", \"twenty nine\", \"twenty seven\", \"twenty four\"); replace geometric block/pill figures with authentic photographic human runner cutouts.",
+      "rule_reference": "Rule 58 (`AM7`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Animation (Vox)",
+      "project_or_clip": "`VOX-TEST_race` (Master Pipeline)",
+      "feedback": "Hybrid Sourcing Protocol: Search real material (archival photos, real maps, documents, logos) via Wikimedia/Openverse/Unsplash + Generate bespoke/stylized elements + Mandatory uniform treatment pass (grayscale/duotone + halftone + torn-edge cutout) + strict CC licensing discipline + 1000px resolution floor.",
+      "rule_reference": "Rule 59 (`AM8`)"
+    },
+    {
+      "date": "2026-10-21",
+      "domain": "Animation (Vox)",
+      "project_or_clip": "`VOX-TEST_race` (Visual Revision v3)",
+      "feedback": "Start with empty track at 0.00 and animate real human runners stamping in; animate individual multi-colored starting lines for each runner on \"nobody started at the same line\"; eliminate abstract blue/white desk stripes in Beat 2 and use real exam hall photograph + starter pistol; start blank canvas on Beat 3 dotted table before dealing cards; start empty navy canvas on Beat 4 before phone slides in; use real searched photographic runners for Lap 9 and Lap 3 in Beat 5.",
+      "rule_reference": "Rules 60, 61, 62 (`AM9`, `AM10`, `AM11`)"
+    },
+    {
+      "date": "2026-10-27",
+      "domain": "Architecture & Talking Head",
+      "project_or_clip": "Rulebook Separation + FeedMedia Notion Talking Head Integration",
+      "feedback": "Separated editing rules into 3 dedicated domain rulebooks (`editing-rules-couple.md`, `editing-rules-talking-head.md`, `editing-rules-animation.md`) + `editing-rules.md` router; integrated all 14 FeedMedia Notion Talking Head effects adapted for Antigravity M4 (`VNGeneratePersonSegmentationRequest` cutout, Storyboard First, Text Behind Head, Selective Coral `#D97757` 3-word pill captions, Tool Labels, GitHub Dark Repo Cards, `#2B2B2B` Prompt Bar, Warm-to-Natural Wipe, Magazine Cover, 90% Real Screenshots, Whip-Pan, Moody Grade + Lightroom UI, 3x3 Wall of Reels, Pause & Explain PIP) cross-pollinated with Couple Video acoustic onset & 4K studio master standards.",
+      "rule_reference": "[`editing-rules-couple.md`](./editing-rules-couple.md) (`C1–C15`), [`editing-rules-talking-head.md`](./editing-rules-talking-head.md) (`TH1–TH25`), [`editing-rules-animation.md`](./editing-rules-animation.md) (`AM1–AM11`), `U1–U8`"
+    },
+    {
+      "date": "2026-10-29",
+      "domain": "Talking Head & Studio Assets",
+      "project_or_clip": "`examples/igexport-De25fKeTRl7.mp4` + `examples/igexport-De4UDEqM1f5.mp4`",
+      "feedback": "Analyzed both reference reels; built canonical `assets/` library with strict Dual-Handle resolution (`@asset/...` for global reusable videos/photos/reels/backgrounds/logos/mockups/audio + `@project/...` for per-project cutouts/broll/raw); authored and lint-verified 31 new HyperFrames 60fps HTML/CSS/GSAP templates in `animations/_fx_library/`; documented Rules `TH25A–TH56` and updated `README.md`, `GEMINI.md`, `lint_edl.py`, and `talking_head_engine.py`.",
+      "rule_reference": "[`editing-rules-talking-head.md`](./editing-rules-talking-head.md) (`TH25A–TH56`), [`assets/README.md`](../../../../assets/README.md)"
+    }
+  ]
+}

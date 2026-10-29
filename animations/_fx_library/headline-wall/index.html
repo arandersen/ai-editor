@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@headline-wall — Torn-Paper Newspaper Clippings Slam + Yellow Marker Highlight</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .clip { position: absolute; background: #F0EADE; color: #141413; padding: 28px 38px; border-radius: 6px; box-shadow: 0 24px 54px rgba(0,0,0,0.65); font-family: Georgia, 'Times New Roman', serif; opacity: 0; border-top: 6px dashed rgba(20,20,19,0.18); border-bottom: 6px dashed rgba(20,20,19,0.18); }
+      .kicker { font-family: Inter, sans-serif; font-size: 20px; font-weight: 800; letter-spacing: 0.12em; color: #57534E; margin-bottom: 8px; text-transform: uppercase; }
+      .clip-tl { top: 4%; left: 3%; width: 34%; font-size: 38px; font-weight: 700; transform: rotate(-4deg); }
+      .clip-tr { top: 3%; right: 3%; width: 34%; font-size: 38px; font-weight: 700; transform: rotate(3.5deg); }
+      .clip-ml { top: 38%; left: 3%; width: 36%; font-size: 44px; font-weight: 700; transform: rotate(-2.5deg); }
+      .clip-hero { top: 53%; left: 26%; width: 66%; padding: 38px 48px; transform: rotate(-1.5deg); }
+      .serif-line { font-size: 74px; font-weight: 700; line-height: 1.08; position: relative; }
+      .hl-wrap { display: inline-block; position: relative; }
+      .hl-bar { position: absolute; left: -8px; right: -8px; bottom: 4px; height: 78%; background: #F6E478; z-index: 0; transform-origin: left center; transform: scaleX(0); }
+      .hl-txt { position: relative; z-index: 1; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.2"
+       data-composition-variables='[{"id": "kicker", "type": "string", "label": "kicker", "default": "CREATOR NEWS \u00b7 TODAY"}, {"id": "headlineLine1", "type": "string", "label": "headlineLine1", "default": "claude can now"}, {"id": "headlineLine2", "type": "string", "label": "headlineLine2", "default": "edit your videos"}, {"id": "subClippings", "type": "string", "label": "subClippings", "default": "[\"claude did the edit\", \"video, edited by claude\", \"claude now edits your videos\"]"}]'>
+
+      <div class="clip clip-tl" id="c1"><span class="kicker">PRESS</span><div>claude did the edit</div></div>
+      <div class="clip clip-tr" id="c2"><span class="kicker">TECH</span><div>video, edited by claude</div></div>
+      <div class="clip clip-ml" id="c3"><span class="kicker">REPORT</span><div>claude now edits your videos</div></div>
+      <div class="clip clip-hero" id="c4">
+        <div class="kicker">CREATOR NEWS · TODAY</div>
+        <div class="serif-line">claude can now</div>
+        <div class="serif-line hl-wrap"><span class="hl-bar" id="hl"></span><span class="hl-txt">edit your videos</span></div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"kicker": "CREATOR NEWS \u00b7 TODAY", "headlineLine1": "claude can now", "headlineLine2": "edit your videos", "subClippings": ["claude did the edit", "video, edited by claude", "claude now edits your videos"]};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+text('#c4 .kicker',vars.kicker);text('#c4 .serif-line:not(.hl-wrap)',vars.headlineLine1);text('.hl-txt',vars.headlineLine2);
+vars.subClippings.forEach((v,i)=>text('#c'+(i+1)+' div',v));
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#c1', { opacity: 0, scale: 1.45, y: -60 }, { opacity: 1, scale: 1, y: 0, duration: 0.22, ease: 'power3.out' }, 0.0)
+        .fromTo('#c2', { opacity: 0, scale: 1.45, y: -60 }, { opacity: 1, scale: 1, y: 0, duration: 0.22, ease: 'power3.out' }, 0.10)
+        .fromTo('#c3', { opacity: 0, scale: 1.45, x: -80 }, { opacity: 1, scale: 1, x: 0, duration: 0.22, ease: 'power3.out' }, 0.20)
+        .fromTo('#c4', { opacity: 0, scale: 1.55, y: 90 }, { opacity: 1, scale: 1, y: 0, duration: 0.26, ease: 'back.out(1.4)' }, 0.30)
+        .to('#hl', { scaleX: 1, duration: 0.32, ease: 'power2.out' }, 0.52);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

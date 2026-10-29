@@ -40,6 +40,10 @@ if inputPath.isEmpty || outputPath.isEmpty {
     exit(1)
 }
 
+guard startSec >= 0, endSec > startSec else {
+    print("Invalid source interval"); exit(1)
+}
+
 let inputURL = URL(fileURLWithPath: inputPath)
 let outputURL = URL(fileURLWithPath: outputPath)
 try? FileManager.default.removeItem(at: outputURL)
@@ -88,24 +92,30 @@ let segRequest = VNGeneratePersonSegmentationRequest()
 segRequest.qualityLevel = .accurate
 segRequest.outputPixelFormat = kCVPixelFormatType_OneComponent8
 
-reader.startReading()
-writer.startWriting()
+guard reader.startReading(), writer.startWriting() else {
+    print("Failed to start media IO: \(String(describing: reader.error)) \(String(describing: writer.error))"); exit(1)
+}
 writer.startSession(atSourceTime: .zero)
 
 var frameCount = 0
+var processingError: String? = nil
 print("✂️ [PersonCutout] Segmenting person via Apple Vision ANE (\(width)x\(height), \(startSec)s -> \(endSec)s)...")
 
-while reader.status == .reading {
+while reader.status == .reading && processingError == nil {
     autoreleasepool {
         guard let sampleBuffer = trackOutput.copyNextSampleBuffer(),
               let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
         let pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer) - startCM
-        let handler = VNImageRequestHandler(cvPixelBuffer: imageBuffer, options: [:])
-        try? handler.perform([segRequest])
-
-        let origCI = CIImage(cvPixelBuffer: imageBuffer)
+        let transformed = CIImage(cvPixelBuffer: imageBuffer).transformed(by: videoTrack.preferredTransform)
+        let origCI = transformed.transformed(by: CGAffineTransform(translationX: -transformed.extent.minX, y: -transformed.extent.minY))
+        let handler = VNImageRequestHandler(ciImage: origCI, options: [:])
+        do { try handler.perform([segRequest]) }
+        catch { processingError = "Segmentation failed: \(error)"; return }
+        guard segRequest.results?.first?.pixelBuffer != nil else {
+            processingError = "No person mask returned"; return
+        }
         var outCI = origCI
 
         if let maskBuffer = segRequest.results?.first?.pixelBuffer {
@@ -116,7 +126,7 @@ while reader.status == .reading {
                            .applyingFilter("CIGaussianBlur", parameters: [kCIInputRadiusKey: 1.5])
                            .cropped(to: origCI.extent)
 
-            let clearBG = CIImage.empty().cropped(to: origCI.extent)
+            let clearBG = CIImage(color: CIColor(red: 0, green: 0, blue: 0, alpha: 0)).cropped(to: origCI.extent)
             if let blend = CIFilter(name: "CIBlendWithMask", parameters: [
                 kCIInputImageKey: origCI,
                 kCIInputBackgroundImageKey: clearBG,
@@ -127,22 +137,37 @@ while reader.status == .reading {
         }
 
         var outPixelBuffer: CVPixelBuffer?
-        CVPixelBufferPoolCreatePixelBuffer(nil, adaptor.pixelBufferPool!, &outPixelBuffer)
+        guard let pool = adaptor.pixelBufferPool,
+              CVPixelBufferPoolCreatePixelBuffer(nil, pool, &outPixelBuffer) == kCVReturnSuccess else {
+            processingError = "Cannot allocate alpha pixel buffer"; return
+        }
         if let dst = outPixelBuffer {
             ciContext.render(outCI, to: dst)
-            while !writerInput.isReadyForMoreMediaData {
+            while !writerInput.isReadyForMoreMediaData && writer.status == .writing {
                 Thread.sleep(forTimeInterval: 0.002)
             }
-            adaptor.append(dst, withPresentationTime: pts)
+            guard writer.status == .writing, adaptor.append(dst, withPresentationTime: pts) else {
+                processingError = "Failed to append segmented frame"; return
+            }
             frameCount += 1
         }
     }
 }
 
+if let error = processingError {
+    reader.cancelReading(); writer.cancelWriting()
+    print("❌ \(error)"); exit(1)
+}
+guard reader.status == .completed, frameCount > 0 else {
+    writer.cancelWriting(); print("❌ Incomplete source read: \(String(describing: reader.error))"); exit(1)
+}
 writerInput.markAsFinished()
 let sema = DispatchSemaphore(value: 0)
 writer.finishWriting {
     sema.signal()
 }
 sema.wait()
+guard writer.status == .completed else {
+    print("❌ Export failed: \(String(describing: writer.error))"); exit(1)
+}
 print("✅ [PersonCutout] Exported \(frameCount) frames to ProRes 4444 alpha matte: \(outputPath)")

@@ -1,0 +1,26 @@
+{
+  "shortcut": "@icon-strike",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "icon-strike",
+  "rule": "Rule TH54",
+  "title": "Competitor App Icons Slashed with Rose-Pink X-Strike + Gravity Drop",
+  "composition_path": "animations/_fx_library/icon-strike/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+  "variables": {
+    "icons": [
+      "@asset/logos/apps/capcut.svg",
+      "@asset/logos/apps/edits.svg"
+    ],
+    "strikeWord": "strike."
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/icon-strike --format mov --output broll/<Project>/icon-strike.mov"
+}

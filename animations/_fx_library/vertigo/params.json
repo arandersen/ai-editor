@@ -1,0 +1,25 @@
+{
+  "shortcut": "@vertigo",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "vertigo",
+  "rule": "Rule TH30",
+  "title": "Dolly-Zoom (Contrazoom) Background Expansion Behind Locked Person Cutout",
+  "composition_path": "animations/_fx_library/vertigo/index.html",
+  "duration_sec": 1.4,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "bgStartScale": 1.0,
+    "bgEndScale": 1.38,
+    "fgScale": 1.02,
+    "cutoutHandle": "@project/cutout/vertigo_cutout.mov"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/vertigo --format mov --output broll/<Project>/vertigo.mov"
+}

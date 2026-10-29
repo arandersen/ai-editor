@@ -1,0 +1,27 @@
+{
+  "shortcut": "@live-markup",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "live-markup",
+  "rule": "Rule TH46",
+  "title": "Self-Tracing Rose-Pink Marker Circle + Handwritten Arrow Callout",
+  "composition_path": "animations/_fx_library/live-markup/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+  "variables": {
+    "label": "markup",
+    "strokeColor": "#C06672",
+    "cx": 460,
+    "cy": 690,
+    "rx": 180,
+    "ry": 220
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/live-markup --format mov --output broll/<Project>/live-markup.mov"
+}

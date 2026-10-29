@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "python": ">=3.9",
+  "node": ">=22",
+  "hyperframes": "0.8.214",
+  "gsap": "3.12.5",
+  "platform": "macOS (Swift AppKit and Apple Vision)",
+  "required_ffmpeg_filters": ["overlay", "gblur", "loudnorm", "sidechaincompress"],
+  "required_ffmpeg_encoders": ["libx264", "qtrle"],
+  "optional_asr": ["parakeet-mlx", "faster-whisper", "openai-whisper"],
+  "note": "Core Python has no third-party dependencies. ASR is an optional separately managed provider. Record actual system tool versions per run."
+}

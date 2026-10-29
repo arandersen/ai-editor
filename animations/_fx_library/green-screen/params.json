@@ -1,0 +1,24 @@
+{
+  "shortcut": "@green-screen",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "green-screen",
+  "rule": "Rule TH31",
+  "title": "Person-Cutout Background Replacement + Flash Wipe",
+  "composition_path": "animations/_fx_library/green-screen/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "backgroundVideo": "@asset/video/memes/bg_replacement.mp4",
+    "cutoutHandle": "@project/cutout/greenscreen_cutout.mov",
+    "vignetteOpacity": 0.45
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/green-screen --format mov --output broll/<Project>/green-screen.mov"
+}

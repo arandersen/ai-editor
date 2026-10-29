@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@live-markup — Self-Tracing Rose-Pink Marker Circle + Handwritten Arrow Callout</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .mk-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="1.8"
+       data-composition-variables='[{"id": "label", "type": "string", "label": "label", "default": "markup"}, {"id": "strokeColor", "type": "string", "label": "strokeColor", "default": "#C06672"}, {"id": "cx", "type": "number", "label": "cx", "default": 460}, {"id": "cy", "type": "number", "label": "cy", "default": 690}, {"id": "rx", "type": "number", "label": "rx", "default": 180}, {"id": "ry", "type": "number", "label": "ry", "default": 220}]'>
+
+      <svg class="mk-svg" viewBox="0 0 1080 1920">
+        <text id="mkt" x="80" y="420" fill="#C06672" font-family="Georgia, cursive, serif" font-style="italic" font-weight="700" font-size="78" opacity="0">markup</text>
+        <path id="mka" d="M 220 460 Q 260 540 340 540" fill="none" stroke="#C06672" stroke-width="10" stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="300"/>
+        <ellipse id="mkc" cx="460" cy="690" rx="185" ry="225" fill="none" stroke="#C06672" stroke-width="12" stroke-linecap="round" stroke-dasharray="1400" stroke-dashoffset="1400"/>
+      </svg>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"label": "markup", "strokeColor": "#C06672", "cx": 460, "cy": 690, "rx": 180, "ry": 220};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+text('#mkt',vars.label);document.querySelector('#mkt').setAttribute('fill',vars.strokeColor);
+document.querySelectorAll('#mka,#mkc').forEach(el=>el.setAttribute('stroke',vars.strokeColor));
+const ellipse=document.querySelector('#mkc');ellipse.setAttribute('cx',vars.cx);ellipse.setAttribute('cy',vars.cy);ellipse.setAttribute('rx',vars.rx);ellipse.setAttribute('ry',vars.ry);
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#mkt', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.22 }, 0.0)
+        .to('#mka', { strokeDashoffset: 0, duration: 0.22, ease: 'power2.out' }, 0.12)
+        .to('#mkc', { strokeDashoffset: 0, duration: 0.45, ease: 'power2.inOut' }, 0.20);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@orbit — 3D Carousel Ring of Vertical Reel Cards Orbiting Around Speaker Cutout</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .orbit-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; perspective: 1400px; }
+      .orbit-ring { width: 680px; height: 420px; position: relative; transform-style: preserve-3d; }
+      .ocard { position: absolute; left: 200px; top: 20px; width: 260px; height: 420px; border-radius: 28px; background: linear-gradient(160deg, #1E293B, #090D16); border: 4px solid rgba(255,255,255,0.28); box-shadow: 0 24px 60px rgba(0,0,0,0.75); display: flex; align-items: flex-end; justify-content: center; padding: 24px; font-size: 34px; font-weight: 900; color: #F6E478; }
+      .oc1 { transform: rotateY(0deg) translateZ(380px); }
+      .oc2 { transform: rotateY(90deg) translateZ(380px); }
+      .oc3 { transform: rotateY(180deg) translateZ(380px); }
+      .oc4 { transform: rotateY(270deg) translateZ(380px); }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.2"
+       data-composition-variables='[{"id": "reelCards", "type": "string", "label": "reelCards", "default": "[\"@asset/video/reels/reel_01.mp4\", \"@asset/video/reels/reel_02.mp4\", \"@asset/video/reels/reel_03.mp4\", \"@asset/video/reels/reel_04.mp4\"]"}, {"id": "cutoutHandle", "type": "string", "label": "cutoutHandle", "default": "@project/cutout/orbit_cutout.mov"}, {"id": "radiusPx", "type": "number", "label": "radiusPx", "default": 420}]'>
+
+      <div class="orbit-scene">
+        <div class="orbit-ring" id="oring">
+          <div class="ocard oc1">ui world</div>
+          <div class="ocard oc2">frame break</div>
+          <div class="ocard oc3">doodle boil</div>
+          <div class="ocard oc4">paper cut</div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"reelCards": ["@asset/video/reels/reel_01.mp4", "@asset/video/reels/reel_02.mp4", "@asset/video/reels/reel_03.mp4", "@asset/video/reels/reel_04.mp4"], "cutoutHandle": "@project/cutout/orbit_cutout.mov", "radiusPx": 420};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+document.querySelectorAll('.ocard').forEach((el,i)=>{el.style.transform='rotateY('+(i*90)+'deg) translateZ('+vars.radiusPx+'px)';media('.oc'+(i+1),vars.reelCards[i]);});foreground(vars.cutoutHandle);
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#oring', { rotationY: -35, rotationX: -6 }, { rotationY: 145, rotationX: -6, duration: 2.0, ease: 'power2.inOut' }, 0.0);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

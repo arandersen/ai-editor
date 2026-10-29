@@ -1,0 +1,824 @@
+{
+  "total_pack_2_and_3_templates": 31,
+  "templates": [
+    {
+      "shortcut": "@effect-hud",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "effect-hud",
+      "rule": "Rule TH26",
+      "title": "On-Screen Effect Checklist HUD (Split-Dark & Sidebar-Green Themes)",
+      "composition_path": "animations/_fx_library/effect-hud/index.html",
+      "duration_sec": 3.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+      "variables": {
+        "theme": "split-dark",
+        "headerNumber": "16",
+        "headerTitle": "video effects\nclaude can create",
+        "activeIndex": 1,
+        "itemsLeft": [
+          "01 headline wall",
+          "02 zoom-through cut",
+          "03 vertigo",
+          "04 green screen",
+          "05 phone mockup",
+          "06 digital zoom",
+          "07 paper cut",
+          "08 ui world"
+        ],
+        "itemsRight": [
+          "09 orbit",
+          "10 frame break",
+          "11 doodle boil",
+          "12 sticky text",
+          "13 before + after",
+          "14 pull-back reveal",
+          "15 depth scatter",
+          "16 comment bubble"
+        ]
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/effect-hud --format mov --output broll/<Project>/effect-hud.mov"
+    },
+    {
+      "shortcut": "@keyword-captions",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "keyword-captions",
+      "rule": "Rule TH27",
+      "title": "Dual-Theme Hook/CTA Keyword Captions (Yellow-Glow & White-Pill-Stack)",
+      "composition_path": "animations/_fx_library/keyword-captions/index.html",
+      "duration_sec": 2.4,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+      "variables": {
+        "theme": "yellow-glow",
+        "line1": "all of these",
+        "keyword": "effects?",
+        "yPercent": 52.0
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/keyword-captions --format mov --output broll/<Project>/keyword-captions.mov"
+    },
+    {
+      "shortcut": "@headline-wall",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "headline-wall",
+      "rule": "Rule TH28",
+      "title": "Torn-Paper Newspaper Clippings Slam + Yellow Marker Highlight",
+      "composition_path": "animations/_fx_library/headline-wall/index.html",
+      "duration_sec": 2.2,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/paper_thock.wav",
+      "variables": {
+        "kicker": "CREATOR NEWS \u00b7 TODAY",
+        "headlineLine1": "claude can now",
+        "headlineLine2": "edit your videos",
+        "subClippings": [
+          "claude did the edit",
+          "video, edited by claude",
+          "claude now edits your videos"
+        ]
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/headline-wall --format mov --output broll/<Project>/headline-wall.mov"
+    },
+    {
+      "shortcut": "@zoom-through",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "zoom-through",
+      "rule": "Rule TH29",
+      "title": "Camera Zoom-Through Punch Transition + 2-Frame Warm White Flash",
+      "composition_path": "animations/_fx_library/zoom-through/index.html",
+      "duration_sec": 0.65,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "peakScale": 6.5,
+        "flashColor": "#FFFDF5"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/zoom-through --format mov --output broll/<Project>/zoom-through.mov"
+    },
+    {
+      "shortcut": "@vertigo",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "vertigo",
+      "rule": "Rule TH30",
+      "title": "Dolly-Zoom (Contrazoom) Background Expansion Behind Locked Person Cutout",
+      "composition_path": "animations/_fx_library/vertigo/index.html",
+      "duration_sec": 1.4,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "bgStartScale": 1.0,
+        "bgEndScale": 1.38,
+        "fgScale": 1.02,
+        "cutoutHandle": "@project/cutout/vertigo_cutout.mov"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/vertigo --format mov --output broll/<Project>/vertigo.mov"
+    },
+    {
+      "shortcut": "@green-screen",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "green-screen",
+      "rule": "Rule TH31",
+      "title": "Person-Cutout Background Replacement + Flash Wipe",
+      "composition_path": "animations/_fx_library/green-screen/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "backgroundVideo": "@asset/video/memes/bg_replacement.mp4",
+        "cutoutHandle": "@project/cutout/greenscreen_cutout.mov",
+        "vignetteOpacity": 0.45
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/green-screen --format mov --output broll/<Project>/green-screen.mov"
+    },
+    {
+      "shortcut": "@phone-mockup",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "phone-mockup",
+      "rule": "Rule TH32",
+      "title": "3D Tilted iPhone Mockup Slide-In + Scrolling Screen Capture",
+      "composition_path": "animations/_fx_library/phone-mockup/index.html",
+      "duration_sec": 2.4,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "deviceFrame": "@asset/mockups/devices/iphone_16_pro_frame.svg",
+        "screenAsset": "@asset/photo/screenshots/app_feed.png",
+        "headline": "YOU FILM.\nCLAUDE EDITS.",
+        "xPercent": 20.0,
+        "yPercent": 50.0
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/phone-mockup --format mov --output broll/<Project>/phone-mockup.mov"
+    },
+    {
+      "shortcut": "@digital-zoom",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "digital-zoom",
+      "rule": "Rule TH33",
+      "title": "Camera Viewfinder HUD & Focal-Length Lens Ring (Camcorder | Lens-Ring Styles)",
+      "composition_path": "animations/_fx_library/digital-zoom/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+      "variables": {
+        "style": "camcorder",
+        "startZoom": 1.0,
+        "endZoom": 1.3,
+        "focalLengths": [
+          85,
+          70,
+          50,
+          35,
+          24
+        ]
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/digital-zoom --format mov --output broll/<Project>/digital-zoom.mov"
+    },
+    {
+      "shortcut": "@paper-cut",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "paper-cut",
+      "rule": "Rule TH34",
+      "title": "Stop-Motion Torn-Paper Cutout + Ransom-Note Letters + Vertical Tear Exit",
+      "composition_path": "animations/_fx_library/paper-cut/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/paper_thock.wav",
+      "variables": {
+        "word1": "PAPER",
+        "word2": "CUT",
+        "cutoutHandle": "@project/cutout/papercut_cutout.mov",
+        "gridTexture": "@asset/photo/textures/notebook_grid_paper.svg"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/paper-cut --format mov --output broll/<Project>/paper-cut.mov"
+    },
+    {
+      "shortcut": "@ui-world",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "ui-world",
+      "rule": "Rule TH35",
+      "title": "Floating 3D Glassmorphism Editor HUD (Prompt + Timeline + Live Preview)",
+      "composition_path": "animations/_fx_library/ui-world/index.html",
+      "duration_sec": 2.4,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/click.wav",
+      "variables": {
+        "promptText": "edit my reel",
+        "previewLabel": "doodle boil"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/ui-world --format mov --output broll/<Project>/ui-world.mov"
+    },
+    {
+      "shortcut": "@orbit",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "orbit",
+      "rule": "Rule TH36",
+      "title": "3D Carousel Ring of Vertical Reel Cards Orbiting Around Speaker Cutout",
+      "composition_path": "animations/_fx_library/orbit/index.html",
+      "duration_sec": 2.2,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "reelCards": [
+          "@asset/video/reels/reel_01.mp4",
+          "@asset/video/reels/reel_02.mp4",
+          "@asset/video/reels/reel_03.mp4",
+          "@asset/video/reels/reel_04.mp4"
+        ],
+        "cutoutHandle": "@project/cutout/orbit_cutout.mov",
+        "radiusPx": 420
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/orbit --format mov --output broll/<Project>/orbit.mov"
+    },
+    {
+      "shortcut": "@frame-break",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "frame-break",
+      "rule": "Rule TH37",
+      "title": "Instagram Reel Card Pull-Back + 3D Glass Shard Shatter",
+      "composition_path": "animations/_fx_library/frame-break/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/sub_drop.wav",
+      "variables": {
+        "handle": "tenfoldmarc",
+        "caption": "16 video effects claude can create"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/frame-break --format mov --output broll/<Project>/frame-break.mov"
+    },
+    {
+      "shortcut": "@doodle-boil",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "doodle-boil",
+      "rule": "Rule TH38",
+      "title": "Hand-Drawn Neon Chalk Outline + Boiling Stop-Motion Spark Bursts",
+      "composition_path": "animations/_fx_library/doodle-boil/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+      "variables": {
+        "colors": [
+          "#FFFFFF",
+          "#F6E478",
+          "#FF7EB6",
+          "#38BDF8"
+        ],
+        "boilFps": 12
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/doodle-boil --format mov --output broll/<Project>/doodle-boil.mov"
+    },
+    {
+      "shortcut": "@sticky-text",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "sticky-text",
+      "rule": "Rule TH39",
+      "title": "HUD List Detach -> Tilted Yellow Adhesive Sticker Slap",
+      "composition_path": "animations/_fx_library/sticky-text/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+      "variables": {
+        "number": "12",
+        "label": "sticky text",
+        "tiltDeg": -5.5
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/sticky-text --format mov --output broll/<Project>/sticky-text.mov"
+    },
+    {
+      "shortcut": "@before-after",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "before-after",
+      "rule": "Rule TH40",
+      "title": "Vertical Light-Leak Split Wipe + Before/After Frosted Badges",
+      "composition_path": "animations/_fx_library/before-after/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "leftLabel": "before",
+        "rightLabel": "\u2022 after",
+        "beamColor": "#FFF7D6"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/before-after --format mov --output broll/<Project>/before-after.mov"
+    },
+    {
+      "shortcut": "@pull-back",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "pull-back",
+      "rule": "Rule TH41",
+      "title": "3D Perspective Pull-Back into NLE Editor Window + Checklist + Waveform",
+      "composition_path": "animations/_fx_library/pull-back/index.html",
+      "duration_sec": 2.4,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "windowTitle": "effects reel",
+        "checklist": [
+          "cut pauses",
+          "add effects",
+          "export"
+        ]
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/pull-back --format mov --output broll/<Project>/pull-back.mov"
+    },
+    {
+      "shortcut": "@depth-scatter",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "depth-scatter",
+      "rule": "Rule TH42",
+      "title": "Multi-Plane 3D Z-Depth Letter Scatter + Rack-Focus Blur (Behind & In Front of Head)",
+      "composition_path": "animations/_fx_library/depth-scatter/index.html",
+      "duration_sec": 2.2,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "wordBehind": "depth",
+        "wordFront": "scatter",
+        "cutoutHandle": "@project/cutout/depth_scatter_cutout.mov"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/depth-scatter --format mov --output broll/<Project>/depth-scatter.mov"
+    },
+    {
+      "shortcut": "@reel-grid",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "reel-grid",
+      "rule": "Rule TH43",
+      "title": "Unified Multi-Reel Grid (background | collapse | playing | cascade Modes)",
+      "composition_path": "animations/_fx_library/reel-grid/index.html",
+      "duration_sec": 2.4,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+      "variables": {
+        "mode": "cascade",
+        "reelAssets": [],
+        "thumbAssets": [],
+        "columns": 4,
+        "rows": 2
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/reel-grid --format mov --output broll/<Project>/reel-grid.mov"
+    },
+    {
+      "shortcut": "@comment-bubble",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "comment-bubble",
+      "rule": "Rule TH44",
+      "title": "Automated Social CTA Comment-to-DM Funnel (Input -> Heart Bubble -> Link Reply)",
+      "composition_path": "animations/_fx_library/comment-bubble/index.html",
+      "duration_sec": 2.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/click.wav",
+      "variables": {
+        "keyword": "STUDIO",
+        "replyText": "Sent you the link",
+        "buttonText": "\ud83d\udd17 Open link"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/comment-bubble --format mov --output broll/<Project>/comment-bubble.mov"
+    },
+    {
+      "shortcut": "@knockout-captions",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "knockout-captions",
+      "rule": "Rule TH45",
+      "title": "Editorial Cream Card with Knocked-Out Transparent Stencil Display Type",
+      "composition_path": "animations/_fx_library/knockout-captions/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/sub_drop.wav",
+      "variables": {
+        "pillText": "knockout",
+        "subText": "captions.",
+        "stencilLine1": "KNOCK",
+        "stencilLine2": "OUT"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/knockout-captions --format mov --output broll/<Project>/knockout-captions.mov"
+    },
+    {
+      "shortcut": "@live-markup",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "live-markup",
+      "rule": "Rule TH46",
+      "title": "Self-Tracing Rose-Pink Marker Circle + Handwritten Arrow Callout",
+      "composition_path": "animations/_fx_library/live-markup/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+      "variables": {
+        "label": "markup",
+        "strokeColor": "#C06672",
+        "cx": 460,
+        "cy": 690,
+        "rx": 180,
+        "ry": 220
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/live-markup --format mov --output broll/<Project>/live-markup.mov"
+    },
+    {
+      "shortcut": "@film-look",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "film-look",
+      "rule": "Rule TH47",
+      "title": "Top-to-Bottom Horizontal Scanline Film Grade Wipe + 16mm Grain",
+      "composition_path": "animations/_fx_library/film-look/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+      "variables": {
+        "lineColor": "#F0EADE",
+        "grainOverlay": "@asset/video/overlays/film_grain_16mm.mov"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/film-look --format mov --output broll/<Project>/film-look.mov"
+    },
+    {
+      "shortcut": "@jiggle-delete",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "jiggle-delete",
+      "rule": "Rule TH48",
+      "title": "iOS Edit-Mode Jiggling Competitor App Icons + Sequential Pop Delete",
+      "composition_path": "animations/_fx_library/jiggle-delete/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+      "variables": {
+        "apps": [
+          {
+            "name": "CapCut",
+            "icon": "@asset/logos/apps/capcut.svg"
+          },
+          {
+            "name": "Edits",
+            "icon": "@asset/logos/apps/edits.svg"
+          },
+          {
+            "name": "InShot",
+            "icon": "@asset/logos/apps/inshot.svg"
+          },
+          {
+            "name": "Premiere",
+            "icon": "@asset/logos/apps/premiere.svg"
+          }
+        ]
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/jiggle-delete --format mov --output broll/<Project>/jiggle-delete.mov"
+    },
+    {
+      "shortcut": "@screenplay-page",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "screenplay-page",
+      "rule": "Rule TH49",
+      "title": "Courier Screenplay Page Slide-In + Yellow Highlighter Sweep",
+      "composition_path": "animations/_fx_library/screenplay-page/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/paper_slide.wav",
+      "variables": {
+        "slugline": "INT. GREEN ROOM - DAY",
+        "character": "JUSTYN",
+        "parenthetical": "(to camera)",
+        "highlightedLine": "Screenplay page."
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/screenplay-page --format mov --output broll/<Project>/screenplay-page.mov"
+    },
+    {
+      "shortcut": "@contact-sheet-hook",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "contact-sheet-hook",
+      "rule": "Rule TH50",
+      "title": "Forest-Green Numbered 4x5 Contact Sheet + Sequential Frame Stamp",
+      "composition_path": "animations/_fx_library/contact-sheet-hook/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+      "variables": {
+        "bgHex": "#123024",
+        "title": "CONTACT SHEET",
+        "subtitle": "HOOK",
+        "thumbAssets": []
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/contact-sheet-hook --format mov --output broll/<Project>/contact-sheet-hook.mov"
+    },
+    {
+      "shortcut": "@keycaps",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "keycaps",
+      "rule": "Rule TH51",
+      "title": "3D Tactile Mac Keyboard Shortcuts Raining & Bouncing Above Head",
+      "composition_path": "animations/_fx_library/keycaps/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/click.wav",
+      "variables": {
+        "keys": [
+          "\u2318K",
+          "\u2318B",
+          "\u2318Z",
+          "space",
+          "J",
+          "K",
+          "L"
+        ]
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/keycaps --format mov --output broll/<Project>/keycaps.mov"
+    },
+    {
+      "shortcut": "@nle-timeline",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "nle-timeline",
+      "rule": "Rule TH52",
+      "title": "Floating Dark-Green NLE Multi-Clip Timeline Strip + Sweeping Playhead",
+      "composition_path": "animations/_fx_library/nle-timeline/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+      "variables": {
+        "timecode": "00:00:15:08",
+        "clipCount": 14
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/nle-timeline --format mov --output broll/<Project>/nle-timeline.mov"
+    },
+    {
+      "shortcut": "@serif-stamp",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "serif-stamp",
+      "rule": "Rule TH53",
+      "title": "Editorial Gold Italic Prefix + Letter-by-Letter Giant Cream Serif Stamp",
+      "composition_path": "animations/_fx_library/serif-stamp/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "@asset/audio/sfx/paper_thock.wav",
+      "variables": {
+        "prefix": "serif",
+        "word": "STAMP"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/serif-stamp --format mov --output broll/<Project>/serif-stamp.mov"
+    },
+    {
+      "shortcut": "@icon-strike",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "icon-strike",
+      "rule": "Rule TH54",
+      "title": "Competitor App Icons Slashed with Rose-Pink X-Strike + Gravity Drop",
+      "composition_path": "animations/_fx_library/icon-strike/index.html",
+      "duration_sec": 1.8,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+      "variables": {
+        "icons": [
+          "@asset/logos/apps/capcut.svg",
+          "@asset/logos/apps/edits.svg"
+        ],
+        "strikeWord": "strike."
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/icon-strike --format mov --output broll/<Project>/icon-strike.mov"
+    },
+    {
+      "shortcut": "@grease-pencil",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "grease-pencil",
+      "rule": "Rule TH55",
+      "title": "3-Row Film Strip Contact Sheet + Red Grease-Pencil Dead-Air X Slash",
+      "composition_path": "animations/_fx_library/grease-pencil/index.html",
+      "duration_sec": 2.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/marker_squeak.wav",
+      "variables": {
+        "header": "dead air",
+        "strokeColor": "#C06672"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/grease-pencil --format mov --output broll/<Project>/grease-pencil.mov"
+    },
+    {
+      "shortcut": "@video-card",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "video-card",
+      "rule": "Rule TH56",
+      "title": "Split Floating Video Preview Card + Forest-Green Chapter Selector",
+      "composition_path": "animations/_fx_library/video-card/index.html",
+      "duration_sec": 2.2,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+      "variables": {
+        "cardTitle": "Video card",
+        "chapter1": "01 The raw take",
+        "chapter2": "02 The finished reel",
+        "previewAsset": "@asset/photo/thumbnails/chapter_split.png"
+      },
+      "render_command": "npx hyperframes render animations/_fx_library/video-card --format mov --output broll/<Project>/video-card.mov"
+    }
+  ]
+}

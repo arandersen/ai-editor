@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@grease-pencil — 3-Row Film Strip Contact Sheet + Red Grease-Pencil Dead-Air X Slash</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .gp-sheet { position: absolute; top: 12%; left: 4%; width: 60%; background: #F0EADE; color: #141413; padding: 28px; border-radius: 12px; box-shadow: 0 28px 64px rgba(0,0,0,0.75); }
+      .gp-head { font-family: Georgia, serif; font-style: italic; font-size: 46px; color: #C06672; margin-bottom: 14px; }
+      .gp-row { position: relative; display: flex; gap: 8px; height: 110px; background: #141413; padding: 12px 8px; margin-bottom: 12px; border-top: 6px dashed #F0EADE; border-bottom: 6px dashed #F0EADE; }
+      .f { flex: 1; background: #334155; border-radius: 4px; }
+      .gx { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 24px; font-size: 76px; font-weight: 900; color: #C06672; letter-spacing: 0.25em; opacity: 0; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.0"
+       data-composition-variables='[{"id": "header", "type": "string", "label": "header", "default": "dead air"}, {"id": "strokeColor", "type": "string", "label": "strokeColor", "default": "#C06672"}]'>
+
+      <div class="gp-sheet" id="gps">
+        <div class="gp-head">dead air</div>
+        <div class="gp-row"><div class="f"></div><div class="f"></div><div class="f"></div><div class="f"></div><div class="gx" id="gx1">✕ ✕ ✕</div></div>
+        <div class="gp-row"><div class="f"></div><div class="f"></div><div class="f"></div><div class="f"></div></div>
+        <div class="gp-row"><div class="f"></div><div class="f"></div><div class="f"></div><div class="f"></div><div class="gx" id="gx2">✕ ✕</div></div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"header": "dead air", "strokeColor": "#C06672"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('.gp-head',vars.header);style('.gx,.gp-head',{color:vars.strokeColor});
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#gps', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0.0)
+        .to('#gx1, #gx2', { opacity: 1, duration: 0.2, stagger: 0.18 }, 0.28);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

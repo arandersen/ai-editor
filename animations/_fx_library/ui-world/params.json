@@ -1,0 +1,23 @@
+{
+  "shortcut": "@ui-world",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "ui-world",
+  "rule": "Rule TH35",
+  "title": "Floating 3D Glassmorphism Editor HUD (Prompt + Timeline + Live Preview)",
+  "composition_path": "animations/_fx_library/ui-world/index.html",
+  "duration_sec": 2.4,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/click.wav",
+  "variables": {
+    "promptText": "edit my reel",
+    "previewLabel": "doodle boil"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/ui-world --format mov --output broll/<Project>/ui-world.mov"
+}

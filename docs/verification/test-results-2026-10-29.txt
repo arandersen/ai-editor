@@ -1,0 +1,38 @@
+test_approval_invalidated_by_edit (test_editor.ContractTests) ... ok
+test_caption_effect_is_validated (test_editor.ContractTests) ... ok
+test_caption_group_and_label_suppression (test_editor.ContractTests) ... ok
+test_captions_do_not_group_across_edits (test_editor.ContractTests) ... ok
+test_cross_cut_effect_is_split_with_asset_offsets (test_editor.ContractTests) ... ok
+test_cutout_is_required (test_editor.ContractTests) ... ok
+test_frames_locked_to_schedule (test_editor.ContractTests) ... ok
+test_handles_confined_and_workspace_relative (test_editor.ContractTests) ... ok
+test_label_suppression_is_scoped_to_replay (test_editor.ContractTests) ... ok
+test_no_implicit_approval (test_editor.ContractTests) ... ok
+test_reject_invalid_speeds (test_editor.ContractTests) ... ok
+test_removed_time_has_no_mapping (test_editor.ContractTests) ... ok
+test_repeated_source_captions_retain_segment_identity (test_editor.ContractTests) ... ok
+test_subframe_selection_rejected (test_editor.ContractTests) ... ok
+test_tempo_rejects_zero_instead_of_hanging (test_editor.ContractTests) ... ok
+test_unimplemented_geometry_rejected (test_editor.ContractTests) ... ok
+test_unknown_caption_style_rejected_preflight (test_editor.ContractTests) ... ok
+test_unknown_effect_not_silently_dropped (test_editor.ContractTests) ... ok
+test_concurrent_events_remain_valid (test_editor.HistoryTests) ... ok
+test_failed_preflight_is_recorded (test_editor.HistoryTests) ... ok
+test_feedback_resolution_requires_descendant_and_evidence (test_editor.HistoryTests) ... ok
+test_history_ids_cannot_escape_directories (test_editor.HistoryTests) ... ok
+test_lesson_supersession_rejects_stale_promotions (test_editor.HistoryTests) ... ok
+test_malformed_edl_is_clear_error (test_editor.HistoryTests) ... ok
+test_revision_parent_failures_feedback_and_scoped_lessons (test_editor.HistoryTests) ... ok
+test_behind_head_composites_alpha_foreground (test_editor.RenderTests) ... ok
+test_hyperframes_adapter_preserves_alpha_and_variables (test_editor.RenderTests) ... ok
+test_inspection_proxies_respect_byte_budget_and_source_identity (test_editor.RenderTests) ... ok
+test_media_overlay_and_sfx_music_mix (test_editor.RenderTests) ... ok
+test_missing_source_audio_gets_silence (test_editor.RenderTests) ... ok
+test_plain_render_60fps_and_no_overwrite (test_editor.RenderTests) ... ok
+test_speed_changes_and_whip_pan (test_editor.RenderTests) ... ok
+test_transcript_captions_and_repo_card (test_editor.RenderTests) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 77.506s
+
+OK

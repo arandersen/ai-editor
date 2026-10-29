@@ -1,29 +1,25 @@
 {
   "mcpServers": {
     "free-audio": {
-      "command": "/opt/homebrew/bin/node",
+      "command": "bash",
       "args": [
-        "/Users/arthurandersen/Documents/AI_Video_Editor_Gemini/scripts/free_audio_mcp.mjs"
-      ]
-    },
-    "chrome-devtools": {
-      "command": "/opt/homebrew/bin/npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp@latest"
+        "./scripts/mcp_server.sh",
+        "free-audio"
       ]
     },
     "flow": {
-      "command": "/opt/homebrew/bin/node",
+      "command": "bash",
       "args": [
-        "/Users/arthurandersen/Documents/AI_Video_Editor_Gemini/tools/flow-mcp/dist/index.js"
-      ],
-      "env": {
-        "FLOW_MCP_OUTPUT": "/Users/arthurandersen/Documents/AI_Video_Editor_Gemini/broll/flow",
-        "FLOW_MCP_HOME": "/Users/arthurandersen/.flow-mcp",
-        "FLOW_MCP_CDP_PORT": "9333",
-        "FLOW_MCP_PORT": "8787"
-      }
+        "./scripts/mcp_server.sh",
+        "flow"
+      ]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "chrome-devtools-mcp@latest"
+      ]
     }
   }
 }

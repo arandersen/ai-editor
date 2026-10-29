@@ -1,0 +1,23 @@
+{
+  "shortcut": "@nle-timeline",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "nle-timeline",
+  "rule": "Rule TH52",
+  "title": "Floating Dark-Green NLE Multi-Clip Timeline Strip + Sweeping Playhead",
+  "composition_path": "animations/_fx_library/nle-timeline/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+  "variables": {
+    "timecode": "00:00:15:08",
+    "clipCount": 14
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/nle-timeline --format mov --output broll/<Project>/nle-timeline.mov"
+}

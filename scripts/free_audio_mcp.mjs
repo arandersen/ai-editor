@@ -12,9 +12,10 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import readline from 'node:readline';
 
-const WORKSPACE_DIR = process.cwd();
+const WORKSPACE_DIR = fileURLToPath(new URL('..', import.meta.url));
 
 async function searchOpenverseAudio({ query, category = 'music', licenseType = 'commercial', pageSize = 10 }) {
   const params = new URLSearchParams({
@@ -49,17 +50,16 @@ async function searchOpenverseAudio({ query, category = 'music', licenseType = '
 async function downloadAudio({ url, filename, folder = 'music' }) {
   const targetDir = resolve(WORKSPACE_DIR, 'audio', folder === 'sfx' ? 'sfx' : 'music');
   mkdirSync(targetDir, { recursive: true });
+  if (!filename || filename.includes('/') || filename.includes('\\') || filename === '..') {
+    throw new Error('filename must be a plain filename within the audio library');
+  }
   const outPath = resolve(targetDir, filename);
 
   if (url.includes('youtube.com/') || url.includes('youtu.be/')) {
-    const ytdlp = existsSync('/Users/arthurandersen/.local/bin/yt-dlp')
-      ? '/Users/arthurandersen/.local/bin/yt-dlp'
-      : 'yt-dlp';
+    const ytdlp = process.env.YTDLP_BIN || 'yt-dlp';
     execFileSync(
       ytdlp,
       [
-        '--ffmpeg-location',
-        '/opt/homebrew/bin',
         '-x',
         '--audio-format',
         'mp3',

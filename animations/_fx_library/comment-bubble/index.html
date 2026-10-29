@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@comment-bubble — Automated Social CTA Comment-to-DM Funnel (Input -> Heart Bubble -> Link Reply)</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .cb-input { position: absolute; bottom: 16%; left: 10%; right: 10%; background: rgba(18,18,22,0.92); border: 3px solid #F6E478; border-radius: 999px; padding: 20px 28px; display: flex; align-items: center; gap: 20px; box-shadow: 0 24px 60px rgba(0,0,0,0.75); }
+      .cb-av { width: 56px; height: 56px; border-radius: 50%; background: #475569; }
+      .cb-typed { flex: 1; font-size: 44px; font-weight: 800; color: #FFFFFF; }
+      .cb-send { width: 64px; height: 64px; border-radius: 50%; background: #F6E478; color: #141413; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 900; }
+      .cb-stack { position: absolute; bottom: 14%; left: 16%; right: 16%; display: flex; flex-direction: column; align-items: center; gap: 18px; opacity: 0; }
+      .cb-user { position: relative; background: #FFFFFF; color: #141413; padding: 22px 44px; border-radius: 999px; font-size: 48px; box-shadow: 0 20px 48px rgba(0,0,0,0.65); }
+      .cb-you { color: #64748B; font-size: 34px; margin-right: 10px; }
+      .cb-heart { position: absolute; top: -18px; right: -14px; background: #FFF; border-radius: 50%; padding: 6px 10px; font-size: 30px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+      .cb-reply { background: rgba(18,18,22,0.94); border: 2px solid rgba(255,255,255,0.18); border-radius: 36px; padding: 28px 42px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; opacity: 0; }
+      .cb-rep-txt { font-size: 36px; font-weight: 700; color: #FFFFFF; }
+      .cb-btn { background: #F6E478; color: #141413; padding: 14px 32px; border-radius: 999px; font-size: 32px; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.8"
+       data-composition-variables='[{"id": "keyword", "type": "string", "label": "keyword", "default": "STUDIO"}, {"id": "replyText", "type": "string", "label": "replyText", "default": "Sent you the link"}, {"id": "buttonText", "type": "string", "label": "buttonText", "default": "\ud83d\udd17 Open link"}]'>
+
+      <div class="cb-input" id="cbi">
+        <div class="cb-av"></div>
+        <div class="cb-typed" id="cbt">STUDIO</div>
+        <div class="cb-send">↑</div>
+      </div>
+      <div class="cb-stack" id="cbs">
+        <div class="cb-user">
+          <span class="cb-you">you</span> <b>STUDIO</b>
+          <span class="cb-heart">❤️</span>
+        </div>
+        <div class="cb-reply" id="cbr">
+          <div class="cb-rep-txt">Sent you the link</div>
+          <div class="cb-btn">🔗 Open link</div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"keyword": "STUDIO", "replyText": "Sent you the link", "buttonText": "\ud83d\udd17 Open link"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('#cbt,.cb-user b',vars.keyword);text('.cb-rep-txt',vars.replyText);text('.cb-btn',vars.buttonText);
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#cbi', { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' }, 0.0)
+        .to('#cbi', { opacity: 0, scale: 0.88, duration: 0.18 }, 0.95)
+        .fromTo('#cbs', { opacity: 0, scale: 0.85, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.28, ease: 'back.out(1.6)' }, 1.05)
+        .fromTo('#cbr', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.28, ease: 'power3.out' }, 1.45);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

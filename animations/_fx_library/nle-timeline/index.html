@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@nle-timeline — Floating Dark-Green NLE Multi-Clip Timeline Strip + Sweeping Playhead</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .nle-bar { position: absolute; bottom: 16%; left: 4%; right: 4%; background: rgba(14, 34, 26, 0.94); border: 2px solid #2A5240; border-radius: 24px; padding: 24px 32px; box-shadow: 0 28px 64px rgba(0,0,0,0.8); }
+      .nle-head { display: flex; justify-content: space-between; font-size: 24px; color: #F0EADE; margin-bottom: 18px; font-weight: 700; }
+      .tc { color: #C6A254; font-family: monospace; }
+      .nle-body { position: relative; padding: 14px 0; }
+      .clips-row { display: flex; gap: 6px; height: 42px; margin-bottom: 10px; }
+      .cl { flex: 1; background: #F0EADE; border-radius: 6px; }
+      .wave-row { height: 28px; background: rgba(74, 222, 128, 0.35); border-radius: 6px; }
+      .phead { position: absolute; top: -10px; bottom: -10px; left: 0; width: 4px; background: #F0EADE; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="1.8"
+       data-composition-variables='[{"id": "timecode", "type": "string", "label": "timecode", "default": "00:00:15:08"}, {"id": "clipCount", "type": "number", "label": "clipCount", "default": 14}]'>
+
+      <div class="nle-bar" id="nleb">
+        <div class="nle-head"><span>Timeline</span><span class="tc">00:00:15:08</span></div>
+        <div class="nle-body">
+          <div class="clips-row">
+            <span class="cl"></span><span class="cl"></span><span class="cl"></span><span class="cl"></span><span class="cl"></span><span class="cl"></span><span class="cl"></span><span class="cl"></span>
+          </div>
+          <div class="wave-row"></div>
+          <div class="phead" id="nph"></div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"timecode": "00:00:15:08", "clipCount": 14};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('.nle-head .tc',vars.timecode);items('.clips-row',Array(vars.clipCount).fill(''),'span','cl');
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#nleb', { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0.0)
+        .fromTo('#nph', { x: 60 }, { x: 880, duration: 1.3, ease: 'none' }, 0.15);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

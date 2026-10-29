@@ -1,0 +1,25 @@
+{
+  "shortcut": "@knockout-captions",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "knockout-captions",
+  "rule": "Rule TH45",
+  "title": "Editorial Cream Card with Knocked-Out Transparent Stencil Display Type",
+  "composition_path": "animations/_fx_library/knockout-captions/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/sub_drop.wav",
+  "variables": {
+    "pillText": "knockout",
+    "subText": "captions.",
+    "stencilLine1": "KNOCK",
+    "stencilLine2": "OUT"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/knockout-captions --format mov --output broll/<Project>/knockout-captions.mov"
+}

@@ -1,0 +1,4 @@
+# Optional transcription engines; install in a separate provider-supported Python venv.
+# Core editor execution has no Python package dependencies.
+faster-whisper==1.2.1
+openai-whisper==20250625

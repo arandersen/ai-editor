@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@video-card — Split Floating Video Preview Card + Forest-Green Chapter Selector</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .vc-wrap { position: absolute; top: 14%; left: 4%; width: 60%; border-radius: 24px; overflow: hidden; border: 2px solid #2A5240; box-shadow: 0 28px 64px rgba(0,0,0,0.8); }
+      .vc-top { position: relative; height: 280px; background: #0F172A; display: flex; }
+      .vc-pane { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; color: rgba(255,255,255,0.5); border-right: 2px solid rgba(255,255,255,0.12); }
+      .vc-pane.ed { background: #183A2C; color: #F0EADE; }
+      .vc-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 76px; height: 76px; border-radius: 50%; background: #F0EADE; color: #123024; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+      .vc-bot { background: #123024; padding: 28px 32px; color: #F0EADE; position: relative; }
+      .vc-h { font-family: Georgia, serif; font-size: 52px; margin-bottom: 6px; }
+      .vc-sub { font-size: 28px; color: #4ADE80; font-weight: 700; }
+      .vc-pill { display: inline-block; margin-top: 14px; background: #C6A254; color: #121414; padding: 8px 20px; border-radius: 10px; font-size: 22px; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.2"
+       data-composition-variables='[{"id": "cardTitle", "type": "string", "label": "cardTitle", "default": "Video card"}, {"id": "chapter1", "type": "string", "label": "chapter1", "default": "01 The raw take"}, {"id": "chapter2", "type": "string", "label": "chapter2", "default": "02 The finished reel"}, {"id": "previewAsset", "type": "string", "label": "previewAsset", "default": "@asset/photo/thumbnails/chapter_split.png"}]'>
+
+      <div class="vc-wrap" id="vcw">
+        <div class="vc-top">
+          <div class="vc-pane">RAW TAKE</div>
+          <div class="vc-pane ed">FINISHED REEL</div>
+          <div class="vc-play">▶</div>
+        </div>
+        <div class="vc-bot">
+          <div class="vc-h">Video card</div>
+          <div class="vc-sub" id="vcs">02 The finished reel</div>
+          <div class="vc-pill">40+ total effects</div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"cardTitle": "Video card", "chapter1": "01 The raw take", "chapter2": "02 The finished reel", "previewAsset": "@asset/photo/thumbnails/chapter_split.png"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('.vc-h',vars.cardTitle);text('#vcs',vars.chapter2);text('.vc-pane:not(.ed)',vars.chapter1);text('.vc-pane.ed',vars.chapter2);media('.vc-top',vars.previewAsset);
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#vcw', { opacity: 0, y: 36, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: 'power3.out' }, 0.0);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

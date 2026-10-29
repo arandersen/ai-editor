@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "lesson_id": "lesson_239349aa44194e66",
+  "text": "Read editor handoff before resuming. Keep failed attempts, rejected decisions and open feedback. Resolve issues only with a rendered descendant and saved evidence; project preferences do not automatically become universal rules.",
+  "scope": "category:talking_head",
+  "status": "active",
+  "evidence_project": "editor-system-maintenance-e30c2cea",
+  "evidence_event": "evt_acb7f9c45e104ba2",
+  "actor": {
+    "role": "engineer",
+    "model": "Codex (session model unspecified)"
+  },
+  "created_at": "2026-10-29T09:45:35.101796+00:00",
+  "supersedes": null
+}

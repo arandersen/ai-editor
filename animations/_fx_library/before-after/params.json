@@ -1,0 +1,24 @@
+{
+  "shortcut": "@before-after",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "before-after",
+  "rule": "Rule TH40",
+  "title": "Vertical Light-Leak Split Wipe + Before/After Frosted Badges",
+  "composition_path": "animations/_fx_library/before-after/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "leftLabel": "before",
+    "rightLabel": "\u2022 after",
+    "beamColor": "#FFF7D6"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/before-after --format mov --output broll/<Project>/before-after.mov"
+}

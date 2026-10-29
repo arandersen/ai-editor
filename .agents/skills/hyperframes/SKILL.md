@@ -9,33 +9,35 @@ description: >-
 
 # HyperFrames — Deterministic HTML/CSS/GSAP Video Animation Skill
 
+Run `npm ci` for pinned dependencies. For a new composition, copy `node_modules/gsap/dist/gsap.min.js` into its `vendor/` directory. Use the model-neutral runbook and capability registry. Library scenes are experimental; inspect their unbound parameters and render copies per project. Never infer production fidelity from lint alone. Local GSAP paths must be relative to the composition.
+
 HyperFrames (`heygen-com/hyperframes`) renders standard web compositions (HTML, CSS, SVG, Canvas, and GSAP) frame-by-frame in headless Chrome and encodes them into frame-accurate MP4, WebM, or ProRes MOV video files via FFmpeg.
 
 ---
 
 ## Core CLI Commands
 
-Always ensure `/opt/homebrew/bin` is on `PATH` when invoking `npx hyperframes`:
+Always ensure `/opt/homebrew/bin` is on `PATH` when invoking `./node_modules/.bin/hyperframes`:
 
 ```bash
 export PATH="/opt/homebrew/bin:$HOME/.local/bin:$PATH"
 
 # 1. Initialize a new animation composition in animations/<name>
-npx hyperframes init animations/<name> --example blank
+./node_modules/.bin/hyperframes init animations/<name> --example blank
 
 # 2. Lint & check layout/accessibility/contrast before rendering
-npx hyperframes lint animations/<name>
-npx hyperframes check animations/<name>
+./node_modules/.bin/hyperframes lint animations/<name>
+./node_modules/.bin/hyperframes check animations/<name>
 
 # 3. Launch live browser preview (interactive Studio UI)
-npx hyperframes preview animations/<name>
+./node_modules/.bin/hyperframes preview animations/<name>
 
 # 4. Render to MP4 (opaque full-screen scene)
-npx hyperframes render animations/<name> --output broll/<name>.mp4
+./node_modules/.bin/hyperframes render animations/<name> --output broll/<name>.mp4
 
 # 5. Render transparent overlay (lower-thirds, badges, callouts)
-npx hyperframes render animations/<name> --format webm --output broll/<name>.webm
-npx hyperframes render animations/<name> --format mov --output broll/<name>.mov
+./node_modules/.bin/hyperframes render animations/<name> --format webm --output broll/<name>.webm
+./node_modules/.bin/hyperframes render animations/<name> --format mov --output broll/<name>.mov
 ```
 
 ---
@@ -50,7 +52,7 @@ npx hyperframes render animations/<name> --format mov --output broll/<name>.mov
    <head>
      <meta charset="UTF-8" />
      <title>Scene Composition</title>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+     <script src="vendor/gsap.min.js"></script>
      <style>
        :root {
          --bg-dark: #0A0D14;

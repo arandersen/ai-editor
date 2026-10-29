@@ -1,0 +1,26 @@
+{
+  "shortcut": "@phone-mockup",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "phone-mockup",
+  "rule": "Rule TH32",
+  "title": "3D Tilted iPhone Mockup Slide-In + Scrolling Screen Capture",
+  "composition_path": "animations/_fx_library/phone-mockup/index.html",
+  "duration_sec": 2.4,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "deviceFrame": "@asset/mockups/devices/iphone_16_pro_frame.svg",
+    "screenAsset": "@asset/photo/screenshots/app_feed.png",
+    "headline": "YOU FILM.\nCLAUDE EDITS.",
+    "xPercent": 20.0,
+    "yPercent": 50.0
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/phone-mockup --format mov --output broll/<Project>/phone-mockup.mov"
+}

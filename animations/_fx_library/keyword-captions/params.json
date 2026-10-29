@@ -1,0 +1,25 @@
+{
+  "shortcut": "@keyword-captions",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "keyword-captions",
+  "rule": "Rule TH27",
+  "title": "Dual-Theme Hook/CTA Keyword Captions (Yellow-Glow & White-Pill-Stack)",
+  "composition_path": "animations/_fx_library/keyword-captions/index.html",
+  "duration_sec": 2.4,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+  "variables": {
+    "theme": "yellow-glow",
+    "line1": "all of these",
+    "keyword": "effects?",
+    "yPercent": 52.0
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/keyword-captions --format mov --output broll/<Project>/keyword-captions.mov"
+}

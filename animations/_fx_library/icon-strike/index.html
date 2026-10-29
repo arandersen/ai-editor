@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@icon-strike — Competitor App Icons Slashed with Rose-Pink X-Strike + Gravity Drop</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .is-title { position: absolute; top: 14%; left: 10%; font-family: Georgia, serif; font-style: italic; font-size: 88px; color: #F0EADE; opacity: 0; }
+      .is-box { position: absolute; top: 24%; width: 140px; height: 140px; }
+      .b1 { left: 8%; } .b2 { left: 26%; }
+      .ic { width: 100%; height: 100%; border-radius: 32px; background: #F0EADE; color: #141413; display: flex; align-items: center; justify-content: center; font-size: 54px; font-weight: 900; }
+      .ic.ed { background: #1E1B2E; color: #F472B6; }
+      .xline { position: absolute; inset: -10px; border-top: 12px solid #C06672; transform: rotate(-38deg) scaleX(0); transform-origin: left center; top: 50%; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="1.8"
+       data-composition-variables='[{"id": "icons", "type": "string", "label": "icons", "default": "[\"@asset/logos/apps/capcut.svg\", \"@asset/logos/apps/edits.svg\"]"}, {"id": "strikeWord", "type": "string", "label": "strikeWord", "default": "strike."}]'>
+
+      <div class="is-title" id="ist">strike.</div>
+      <div class="is-box b1" id="ib1"><div class="ic">CC</div><div class="xline" id="xl1"></div></div>
+      <div class="is-box b2" id="ib2"><div class="ic ed">ED</div><div class="xline" id="xl2"></div></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"icons": ["@asset/logos/apps/capcut.svg", "@asset/logos/apps/edits.svg"], "strikeWord": "strike."};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('#ist',vars.strikeWord);vars.icons.forEach((v,i)=>media('#ib'+(i+1)+' .ic',v));
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#ib1, #ib2', { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.2, stagger: 0.08, ease: 'back.out(1.6)' }, 0.0)
+        .to('#xl1, #xl2', { scaleX: 1, duration: 0.18, stagger: 0.1 }, 0.24)
+        .fromTo('#ist', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.22 }, 0.35)
+        .to('#ib1, #ib2', { y: 520, rotation: -28, opacity: 0, duration: 0.45, stagger: 0.08, ease: 'power2.in' }, 0.55);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

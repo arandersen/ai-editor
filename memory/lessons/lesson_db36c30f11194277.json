@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "lesson_id": "lesson_db36c30f11194277",
+  "text": "Intersect raw effect intervals with retained segments and preserve segment identity for replayed footage. Removed source times have no output mapping. Verify tests for gaps, speed changes and replay captions.",
+  "scope": "category:talking_head",
+  "status": "active",
+  "evidence_project": "editor-system-maintenance-e30c2cea",
+  "evidence_event": "evt_acb7f9c45e104ba2",
+  "actor": {
+    "role": "engineer",
+    "model": "Codex (session model unspecified)"
+  },
+  "created_at": "2026-10-29T09:45:35.096097+00:00",
+  "supersedes": null
+}

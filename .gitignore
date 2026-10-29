@@ -16,3 +16,20 @@ tools/
 .DS_Store
 __pycache__/
 *.pyc
+# Generated caches and large project media are identified by tracked manifests.
+.hyperframes/
+**/.hyperframes/
+*.egg-info/
+.venv/
+projects/**/.lock
+memory/lessons/.lock
+transcripts/**/*.wav
+transcripts/*.wav
+broll/**/*.webm
+broll/**/*.mov
+broll/**/*.mp4
+projects/**/transcript/*.wav
+*.log
+
+# Rehydrated from the pinned npm package by postinstall.
+animations/_fx_library/*/vendor/

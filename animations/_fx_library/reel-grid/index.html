@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@reel-grid — Unified Multi-Reel Grid (background | collapse | playing | cascade Modes)</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .rg-wrap { position: absolute; top: 12%; left: 5%; width: 58%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+      .rg-card { aspect-ratio: 9/16; border-radius: 20px; background: linear-gradient(155deg, #1E3A2F, #0F172A); border: 3px solid rgba(240,234,222,0.35); box-shadow: 0 18px 40px rgba(0,0,0,0.65); display: flex; align-items: flex-end; justify-content: center; padding: 14px; font-size: 28px; font-weight: 800; color: #F0EADE; opacity: 0; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.4"
+       data-composition-variables='[{"id": "mode", "type": "string", "label": "mode", "default": "cascade"}, {"id": "reelAssets", "type": "string", "label": "reelAssets", "default": "[]"}, {"id": "thumbAssets", "type": "string", "label": "thumbAssets", "default": "[]"}, {"id": "columns", "type": "number", "label": "columns", "default": 4}, {"id": "rows", "type": "number", "label": "rows", "default": 2}]'>
+
+      <div class="rg-wrap" id="rg">
+        <div class="rg-card">01</div><div class="rg-card">02</div><div class="rg-card">03</div><div class="rg-card">04</div>
+        <div class="rg-card">05</div><div class="rg-card">06</div><div class="rg-card">07</div><div class="rg-card">08</div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"mode": "cascade", "reelAssets": [], "thumbAssets": [], "columns": 4, "rows": 2};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+items('#rg',Array.from({length:vars.columns*vars.rows},(_,i)=>String(i+1).padStart(2,'0')),'div','rg-card');
+style('#rg',{gridTemplateColumns:'repeat('+vars.columns+',1fr)'});
+if(vars.mode==='background')style('#rg',{inset:'0',width:'100%',height:'100%'});
+(vars.reelAssets.length?vars.reelAssets:vars.thumbAssets).forEach((v,i)=>media('.rg-card:nth-child('+(i+1)+')',v));
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('.rg-card', { opacity: 0, y: 48, scale: 0.82 }, { opacity: 1, y: 0, scale: 1, duration: 0.28, stagger: 0.06, ease: 'back.out(1.5)' }, 0.0);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

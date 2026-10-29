@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "lesson_id": "lesson_a1ea7a4827b24270",
+  "text": "Reject unsupported effect names before rendering. Use editor capabilities; experimental demos require explicit composition and demo=true. Do not substitute placeholders silently.",
+  "scope": "category:talking_head",
+  "status": "active",
+  "evidence_project": "editor-system-maintenance-e30c2cea",
+  "evidence_event": "evt_acb7f9c45e104ba2",
+  "actor": {
+    "role": "engineer",
+    "model": "Codex (session model unspecified)"
+  },
+  "created_at": "2026-10-29T09:45:35.093350+00:00",
+  "supersedes": null
+}

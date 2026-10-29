@@ -1,0 +1,132 @@
+{
+  "tool": "HyperFrames",
+  "version": "0.8.214",
+  "timestamp_sec": 0.8,
+  "note": "One frame per copied standalone scene; not real-footage compositing or full animation certification. Contact sheets use a dark background for viewing transparency.",
+  "results": [
+    {
+      "effect": "before-after",
+      "exit_code": 0
+    },
+    {
+      "effect": "comment-bubble",
+      "exit_code": 0
+    },
+    {
+      "effect": "contact-sheet-hook",
+      "exit_code": 0
+    },
+    {
+      "effect": "depth-scatter",
+      "exit_code": 0
+    },
+    {
+      "effect": "digital-zoom",
+      "exit_code": 0
+    },
+    {
+      "effect": "doodle-boil",
+      "exit_code": 0
+    },
+    {
+      "effect": "effect-hud",
+      "exit_code": 0
+    },
+    {
+      "effect": "film-look",
+      "exit_code": 0
+    },
+    {
+      "effect": "frame-break",
+      "exit_code": 0
+    },
+    {
+      "effect": "grease-pencil",
+      "exit_code": 0
+    },
+    {
+      "effect": "green-screen",
+      "exit_code": 0
+    },
+    {
+      "effect": "headline-wall",
+      "exit_code": 0
+    },
+    {
+      "effect": "icon-strike",
+      "exit_code": 0
+    },
+    {
+      "effect": "jiggle-delete",
+      "exit_code": 0
+    },
+    {
+      "effect": "keycaps",
+      "exit_code": 0
+    },
+    {
+      "effect": "keyword-captions",
+      "exit_code": 0
+    },
+    {
+      "effect": "knockout-captions",
+      "exit_code": 0
+    },
+    {
+      "effect": "live-markup",
+      "exit_code": 0
+    },
+    {
+      "effect": "nle-timeline",
+      "exit_code": 0
+    },
+    {
+      "effect": "orbit",
+      "exit_code": 0
+    },
+    {
+      "effect": "paper-cut",
+      "exit_code": 0
+    },
+    {
+      "effect": "phone-mockup",
+      "exit_code": 0
+    },
+    {
+      "effect": "pull-back",
+      "exit_code": 0
+    },
+    {
+      "effect": "reel-grid",
+      "exit_code": 0
+    },
+    {
+      "effect": "screenplay-page",
+      "exit_code": 0
+    },
+    {
+      "effect": "serif-stamp",
+      "exit_code": 0
+    },
+    {
+      "effect": "sticky-text",
+      "exit_code": 0
+    },
+    {
+      "effect": "ui-world",
+      "exit_code": 0
+    },
+    {
+      "effect": "vertigo",
+      "exit_code": 0
+    },
+    {
+      "effect": "video-card",
+      "exit_code": 0
+    },
+    {
+      "effect": "zoom-through",
+      "exit_code": 0
+    }
+  ]
+}

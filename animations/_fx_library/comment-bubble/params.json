@@ -1,0 +1,24 @@
+{
+  "shortcut": "@comment-bubble",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "comment-bubble",
+  "rule": "Rule TH44",
+  "title": "Automated Social CTA Comment-to-DM Funnel (Input -> Heart Bubble -> Link Reply)",
+  "composition_path": "animations/_fx_library/comment-bubble/index.html",
+  "duration_sec": 2.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/click.wav",
+  "variables": {
+    "keyword": "STUDIO",
+    "replyText": "Sent you the link",
+    "buttonText": "\ud83d\udd17 Open link"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/comment-bubble --format mov --output broll/<Project>/comment-bubble.mov"
+}

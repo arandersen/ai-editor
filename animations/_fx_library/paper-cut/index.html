@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@paper-cut — Stop-Motion Torn-Paper Cutout + Ransom-Note Letters + Vertical Tear Exit</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .ransom-wrap { position: absolute; top: 44%; left: 16%; right: 16%; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+      .ransom-row { display: flex; gap: 14px; }
+      .chip { display: inline-flex; align-items: center; justify-content: center; width: 108px; height: 124px; font-size: 86px; font-weight: 900; box-shadow: 0 12px 26px rgba(0,0,0,0.55); opacity: 0; }
+      .c1 { background: #F0EADE; color: #1E293B; transform: rotate(-5deg); font-family: Georgia, serif; }
+      .c2 { background: #2563EB; color: #FFFFFF; transform: rotate(4deg); }
+      .c3 { background: #141413; color: #F6E478; transform: rotate(-3deg); }
+      .c4 { background: #F6E478; color: #141413; transform: rotate(6deg); font-family: Georgia, serif; }
+      .c5 { background: #F0EADE; color: #DC2626; transform: rotate(-4deg); }
+      .c6 { background: #F0EADE; color: #141413; transform: rotate(4deg); }
+      .c7 { background: #141413; color: #FFFFFF; transform: rotate(-5deg); font-family: Georgia, serif; }
+      .c8 { background: #2563EB; color: #FFFFFF; transform: rotate(3deg); }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.0"
+       data-composition-variables='[{"id": "word1", "type": "string", "label": "word1", "default": "PAPER"}, {"id": "word2", "type": "string", "label": "word2", "default": "CUT"}, {"id": "cutoutHandle", "type": "string", "label": "cutoutHandle", "default": "@project/cutout/papercut_cutout.mov"}, {"id": "gridTexture", "type": "string", "label": "gridTexture", "default": "@asset/photo/textures/notebook_grid_paper.svg"}]'>
+
+      <div class="ransom-wrap" id="rw">
+        <div class="ransom-row">
+          <span class="chip c1" id="l1">P</span><span class="chip c2" id="l2">A</span><span class="chip c3" id="l3">P</span><span class="chip c4" id="l4">e</span><span class="chip c5" id="l5">r</span>
+        </div>
+        <div class="ransom-row">
+          <span class="chip c6" id="l6">c</span><span class="chip c7" id="l7">u</span><span class="chip c8" id="l8">t</span>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"word1": "PAPER", "word2": "CUT", "cutoutHandle": "@project/cutout/papercut_cutout.mov", "gridTexture": "@asset/photo/textures/notebook_grid_paper.svg"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+items('.ransom-row:first-child',Array.from(vars.word1),'span','chip c1');items('.ransom-row:last-child',Array.from(vars.word2),'span','chip c2');foreground(vars.cutoutHandle);if(!vars.gridTexture.startsWith('@'))style('#stage',{backgroundImage:'url('+vars.gridTexture+')'});
+    const tl = gsap.timeline({ paused: true });
+
+      tl.to('.chip', { opacity: 1, scale: 1, duration: 0.08, stagger: 0.06, ease: 'back.out(2.0)' }, 0.05);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

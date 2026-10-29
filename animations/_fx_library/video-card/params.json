@@ -1,0 +1,25 @@
+{
+  "shortcut": "@video-card",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "video-card",
+  "rule": "Rule TH56",
+  "title": "Split Floating Video Preview Card + Forest-Green Chapter Selector",
+  "composition_path": "animations/_fx_library/video-card/index.html",
+  "duration_sec": 2.2,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+  "variables": {
+    "cardTitle": "Video card",
+    "chapter1": "01 The raw take",
+    "chapter2": "02 The finished reel",
+    "previewAsset": "@asset/photo/thumbnails/chapter_split.png"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/video-card --format mov --output broll/<Project>/video-card.mov"
+}

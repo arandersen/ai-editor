@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@green-screen — Person-Cutout Background Replacement + Flash Wipe</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .gs-wipe { position: absolute; inset: 0; background: linear-gradient(160deg, #1E293B 0%, #0F172A 100%); display: flex; align-items: center; justify-content: center; clip-path: inset(0 100% 0 0); }
+      .gs-label { font-size: 42px; font-weight: 800; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; }
+      .gs-flash { position: absolute; inset: 0; background: #FFFFFF; opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.0"
+       data-composition-variables='[{"id": "backgroundVideo", "type": "string", "label": "backgroundVideo", "default": "@asset/video/memes/bg_replacement.mp4"}, {"id": "cutoutHandle", "type": "string", "label": "cutoutHandle", "default": "@project/cutout/greenscreen_cutout.mov"}, {"id": "vignetteOpacity", "type": "number", "label": "vignetteOpacity", "default": 0.45}]'>
+
+      <div class="gs-wipe" id="gsw">
+        <div class="gs-label">GREEN SCREEN PLATE · @asset/video/backgrounds/</div>
+      </div>
+      <div class="gs-flash" id="gsf"></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"backgroundVideo": "@asset/video/memes/bg_replacement.mp4", "cutoutHandle": "@project/cutout/greenscreen_cutout.mov", "vignetteOpacity": 0.45};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+media('#gsw',vars.backgroundVideo);foreground(vars.cutoutHandle);style('#gsw',{boxShadow:'inset 0 0 200px rgba(0,0,0,'+vars.vignetteOpacity+')'});text('.gs-label','');
+    const tl = gsap.timeline({ paused: true });
+
+      tl.to('#gsf', { opacity: 0.75, duration: 0.08 }, 0.0)
+        .to('#gsw', { clipPath: 'inset(0 0% 0 0)', duration: 0.24, ease: 'power3.out' }, 0.04)
+        .to('#gsf', { opacity: 0, duration: 0.18 }, 0.10);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "shortcut": "@depth-scatter",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "depth-scatter",
+  "rule": "Rule TH42",
+  "title": "Multi-Plane 3D Z-Depth Letter Scatter + Rack-Focus Blur (Behind & In Front of Head)",
+  "composition_path": "animations/_fx_library/depth-scatter/index.html",
+  "duration_sec": 2.2,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "wordBehind": "depth",
+    "wordFront": "scatter",
+    "cutoutHandle": "@project/cutout/depth_scatter_cutout.mov"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/depth-scatter --format mov --output broll/<Project>/depth-scatter.mov"
+}

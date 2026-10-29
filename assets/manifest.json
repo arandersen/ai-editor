@@ -1,0 +1,41 @@
+{
+  "schema_version": "2.0",
+  "description": "Strict Dual-Handle Asset Registry for AI Video Editor (Conductor + Flash Editor)",
+  "handles": {
+    "@asset": {
+      "root": "assets/",
+      "description": "Global reusable studio library (videos, photos, reels, backgrounds, memes, logos, mockups, fonts, SFX, music).",
+      "subfolders": {
+        "@asset/video/backgrounds": "assets/video/backgrounds/ (Loopable studio, abstract, & green-screen replacement plates)",
+        "@asset/video/reels": "assets/video/reels/ (Vertical 9:16 reference reels for @orbit, @reel-grid, @wall-of-reels)",
+        "@asset/video/broll": "assets/video/broll/ (Cinematic B-roll clips & Veo 3.1 reusable library)",
+        "@asset/video/memes": "assets/video/memes/ (Reaction memes & green-screen comedy clips)",
+        "@asset/video/overlays": "assets/video/overlays/ (ProRes 4444 confetti, film grain, light leaks, glass shards)",
+        "@asset/video/screen_recordings": "assets/video/screen_recordings/ (App/UI screen captures for @phone-mockup & @pause-explain)",
+        "@asset/photo/backgrounds": "assets/photo/backgrounds/ (High-res \u22651000px architectural, room, & wall plates)",
+        "@asset/photo/screenshots": "assets/photo/screenshots/ (Retina 4K web/GitHub/article captures via capture_broll.mjs)",
+        "@asset/photo/textures": "assets/photo/textures/ (Torn cream paper #F0EADE, notebook grid, halftone, newspaper clippings)",
+        "@asset/photo/people": "assets/photo/people/ (Cutout portraits & archival human subjects)",
+        "@asset/photo/headlines": "assets/photo/headlines/ (Rendered headline clippings for @headline-wall)",
+        "@asset/photo/thumbnails": "assets/photo/thumbnails/ (Reel cover frames for @reel-grid & @contact-sheet-hook)",
+        "@asset/logos/apps": "assets/logos/apps/ (App/tool SVG/PNG icons for @tool-label, @jiggle-delete, @icon-strike)",
+        "@asset/logos/brands": "assets/logos/brands/ (Brand marks & social icons)",
+        "@asset/mockups/devices": "assets/mockups/devices/ (iPhone 16 Pro & desktop window frames)",
+        "@asset/mockups/ui": "assets/mockups/ui/ (NLE timeline, Lightroom inspector, IG Reel frame chrome)",
+        "@asset/audio/sfx": "assets/audio/sfx/ (48kHz studio foley: pop.wav, whoosh.wav, click.wav, sub_drop.wav, paper_thock.wav, paper_slide.wav, marker_squeak.wav, timeline_tick.wav)",
+        "@asset/audio/music": "assets/audio/music/ (Royalty-free background music tracks)",
+        "@asset/fonts": "assets/fonts/ (Local display, serif, and monospace font files)"
+      }
+    },
+    "@project": {
+      "root": "broll/<Project>/ | raw/<Project>/ | transcripts/<Project>/",
+      "description": "Per-project scoped handle for clip-specific recordings, Apple Vision ProRes 4444 cutouts, and rendered overlays.",
+      "subfolders": {
+        "@project/raw": "raw/<Project>/ (Source camera .MOV/.MP4 clips)",
+        "@project/cutout": "broll/<Project>/cutout_*.mov (ProRes 4444 alpha mattes from scripts/person_cutout.swift)",
+        "@project/broll": "broll/<Project>/ (Project-specific screenshots, Flow AI generations, & HyperFrames .mov/.webm overlays)",
+        "@project/transcript": "transcripts/<Project>/ (10ms RMS acoustic onset JSON & SRT)"
+      }
+    }
+  }
+}

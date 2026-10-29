@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-29",
+  "tests": {
+    "command": "EDITOR_INTEGRATION=1 python3 -m unittest discover -s tests -v",
+    "count": 33,
+    "status": "passed",
+    "includes": [
+      "no-overlay render",
+      "declared FPS",
+      "speed changes",
+      "blur transition",
+      "transcript captions",
+      "alpha foreground",
+      "HyperFrames variables and alpha pixel checks",
+      "SFX and ducked music",
+      "proxy size budget",
+      "repeated footage",
+      "history lineage, concurrency and path confinement"
+    ]
+  },
+  "scene_validation": {
+    "tool": "HyperFrames 0.8.214 headless validate",
+    "scenes": [
+      "before-after",
+      "comment-bubble",
+      "contact-sheet-hook",
+      "depth-scatter",
+      "digital-zoom",
+      "doodle-boil",
+      "effect-hud",
+      "film-look",
+      "frame-break",
+      "grease-pencil",
+      "green-screen",
+      "headline-wall",
+      "icon-strike",
+      "jiggle-delete",
+      "keycaps",
+      "keyword-captions",
+      "knockout-captions",
+      "live-markup",
+      "nle-timeline",
+      "orbit",
+      "paper-cut",
+      "phone-mockup",
+      "pull-back",
+      "reel-grid",
+      "screenplay-page",
+      "serif-stamp",
+      "sticky-text",
+      "ui-world",
+      "vertigo",
+      "video-card",
+      "zoom-through"
+    ],
+    "all_exit_codes": 0,
+    "subsequent_changed_scenes_rechecked": [
+      "vertigo",
+      "phone-mockup",
+      "digital-zoom",
+      "paper-cut",
+      "orbit",
+      "reel-grid",
+      "live-markup",
+      "contact-sheet-hook"
+    ]
+  },
+  "syntax": "Python AST, Bash -n, Node --check and Swift typechecks passed",
+  "doctor": {
+    "ok": true,
+    "required": {
+      "ffmpeg": true,
+      "ffprobe": true,
+      "swift": true,
+      "node": true,
+      "macOS native overlays": true,
+      "python >=3.9": true,
+      "filter:overlay": true,
+      "filter:gblur": true,
+      "filter:loudnorm": true,
+      "filter:sidechaincompress": true,
+      "encoder:libx264": true,
+      "encoder:qtrle": true
+    },
+    "paths": {
+      "ffmpeg": "/usr/local/bin/ffmpeg",
+      "ffprobe": "/usr/local/bin/ffprobe",
+      "swift": "/usr/bin/swift",
+      "node": "/Users/arthurbot/.nvm/versions/node/v25.9.0/bin/node"
+    },
+    "optional": {
+      "hyperframes_pinned": true,
+      "local_gsap": true,
+      "parakeet": null,
+      "whisper_python": "/Users/arthurbot/.venvs/whisper/bin/python3",
+      "chrome": true
+    },
+    "platform": "macOS-10.16-x86_64-i386-64bit",
+    "note": "Optional ASR/provider readiness and creative review are not certified by this check."
+  },
+  "tool_versions": {
+    "ffmpeg": "ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 8.1.1 Copyright (c) 2007-2026 the FFmpeg developers",
+    "node": "v25.9.0",
+    "swift": "Apple Swift version 6.2.1 (swiftlang-6.2.1.4.8 clang-1700.4.4.1)"
+  },
+  "limitations": [
+    "No full real creator reel acceptance test",
+    "No real portrait/hair-edge segmentation certification",
+    "No full reference-fidelity certification for all 31 experimental scenes",
+    "No two-distinct-model comparison",
+    "Final loudness/true-peak and creative QC remain manual",
+    "HDR requires reviewed SDR preprocessing"
+  ]
+}

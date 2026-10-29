@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@keycaps — 3D Tactile Mac Keyboard Shortcuts Raining & Bouncing Above Head</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .kc { position: absolute; width: 132px; height: 132px; background: #F0EADE; color: #141413; border-radius: 24px; border-bottom: 12px solid #C7BFA8; box-shadow: 0 20px 44px rgba(0,0,0,0.65); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; }
+      .kc.wide { width: 220px; }
+      .kc b { font-size: 42px; font-weight: 900; }
+      .kc span { font-size: 16px; font-weight: 700; opacity: 0.55; margin-top: 4px; }
+      .k1 { top: 26%; left: 18%; transform: rotate(-6deg); }
+      .k2 { top: 14%; left: 36%; transform: rotate(5deg); }
+      .k3 { top: 22%; left: 48%; transform: rotate(-4deg); }
+      .k4 { top: 18%; left: 26%; transform: rotate(3deg); }
+      .k5 { top: 30%; left: 8%; transform: rotate(-8deg); }
+      .k6 { top: 28%; left: 54%; transform: rotate(7deg); }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="1.8"
+       data-composition-variables='[{"id": "keys", "type": "string", "label": "keys", "default": "[\"\\u2318K\", \"\\u2318B\", \"\\u2318Z\", \"space\", \"J\", \"K\", \"L\"]"}]'>
+
+      <div class="kc k1"><b>⌘K</b><span>ADD EDIT</span></div>
+      <div class="kc k2"><b>⌘B</b><span>BLADE</span></div>
+      <div class="kc k3"><b>⌘Z</b><span>UNDO</span></div>
+      <div class="kc k4 wide"><b>space</b><span>PLAY</span></div>
+      <div class="kc k5"><b>J</b></div>
+      <div class="kc k6"><b>L</b></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"keys": ["\u2318K", "\u2318B", "\u2318Z", "space", "J", "K", "L"]};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+document.querySelectorAll('.kc').forEach(el=>el.remove());const stage=document.querySelector('#stage');
+vars.keys.forEach((key,i)=>{const el=document.createElement('div');el.className='kc';const b=document.createElement('b');b.textContent=key;el.append(b);el.style.left=(8+(i%4)*20)+'%';el.style.top=(14+Math.floor(i/4)*11)+'%';stage.append(el);});
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('.kc', { opacity: 0, y: -320, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.42, stagger: 0.06, ease: 'bounce.out' }, 0.0);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@serif-stamp — Editorial Gold Italic Prefix + Letter-by-Letter Giant Cream Serif Stamp</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .ss-wrap { position: absolute; top: 34%; left: 4%; width: 62%; font-family: Georgia, 'Times New Roman', serif; }
+      .ss-pre { font-style: italic; font-size: 64px; color: #C6A254; text-align: center; margin-bottom: -12px; opacity: 0; }
+      .ss-word { display: flex; justify-content: center; gap: 4px; font-size: 164px; font-weight: 700; color: #F0EADE; text-shadow: 0 16px 40px rgba(0,0,0,0.8); }
+      .sl { display: inline-block; opacity: 0; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="1.8"
+       data-composition-variables='[{"id": "prefix", "type": "string", "label": "prefix", "default": "serif"}, {"id": "word", "type": "string", "label": "word", "default": "STAMP"}]'>
+
+      <div class="ss-wrap">
+        <div class="ss-pre" id="ssp">serif</div>
+        <div class="ss-word">
+          <span class="sl">S</span><span class="sl">T</span><span class="sl">A</span><span class="sl">M</span><span class="sl">P</span>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"prefix": "serif", "word": "STAMP"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('#ssp',vars.prefix);items('.ss-word',Array.from(vars.word),'span','sl');
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#ssp', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.2 }, 0.0)
+        .fromTo('.sl', { opacity: 0, scale: 1.45 }, { opacity: 1, scale: 1, duration: 0.14, stagger: 0.06, ease: 'power4.out' }, 0.16);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

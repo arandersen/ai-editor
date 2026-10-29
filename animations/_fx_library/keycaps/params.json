@@ -1,0 +1,30 @@
+{
+  "shortcut": "@keycaps",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "keycaps",
+  "rule": "Rule TH51",
+  "title": "3D Tactile Mac Keyboard Shortcuts Raining & Bouncing Above Head",
+  "composition_path": "animations/_fx_library/keycaps/index.html",
+  "duration_sec": 1.8,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/click.wav",
+  "variables": {
+    "keys": [
+      "\u2318K",
+      "\u2318B",
+      "\u2318Z",
+      "space",
+      "J",
+      "K",
+      "L"
+    ]
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/keycaps --format mov --output broll/<Project>/keycaps.mov"
+}

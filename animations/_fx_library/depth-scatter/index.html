@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@depth-scatter — Multi-Plane 3D Z-Depth Letter Scatter + Rack-Focus Blur (Behind & In Front of Head)</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .ds-behind { position: absolute; top: 24%; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; font-size: 210px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.04em; text-shadow: 0 18px 48px rgba(0,0,0,0.75); }
+      .ds-front { position: absolute; top: 44%; left: 0; right: 0; display: flex; justify-content: center; gap: 4px; font-size: 196px; font-weight: 900; color: #F6E478; letter-spacing: -0.04em; text-shadow: 0 0 42px rgba(246,228,120,0.45), 0 18px 48px rgba(0,0,0,0.85); }
+      .dl, .fl { display: inline-block; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.2"
+       data-composition-variables='[{"id": "wordBehind", "type": "string", "label": "wordBehind", "default": "depth"}, {"id": "wordFront", "type": "string", "label": "wordFront", "default": "scatter"}, {"id": "cutoutHandle", "type": "string", "label": "cutoutHandle", "default": "@project/cutout/depth_scatter_cutout.mov"}]'>
+
+      <div class="ds-behind" id="dsb">
+        <span class="dl">d</span><span class="dl">e</span><span class="dl">p</span><span class="dl">t</span><span class="dl">h</span>
+      </div>
+      <div class="ds-front" id="dsf">
+        <span class="fl">s</span><span class="fl">c</span><span class="fl">a</span><span class="fl">t</span><span class="fl">t</span><span class="fl">e</span><span class="fl">r</span>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"wordBehind": "depth", "wordFront": "scatter", "cutoutHandle": "@project/cutout/depth_scatter_cutout.mov"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+items('#dsb',Array.from(vars.wordBehind),'span','dl');items('#dsf',Array.from(vars.wordFront),'span','fl');foreground(vars.cutoutHandle);style('#dsf',{zIndex:'3'});
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('.dl', { opacity: 0, scale: 1.8, y: -90, filter: 'blur(20px)' }, { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)', duration: 0.38, stagger: 0.04, ease: 'power3.out' }, 0.0)
+        .fromTo('.fl', { opacity: 0, scale: 0.4, y: 110, filter: 'blur(22px)' }, { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)', duration: 0.42, stagger: 0.04, ease: 'back.out(1.5)' }, 0.18);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

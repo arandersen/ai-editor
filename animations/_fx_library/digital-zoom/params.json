@@ -1,0 +1,31 @@
+{
+  "shortcut": "@digital-zoom",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "digital-zoom",
+  "rule": "Rule TH33",
+  "title": "Camera Viewfinder HUD & Focal-Length Lens Ring (Camcorder | Lens-Ring Styles)",
+  "composition_path": "animations/_fx_library/digital-zoom/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+  "variables": {
+    "style": "camcorder",
+    "startZoom": 1.0,
+    "endZoom": 1.3,
+    "focalLengths": [
+      85,
+      70,
+      50,
+      35,
+      24
+    ]
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/digital-zoom --format mov --output broll/<Project>/digital-zoom.mov"
+}

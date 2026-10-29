@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@keyword-captions — Dual-Theme Hook/CTA Keyword Captions (Yellow-Glow & White-Pill-Stack)</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .kw-wrap { position: absolute; top: 52%; left: 8%; right: 8%; transform: translateY(-50%); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+      .kw-line1 { font-size: 84px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; text-shadow: 0 10px 30px rgba(0,0,0,0.75); opacity: 0; }
+      .kw-hero { font-size: 124px; font-weight: 900; color: #F6E478; letter-spacing: -0.03em; text-shadow: 0 0 36px rgba(246,228,120,0.55), 0 12px 32px rgba(0,0,0,0.8); opacity: 0; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.4"
+       data-composition-variables='[{"id": "theme", "type": "string", "label": "theme", "default": "yellow-glow"}, {"id": "line1", "type": "string", "label": "line1", "default": "all of these"}, {"id": "keyword", "type": "string", "label": "keyword", "default": "effects?"}, {"id": "yPercent", "type": "number", "label": "yPercent", "default": 52.0}]'>
+
+      <div class="kw-wrap" id="kw">
+        <div class="kw-line1" id="l1">all of these</div>
+        <div class="kw-hero" id="l2">effects?</div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"theme": "yellow-glow", "line1": "all of these", "keyword": "effects?", "yPercent": 52.0};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+text('#l1',vars.line1);text('#l2',vars.keyword);style('#kw',{top:vars.yPercent+'%'});
+if(vars.theme==='white-pill-stack') { style('#l1,#l2',{background:'#F6F0E4',color:'#141413',padding:'12px 24px',borderRadius:'18px',textShadow:'none'}); }
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#l1', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power3.out' }, 0.0)
+        .fromTo('#l2', { opacity: 0, scale: 0.84, filter: 'blur(18px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.28, ease: 'back.out(1.6)' }, 0.16)
+        .to('#kw', { opacity: 0, y: -16, duration: 0.2, ease: 'power2.in' }, 2.1);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

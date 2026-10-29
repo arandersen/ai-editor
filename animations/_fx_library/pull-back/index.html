@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@pull-back — 3D Perspective Pull-Back into NLE Editor Window + Checklist + Waveform</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .nle-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; perspective: 1400px; }
+      .nle-win { width: 92%; height: 78%; background: #0B0D12; border: 3px solid rgba(255,255,255,0.18); border-radius: 32px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 40px 100px rgba(0,0,0,0.85); }
+      .nle-top { text-align: center; font-size: 28px; font-weight: 700; color: rgba(255,255,255,0.65); }
+      .nle-mid { display: flex; gap: 20px; height: 68%; }
+      .nle-side { width: 24%; background: rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+      .side-h { font-size: 22px; color: rgba(255,255,255,0.5); font-weight: 700; text-transform: uppercase; }
+      .chk { font-size: 26px; font-weight: 700; color: #4ADE80; opacity: 0.35; }
+      .fx-row { font-size: 24px; color: #F6E478; font-weight: 700; }
+      .nle-canvas { flex: 1; border-radius: 24px; border: 2px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; color: rgba(255,255,255,0.35); }
+      .nle-tracks { background: rgba(255,255,255,0.04); border-radius: 20px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+      .t-clips { display: flex; gap: 8px; height: 36px; }
+      .c- { flex: 1; border-radius: 8px; }
+      .p { background: #A855F7; } .b { background: #38BDF8; } .y { background: #FACC15; } .g { background: #4ADE80; }
+      .t-wave { font-family: monospace; font-size: 32px; color: #4ADE80; letter-spacing: 0.08em; overflow: hidden; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.4"
+       data-composition-variables='[{"id": "windowTitle", "type": "string", "label": "windowTitle", "default": "effects reel"}, {"id": "checklist", "type": "string", "label": "checklist", "default": "[\"cut pauses\", \"add effects\", \"export\"]"}]'>
+
+      <div class="nle-stage">
+        <div class="nle-win" id="nwin">
+          <div class="nle-top">effects reel · 00:16.42</div>
+          <div class="nle-mid">
+            <div class="nle-side">
+              <div class="side-h">checklist · claude</div>
+              <div class="chk" id="ck1">✓ cut pauses</div>
+              <div class="chk" id="ck2">✓ add effects</div>
+              <div class="chk" id="ck3">✓ export</div>
+            </div>
+            <div class="nle-canvas">LIVE VIDEO VIEWPORT</div>
+            <div class="nle-side">
+              <div class="side-h">effects</div>
+              <div class="fx-row">14 pull-back reveal</div>
+              <div class="fx-row">15 depth scatter</div>
+            </div>
+          </div>
+          <div class="nle-tracks">
+            <div class="t-clips"><span class="c- p"></span><span class="c- b"></span><span class="c- y"></span><span class="c- g"></span><span class="c- p"></span></div>
+            <div class="t-wave">▂▄▆█▄▂▁▃▆█▅▂▄▇█▃▁▂▆█▄▂▁▃▆█▅▂</div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"windowTitle": "effects reel", "checklist": ["cut pauses", "add effects", "export"]};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('.nle-top',vars.windowTitle);vars.checklist.forEach((v,i)=>text('#ck'+(i+1),'✓ '+v));
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#nwin', { scale: 1.75, rotationX: 0, rotationY: 0 }, { scale: 1, rotationX: 8, rotationY: -10, duration: 0.55, ease: 'power3.out' }, 0.0)
+        .to('#ck1, #ck2, #ck3', { opacity: 1, duration: 0.2, stagger: 0.22 }, 0.45);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

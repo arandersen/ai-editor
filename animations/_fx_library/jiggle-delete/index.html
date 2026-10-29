@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@jiggle-delete — iOS Edit-Mode Jiggling Competitor App Icons + Sequential Pop Delete</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .jd-card { position: absolute; top: 56%; left: 6%; right: 6%; background: #F0EADE; color: #141413; border-radius: 32px; padding: 28px 36px; box-shadow: 0 28px 64px rgba(0,0,0,0.75); }
+      .jd-head { display: flex; justify-content: space-between; font-size: 22px; font-weight: 800; letter-spacing: 0.1em; color: #57534E; margin-bottom: 24px; }
+      .jd-row { display: flex; justify-content: space-around; }
+      .jd-app { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+      .minus { position: absolute; top: -10px; left: -10px; width: 36px; height: 36px; border-radius: 50%; background: #EF4444; color: #FFF; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+      .ic { width: 120px; height: 120px; border-radius: 28px; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 900; color: #FFF; }
+      .cc { background: #141413; } .ed { background: #7C2D12; } .in { background: #E11D48; } .pr { background: #1E1B4B; color: #A5B4FC; }
+      .nm { font-size: 22px; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.0"
+       data-composition-variables='[{"id": "apps", "type": "string", "label": "apps", "default": "[{\"name\": \"CapCut\", \"icon\": \"@asset/logos/apps/capcut.svg\"}, {\"name\": \"Edits\", \"icon\": \"@asset/logos/apps/edits.svg\"}, {\"name\": \"InShot\", \"icon\": \"@asset/logos/apps/inshot.svg\"}, {\"name\": \"Premiere\", \"icon\": \"@asset/logos/apps/premiere.svg\"}]"}]'>
+
+      <div class="jd-card" id="jdc">
+        <div class="jd-head"><span>EDIT MODE</span><span id="jcnt">4 apps</span></div>
+        <div class="jd-row">
+          <div class="jd-app" id="ja1"><span class="minus">-</span><div class="ic cc">CC</div><div class="nm">CapCut</div></div>
+          <div class="jd-app" id="ja2"><span class="minus">-</span><div class="ic ed">ED</div><div class="nm">Edits</div></div>
+          <div class="jd-app" id="ja3"><span class="minus">-</span><div class="ic in">IN</div><div class="nm">InShot</div></div>
+          <div class="jd-app" id="ja4"><span class="minus">-</span><div class="ic pr">Pr</div><div class="nm">Premiere</div></div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"apps": [{"name": "CapCut", "icon": "@asset/logos/apps/capcut.svg"}, {"name": "Edits", "icon": "@asset/logos/apps/edits.svg"}, {"name": "InShot", "icon": "@asset/logos/apps/inshot.svg"}, {"name": "Premiere", "icon": "@asset/logos/apps/premiere.svg"}]};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+text('#jcnt',vars.apps.length+' apps');const row=document.querySelector('.jd-row');row.replaceChildren();
+vars.apps.forEach((app,i)=>{const el=document.createElement('div');el.className='jd-app';el.id='ja'+(i+1);
+const ic=document.createElement('div');ic.className='ic';ic.textContent=app.name.slice(0,2);
+const nm=document.createElement('div');nm.className='nm';nm.textContent=app.name;el.append(ic,nm);row.append(el);media('#'+el.id+' .ic',app.icon);});
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#jdc', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0.0)
+        .fromTo('.jd-app', { rotation: -3 }, { rotation: 3, duration: 0.09, yoyo: true, repeat: 10, ease: 'sine.inOut' }, 0.1)
+        .to('#ja1, #ja2, #ja3, #ja4', { opacity: 0, scale: 0, duration: 0.16, stagger: 0.14, ease: 'back.in(2.0)' }, 0.45);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

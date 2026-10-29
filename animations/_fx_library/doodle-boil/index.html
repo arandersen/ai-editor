@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@doodle-boil — Hand-Drawn Neon Chalk Outline + Boiling Stop-Motion Spark Bursts</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .doodle-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .sp { opacity: 0; transform-origin: center; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.0"
+       data-composition-variables='[{"id": "colors", "type": "string", "label": "colors", "default": "[\"#FFFFFF\", \"#F6E478\", \"#FF7EB6\", \"#38BDF8\"]"}, {"id": "boilFps", "type": "number", "label": "boilFps", "default": 12}]'>
+
+      <svg class="doodle-svg" id="dsvg" viewBox="0 0 1080 1920">
+        <path id="dp1" d="M 140 820 Q 260 720 340 520 Q 380 280 540 270 Q 700 280 740 520 Q 820 720 940 820" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" stroke-dasharray="1800" stroke-dashoffset="1800"/>
+        <path id="dp2" d="M 155 800 Q 275 700 355 505 Q 395 265 540 255 Q 685 265 725 505 Q 805 700 925 800" fill="none" stroke="#F6E478" stroke-width="8" stroke-linecap="round" stroke-dasharray="1800" stroke-dashoffset="1800"/>
+        <circle class="sp" cx="460" cy="1080" r="34" fill="none" stroke="#F6E478" stroke-width="8"/>
+        <circle class="sp" cx="550" cy="1050" r="46" fill="none" stroke="#FF7EB6" stroke-width="8"/>
+        <circle class="sp" cx="630" cy="1110" r="28" fill="none" stroke="#38BDF8" stroke-width="8"/>
+      </svg>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"colors": ["#FFFFFF", "#F6E478", "#FF7EB6", "#38BDF8"], "boilFps": 12};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+document.querySelectorAll('#dsvg path,#dsvg circle').forEach((el,i)=>el.setAttribute('stroke',vars.colors[i%vars.colors.length]));
+    const tl = gsap.timeline({ paused: true });
+
+      tl.to('#dp1, #dp2', { strokeDashoffset: 0, duration: 0.45, stagger: 0.08, ease: 'power2.out' }, 0.0)
+        .fromTo('.sp', { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1.15, duration: 0.25, stagger: 0.08, yoyo: true, repeat: 3, ease: 'steps(3)' }, 0.35)
+        .to('#dsvg', { x: 4, y: -3, rotation: 0.6, duration: 1/vars.boilFps, yoyo: true, repeat: 12, ease: 'steps(2)' }, 0.2);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "shortcut": "@contact-sheet-hook",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "contact-sheet-hook",
+  "rule": "Rule TH50",
+  "title": "Forest-Green Numbered 4x5 Contact Sheet + Sequential Frame Stamp",
+  "composition_path": "animations/_fx_library/contact-sheet-hook/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+  "variables": {
+    "bgHex": "#123024",
+    "title": "CONTACT SHEET",
+    "subtitle": "HOOK",
+    "thumbAssets": []
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/contact-sheet-hook --format mov --output broll/<Project>/contact-sheet-hook.mov"
+}

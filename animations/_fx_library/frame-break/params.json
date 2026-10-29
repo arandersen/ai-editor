@@ -1,0 +1,23 @@
+{
+  "shortcut": "@frame-break",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "frame-break",
+  "rule": "Rule TH37",
+  "title": "Instagram Reel Card Pull-Back + 3D Glass Shard Shatter",
+  "composition_path": "animations/_fx_library/frame-break/index.html",
+  "duration_sec": 2.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/sub_drop.wav",
+  "variables": {
+    "handle": "tenfoldmarc",
+    "caption": "16 video effects claude can create"
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/frame-break --format mov --output broll/<Project>/frame-break.mov"
+}

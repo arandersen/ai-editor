@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@contact-sheet-hook — Forest-Green Numbered 4x5 Contact Sheet + Sequential Frame Stamp</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .cs-screen { position: absolute; inset: 0; background: #123024; padding: 140px 44px; display: flex; flex-direction: column; gap: 36px; }
+      .cs-head { width: 62%; text-align: center; font-family: Georgia, serif; }
+      .cs-t1 { font-size: 46px; color: #F0EADE; letter-spacing: 0.06em; }
+      .cs-t2 { font-size: 112px; color: #C6A254; line-height: 0.95; opacity: 0; }
+      .cs-grid { width: 62%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+      .cs-cell { aspect-ratio: 1/1.15; border: 2px solid rgba(240,234,222,0.22); border-radius: 8px; background: #183A2C; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #C6A254; font-weight: 700; opacity: 0.25; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.0"
+       data-composition-variables='[{"id": "bgHex", "type": "string", "label": "bgHex", "default": "#123024"}, {"id": "title", "type": "string", "label": "title", "default": "CONTACT SHEET"}, {"id": "subtitle", "type": "string", "label": "subtitle", "default": "HOOK"}, {"id": "thumbAssets", "type": "string", "label": "thumbAssets", "default": "[]"}]'>
+
+      <div class="cs-screen" id="css">
+        <div class="cs-head">
+          <div class="cs-t1">CONTACT SHEET</div>
+          <div class="cs-t2" id="cst2">HOOK</div>
+        </div>
+        <div class="cs-grid">
+          <div class="cs-cell">01</div><div class="cs-cell">02</div><div class="cs-cell">03</div><div class="cs-cell">04</div>
+          <div class="cs-cell">05</div><div class="cs-cell">06</div><div class="cs-cell">07</div><div class="cs-cell">08</div>
+          <div class="cs-cell">09</div><div class="cs-cell">10</div><div class="cs-cell">11</div><div class="cs-cell">12</div>
+          <div class="cs-cell">13</div><div class="cs-cell">14</div><div class="cs-cell">15</div><div class="cs-cell">16</div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"bgHex": "#123024", "title": "CONTACT SHEET", "subtitle": "HOOK", "thumbAssets": []};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('.cs-t1',vars.title);text('#cst2',vars.subtitle);style('#css',{background:vars.bgHex});items('.cs-grid',Array.from({length:20},(_,i)=>String(i+1).padStart(2,'0')),'div','cs-cell');vars.thumbAssets.forEach((v,i)=>media('.cs-cell:nth-child('+(i+1)+')',v));
+    const tl = gsap.timeline({ paused: true });
+
+      tl.to('.cs-cell', { opacity: 1, backgroundColor: '#2A5240', duration: 0.06, stagger: 0.04 }, 0.05)
+        .fromTo('#cst2', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0.35);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

@@ -114,9 +114,13 @@ for job in spec.jobs {
             // Active spoken word sits on a coral (#D97757) box with 8px (16px @ 4K) rounded corners.
             let words = job.words ?? []
             let activeIdx = job.activeIndex ?? 0
-            let fontSize = 64.0 * scale
-            let font = NSFont(name: "HelveticaNeue-Bold", size: fontSize) ?? NSFont.boldSystemFont(ofSize: fontSize)
+            var fontSize = 64.0 * scale
             let spaceW = 20.0 * scale
+            let provisional = NSFont(name: "HelveticaNeue-Bold", size: fontSize) ?? NSFont.boldSystemFont(ofSize: fontSize)
+            let measured = words.reduce(CGFloat(0)) { $0 + ($1 as NSString).size(withAttributes: [.font: provisional]).width }
+            let available = W * 0.86 - CGFloat(max(0, words.count - 1)) * spaceW
+            if measured > available { fontSize *= max(0.3, available / measured) }
+            let font = NSFont(name: "HelveticaNeue-Bold", size: fontSize) ?? NSFont.boldSystemFont(ofSize: fontSize)
 
             let shadow = NSShadow()
             shadow.shadowColor = NSColor(calibratedWhite: 0.0, alpha: 0.65)
@@ -194,7 +198,10 @@ for job in spec.jobs {
 
             let logoRect = NSRect(x: startX, y: centerY - logoSize / 2.0, width: logoSize, height: logoSize)
             let logoPath = NSBezierPath(roundedRect: logoRect, xRadius: 24.0 * scale, yRadius: 24.0 * scale)
-            if let imgPath = job.imagePath, let img = NSImage(contentsOfFile: imgPath) {
+            if let imgPath = job.imagePath {
+                guard let img = NSImage(contentsOfFile: imgPath) else {
+                    print("❌ Cannot decode supplied tool logo: \(imgPath)"); exit(1)
+                }
                 NSGraphicsContext.saveGraphicsState()
                 logoPath.addClip()
                 img.draw(in: logoRect)

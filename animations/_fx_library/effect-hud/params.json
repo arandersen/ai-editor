@@ -1,0 +1,45 @@
+{
+  "shortcut": "@effect-hud",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "effect-hud",
+  "rule": "Rule TH26",
+  "title": "On-Screen Effect Checklist HUD (Split-Dark & Sidebar-Green Themes)",
+  "composition_path": "animations/_fx_library/effect-hud/index.html",
+  "duration_sec": 3.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/timeline_tick.wav",
+  "variables": {
+    "theme": "split-dark",
+    "headerNumber": "16",
+    "headerTitle": "video effects\nclaude can create",
+    "activeIndex": 1,
+    "itemsLeft": [
+      "01 headline wall",
+      "02 zoom-through cut",
+      "03 vertigo",
+      "04 green screen",
+      "05 phone mockup",
+      "06 digital zoom",
+      "07 paper cut",
+      "08 ui world"
+    ],
+    "itemsRight": [
+      "09 orbit",
+      "10 frame break",
+      "11 doodle boil",
+      "12 sticky text",
+      "13 before + after",
+      "14 pull-back reveal",
+      "15 depth scatter",
+      "16 comment bubble"
+    ]
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/effect-hud --format mov --output broll/<Project>/effect-hud.mov"
+}

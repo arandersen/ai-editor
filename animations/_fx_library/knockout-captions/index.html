@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@knockout-captions — Editorial Cream Card with Knocked-Out Transparent Stencil Display Type</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .ko-intro { position: absolute; top: 26%; left: 10%; width: 48%; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+      .ko-pill { background: #123024; border: 2px solid #2A5240; color: #F0EADE; padding: 14px 36px; border-radius: 16px; font-size: 48px; font-family: Georgia, serif; }
+      .ko-sub { background: #123024; color: #F0EADE; padding: 14px 42px; border-radius: 16px; font-size: 64px; font-family: Georgia, serif; }
+      .ko-card { position: absolute; top: 10%; left: 4%; width: 60%; background: #F0EADE; color: #121414; padding: 38px 32px; border-radius: 12px; text-align: center; opacity: 0; mix-blend-mode: screen; }
+      .ko-header { font-family: Georgia, serif; font-style: italic; font-size: 56px; margin-bottom: 12px; }
+      .ko-big { font-family: Georgia, 'Times New Roman', serif; font-size: 168px; font-weight: 900; line-height: 0.92; letter-spacing: -0.04em; color: #000000; }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="1.8"
+       data-composition-variables='[{"id": "pillText", "type": "string", "label": "pillText", "default": "knockout"}, {"id": "subText", "type": "string", "label": "subText", "default": "captions."}, {"id": "stencilLine1", "type": "string", "label": "stencilLine1", "default": "KNOCK"}, {"id": "stencilLine2", "type": "string", "label": "stencilLine2", "default": "OUT"}]'>
+
+      <div class="ko-intro" id="koi">
+        <div class="ko-pill">knockout</div>
+        <div class="ko-sub">captions.</div>
+      </div>
+      <div class="ko-card" id="koc">
+        <div class="ko-header">captions.</div>
+        <div class="ko-big">KNOCK<br/>OUT</div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"pillText": "knockout", "subText": "captions.", "stencilLine1": "KNOCK", "stencilLine2": "OUT"};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('.ko-pill',vars.pillText);text('.ko-sub,.ko-header',vars.subText);text('.ko-big',vars.stencilLine1+'\n'+vars.stencilLine2);
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#koi', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power3.out' }, 0.0)
+        .to('#koi', { opacity: 0, duration: 0.1 }, 0.50)
+        .fromTo('#koc', { opacity: 0, scale: 1.18 }, { opacity: 1, scale: 1, duration: 0.22, ease: 'power4.out' }, 0.52);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

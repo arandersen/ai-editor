@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@effect-hud — On-Screen Effect Checklist HUD (Split-Dark & Sidebar-Green Themes)</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+
+      .hud-wrap { position: absolute; top: 6%; left: 4%; right: 4%; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+      .hud-title { font-size: 72px; font-weight: 900; line-height: 1.04; text-align: center; letter-spacing: -0.03em; color: #FFFFFF; text-shadow: 0 8px 28px rgba(0,0,0,0.65); }
+      .hud-title .accent { color: #F6E478; }
+      .hud-cols { width: 100%; display: flex; justify-content: space-between; gap: 36px; }
+      .hud-panel { width: 44%; background: rgba(18, 18, 20, 0.72); border: 2px solid rgba(255,255,255,0.14); border-radius: 28px; padding: 26px 32px; display: flex; flex-direction: column; gap: 10px; }
+      .item { font-size: 30px; font-weight: 600; color: rgba(255,255,255,0.62); padding: 4px 10px; border-radius: 10px; }
+      .item b { opacity: 0.55; margin-right: 8px; font-variant-numeric: tabular-nums; }
+      .item.active { color: #F6E478; font-weight: 800; background: rgba(246, 228, 120, 0.14); }
+  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="3.0"
+       data-composition-variables='[{"id": "theme", "type": "string", "label": "theme", "default": "split-dark"}, {"id": "headerNumber", "type": "string", "label": "headerNumber", "default": "16"}, {"id": "headerTitle", "type": "string", "label": "headerTitle", "default": "video effects\nclaude can create"}, {"id": "activeIndex", "type": "number", "label": "activeIndex", "default": 1}, {"id": "itemsLeft", "type": "string", "label": "itemsLeft", "default": "[\"01 headline wall\", \"02 zoom-through cut\", \"03 vertigo\", \"04 green screen\", \"05 phone mockup\", \"06 digital zoom\", \"07 paper cut\", \"08 ui world\"]"}, {"id": "itemsRight", "type": "string", "label": "itemsRight", "default": "[\"09 orbit\", \"10 frame break\", \"11 doodle boil\", \"12 sticky text\", \"13 before + after\", \"14 pull-back reveal\", \"15 depth scatter\", \"16 comment bubble\"]"}]'>
+
+      <div class="hud-wrap" id="hud">
+        <div class="hud-title"><span class="accent" id="num">16</span> <span id="ttl">video effects<br/>claude can create</span></div>
+        <div class="hud-cols">
+          <div class="hud-panel" id="col-left">
+            <div class="item active"><b>01</b> headline wall</div>
+            <div class="item"><b>02</b> zoom-through cut</div>
+            <div class="item"><b>03</b> vertigo</div>
+            <div class="item"><b>04</b> green screen</div>
+            <div class="item"><b>05</b> phone mockup</div>
+            <div class="item"><b>06</b> digital zoom</div>
+            <div class="item"><b>07</b> paper cut</div>
+            <div class="item"><b>08</b> ui world</div>
+          </div>
+          <div class="hud-panel" id="col-right">
+            <div class="item"><b>09</b> orbit</div>
+            <div class="item"><b>10</b> frame break</div>
+            <div class="item"><b>11</b> doodle boil</div>
+            <div class="item"><b>12</b> sticky text</div>
+            <div class="item"><b>13</b> before + after</div>
+            <div class="item"><b>14</b> pull-back reveal</div>
+            <div class="item"><b>15</b> depth scatter</div>
+            <div class="item"><b>16</b> comment bubble</div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"theme": "split-dark", "headerNumber": "16", "headerTitle": "video effects\nclaude can create", "activeIndex": 1, "itemsLeft": ["01 headline wall", "02 zoom-through cut", "03 vertigo", "04 green screen", "05 phone mockup", "06 digital zoom", "07 paper cut", "08 ui world"], "itemsRight": ["09 orbit", "10 frame break", "11 doodle boil", "12 sticky text", "13 before + after", "14 pull-back reveal", "15 depth scatter", "16 comment bubble"]};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+text('#num', vars.headerNumber); text('#ttl', vars.headerTitle);
+items('#col-left',vars.itemsLeft,'div','item'); items('#col-right',vars.itemsRight,'div','item');
+document.querySelectorAll('.item')[Math.max(0,vars.activeIndex-1)]?.classList.add('active');
+if (vars.theme==='sidebar-green') { style('.hud-cols',{justifyContent:'flex-end'});style('#col-left',{display:'none'});style('.hud-panel',{background:'#123024',width:'48%'}); }
+
+    const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('#hud', { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }, 0)
+        .fromTo('.item.active', { scale: 0.94 }, { scale: 1.03, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' }, 0.2);
+
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

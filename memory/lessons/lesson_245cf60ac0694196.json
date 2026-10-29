@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "lesson_id": "lesson_245cf60ac0694196",
+  "text": "Technical QC is dimensions/FPS/duration/decode integrity; creative, speech accuracy and final loudness review remain explicit. RMS sampling granularity and lint success do not prove exact timing or effect fidelity.",
+  "scope": "category:talking_head",
+  "status": "active",
+  "evidence_project": "editor-system-maintenance-e30c2cea",
+  "evidence_event": "evt_acb7f9c45e104ba2",
+  "actor": {
+    "role": "engineer",
+    "model": "Codex (session model unspecified)"
+  },
+  "created_at": "2026-10-29T09:45:35.104777+00:00",
+  "supersedes": null
+}

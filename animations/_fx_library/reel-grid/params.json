@@ -1,0 +1,26 @@
+{
+  "shortcut": "@reel-grid",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "reel-grid",
+  "rule": "Rule TH43",
+  "title": "Unified Multi-Reel Grid (background | collapse | playing | cascade Modes)",
+  "composition_path": "animations/_fx_library/reel-grid/index.html",
+  "duration_sec": 2.4,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "@asset/audio/sfx/pop.wav",
+  "variables": {
+    "mode": "cascade",
+    "reelAssets": [],
+    "thumbAssets": [],
+    "columns": 4,
+    "rows": 2
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/reel-grid --format mov --output broll/<Project>/reel-grid.mov"
+}

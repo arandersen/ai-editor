@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 scripts/acoustic_onset.py
-Refines raw ASR (Parakeet / Whisper) word timestamps using a 10ms sliding RMS
+Heuristically refines ASR (Parakeet / Whisper) word timestamps using a 10ms RMS
 acoustic energy envelope and Stereo Left/Right speaker diarization (Angel = Left, Arthur = Right).
 
 Why:
 - Standard Whisper/ASR word start timestamps after pauses often bridge silence
   0.4s-1.0s early (causing premature caption/header spoilers).
-- This script snaps every word's start timestamp forward to the exact 10ms frame
+- This script adjusts selected word starts toward a 10ms energy window
   where vocal energy exceeds the local noise floor (-32 dBFS), detects laughter/peak
   energy bursts, and tags Left vs Right speaker when a stereo track is provided.
 """
@@ -87,7 +87,9 @@ def extract_words_from_asr_json(data: dict):
     return words
 
 
-def refine_words(words, rms_db, lr_ratio, threshold_db: float = -33.0):
+def refine_words(words, rms_db, lr_ratio, threshold_db: float = -33.0, speakers=("SpeakerLeft", "SpeakerRight")):
+    if not words or not rms_db:
+        raise ValueError("No usable timed words or audio windows")
     n_win = len(rms_db)
     refined = []
     for idx, w in enumerate(words):
@@ -113,9 +115,9 @@ def refine_words(words, rms_db, lr_ratio, threshold_db: float = -33.0):
         avg_lr = sum(lr_slice) / len(lr_slice)
 
         if avg_lr > 1.2:
-            speaker = "Angel"
+            speaker = speakers[0]
         elif avg_lr < -1.2:
-            speaker = "Arthur"
+            speaker = speakers[1]
         else:
             speaker = "Center"
 
@@ -137,11 +139,15 @@ def main():
     parser.add_argument("--json", required=True, help="Path to Parakeet or Whisper JSON transcript")
     parser.add_argument("--output", required=True, help="Output path for refined acoustic JSON")
     parser.add_argument("--threshold-db", type=float, default=-33.0, help="Vocal onset RMS threshold in dBFS")
+    parser.add_argument("--speakers", default="SpeakerLeft,SpeakerRight", help="Comma-separated left/right labels; channel attribution, not identity detection")
     args = parser.parse_args()
+    speakers = tuple(args.speakers.split(","))
+    if len(speakers) != 2 or not all(speakers):
+        parser.error("--speakers requires two non-empty comma-separated names")
 
     if not os.path.exists(args.wav) or not os.path.exists(args.json):
         print(f"⚠️  [AcousticOnset] Missing input files: {args.wav} or {args.json}")
-        return
+        raise SystemExit(1)
 
     samples, sr, ch = load_wav_16bit(args.wav)
     rms_db, lr_ratio = compute_10ms_envelopes(samples, sr, ch)
@@ -150,7 +156,7 @@ def main():
         asr_data = json.load(f)
 
     raw_words = extract_words_from_asr_json(asr_data)
-    refined_words = refine_words(raw_words, rms_db, lr_ratio, args.threshold_db)
+    refined_words = refine_words(raw_words, rms_db, lr_ratio, args.threshold_db, speakers)
 
     first_speech_sec = refined_words[0]["start"] if refined_words else 0.0
     out_payload = {
@@ -160,6 +166,9 @@ def main():
         "channels": ch,
         "first_speech_onset_sec": first_speech_sec,
         "word_count": len(refined_words),
+        "timing_method": "ASR with heuristic RMS onset adjustment",
+        "timing_accuracy_ms": None,
+        "speaker_method": "stereo channel imbalance; not speaker identification",
         "words": refined_words,
     }
 

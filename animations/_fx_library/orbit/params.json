@@ -1,0 +1,29 @@
+{
+  "shortcut": "@orbit",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "orbit",
+  "rule": "Rule TH36",
+  "title": "3D Carousel Ring of Vertical Reel Cards Orbiting Around Speaker Cutout",
+  "composition_path": "animations/_fx_library/orbit/index.html",
+  "duration_sec": 2.2,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "@asset/audio/sfx/whoosh.wav",
+  "variables": {
+    "reelCards": [
+      "@asset/video/reels/reel_01.mp4",
+      "@asset/video/reels/reel_02.mp4",
+      "@asset/video/reels/reel_03.mp4",
+      "@asset/video/reels/reel_04.mp4"
+    ],
+    "cutoutHandle": "@project/cutout/orbit_cutout.mov",
+    "radiusPx": 420
+  },
+  "render_command": "npx hyperframes render animations/_fx_library/orbit --format mov --output broll/<Project>/orbit.mov"
+}
