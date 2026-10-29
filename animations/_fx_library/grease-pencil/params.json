@@ -7,6 +7,7 @@
   "title": "3-Row Film Strip Contact Sheet + Red Grease-Pencil Dead-Air X Slash",
   "composition_path": "animations/_fx_library/grease-pencil/index.html",
   "duration_sec": 2.0,
+  "min_duration_sec": 2.0,
   "fps": 60,
   "canvas": [
     1080,
@@ -19,5 +20,13 @@
     "header": "dead air",
     "strokeColor": "#C06672"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/grease-pencil --format mov --output broll/<Project>/grease-pencil.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/grease-pencil --format mov --output broll/<Project>/grease-pencil.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "top"
+  ]
 }

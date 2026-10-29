@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "lesson_id": "lesson_c6cc4e33d3a84f38",
+  "text": "Drive preview pane, counter, checklist highlight and progress from a single sequence. Initialize frame-zero state explicitly and verify forward/backward seeks and actual rendered media.",
+  "scope": "project:reference-def9pj5twta-6a3f390a",
+  "status": "active",
+  "evidence_project": "reference-def9pj5twta-6a3f390a",
+  "evidence_event": "evt_a1545b0232ef48d2",
+  "actor": {
+    "role": "engineer",
+    "model": "Codex (session model unspecified)"
+  },
+  "created_at": "2026-10-29T19:38:21.885466+00:00",
+  "supersedes": null
+}

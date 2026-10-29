@@ -16,7 +16,7 @@ The source-to-output compiler intersects effect intervals with retained segments
 
 ## Effect boundaries
 
-Native graphics and explicit media/composition adapters are executable capabilities. The 31 generated scene templates remain experimental. Some now bind text, themes, layout and provided media, but full subject-aware transitions, segmentation contours and multi-plane source compositing are not certified. They cannot silently masquerade as built-in effects.
+Native graphics and explicit media/composition adapters are executable capabilities. The 38 generated scene templates remain experimental. Some now bind text, themes, layout and provided media, but full subject-aware transitions, segmentation contours and multi-plane source compositing are not certified. They cannot silently masquerade as built-in effects.
 
 `build_fx_library.py` is the source for generated library HTML/params. Default execution creates missing scenes; `--refresh-scenes` explicitly regenerates them. Existing starter assets and asset documentation are never overwritten. Per-project compositions are copies. GSAP is loaded from the pinned local package. Unimplemented parameters are exposed in each scene's metadata.
 

@@ -33,7 +33,19 @@ python3 -m editor handoff --project "My Reel"
 
 Working core: reviewed cuts, speed/framing, warm/moody grades, a blur-accent cut transition, transcript-driven coral/one-word captions, native label/repo/prompt/title graphics, screenshots, prepared media overlays, foreground alpha compositing, explicit HyperFrames compositions, music ducking and SFX. Technical QC checks the actual output; creative review remains explicit.
 
-The 31 catalogue scenes now bind editable text/layout parameters and use local GSAP. They remain **experimental demos**: some require further source-media/depth work. `capabilities` and each `params.json` expose status and unbound variables. Unknown effects fail rather than disappear.
+The 38 catalogue scenes now bind editable text/layout parameters and use local GSAP. They remain **experimental demos**: some require further source-media/depth work. `capabilities` and each `params.json` expose status and unbound variables. Unknown effects fail rather than disappear.
+
+## Effect stockpile
+
+The stockpile contains **38 compositions**: the original 31 plus seven from the third reference reel. All 17 showcased reference labels map to canonical entries; existing effects were reused.
+
+```bash
+python3 -m editor stockpile
+python3 -m editor stockpile --effect "chart grow"
+python3 -m editor stockpile --effect chart-grow --output broll/MyReel/chart --variables '{"title":"Example data","values":[5,12,20],"labels":["A","B","C"]}'
+```
+
+Use a prepared copy through `@hyperframes` or render it with the command printed by `stockpile`. Media-based effects require actual local media inputs. See [stockpile recipes and fidelity notes](docs/effect-stockpile.md).
 
 ## Repository map
 

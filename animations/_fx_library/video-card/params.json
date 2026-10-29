@@ -7,6 +7,7 @@
   "title": "Split Floating Video Preview Card + Forest-Green Chapter Selector",
   "composition_path": "animations/_fx_library/video-card/index.html",
   "duration_sec": 2.2,
+  "min_duration_sec": 2.2,
   "fps": 60,
   "canvas": [
     1080,
@@ -21,5 +22,13 @@
     "chapter2": "02 The finished reel",
     "previewAsset": "@asset/photo/thumbnails/chapter_split.png"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/video-card --format mov --output broll/<Project>/video-card.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/video-card --format mov --output broll/<Project>/video-card.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "top"
+  ]
 }

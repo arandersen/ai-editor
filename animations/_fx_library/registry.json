@@ -1,5 +1,7 @@
 {
+  "schema_version": 2,
   "total_pack_2_and_3_templates": 31,
+  "total_templates": 38,
   "templates": [
     {
       "shortcut": "@effect-hud",
@@ -10,6 +12,7 @@
       "title": "On-Screen Effect Checklist HUD (Split-Dark & Sidebar-Green Themes)",
       "composition_path": "animations/_fx_library/effect-hud/index.html",
       "duration_sec": 3.0,
+      "min_duration_sec": 3.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -44,7 +47,15 @@
           "16 comment bubble"
         ]
       },
-      "render_command": "npx hyperframes render animations/_fx_library/effect-hud --format mov --output broll/<Project>/effect-hud.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/effect-hud --format mov --output broll/<Project>/effect-hud.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@keyword-captions",
@@ -55,6 +66,7 @@
       "title": "Dual-Theme Hook/CTA Keyword Captions (Yellow-Glow & White-Pill-Stack)",
       "composition_path": "animations/_fx_library/keyword-captions/index.html",
       "duration_sec": 2.4,
+      "min_duration_sec": 2.4,
       "fps": 60,
       "canvas": [
         1080,
@@ -69,7 +81,15 @@
         "keyword": "effects?",
         "yPercent": 52.0
       },
-      "render_command": "npx hyperframes render animations/_fx_library/keyword-captions --format mov --output broll/<Project>/keyword-captions.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/keyword-captions --format mov --output broll/<Project>/keyword-captions.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@headline-wall",
@@ -80,6 +100,7 @@
       "title": "Torn-Paper Newspaper Clippings Slam + Yellow Marker Highlight",
       "composition_path": "animations/_fx_library/headline-wall/index.html",
       "duration_sec": 2.2,
+      "min_duration_sec": 2.2,
       "fps": 60,
       "canvas": [
         1080,
@@ -98,7 +119,22 @@
           "claude now edits your videos"
         ]
       },
-      "render_command": "npx hyperframes render animations/_fx_library/headline-wall --format mov --output broll/<Project>/headline-wall.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/headline-wall --format mov --output broll/<Project>/headline-wall.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "headline wall",
+          "approx_source_second": 6.36
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@zoom-through",
@@ -109,6 +145,7 @@
       "title": "Camera Zoom-Through Punch Transition + 2-Frame Warm White Flash",
       "composition_path": "animations/_fx_library/zoom-through/index.html",
       "duration_sec": 0.65,
+      "min_duration_sec": 0.65,
       "fps": 60,
       "canvas": [
         1080,
@@ -121,7 +158,22 @@
         "peakScale": 6.5,
         "flashColor": "#FFFDF5"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/zoom-through --format mov --output broll/<Project>/zoom-through.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/zoom-through --format mov --output broll/<Project>/zoom-through.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "zoom-through cut",
+          "approx_source_second": 7.4
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@vertigo",
@@ -132,6 +184,7 @@
       "title": "Dolly-Zoom (Contrazoom) Background Expansion Behind Locked Person Cutout",
       "composition_path": "animations/_fx_library/vertigo/index.html",
       "duration_sec": 1.4,
+      "min_duration_sec": 1.4,
       "fps": 60,
       "canvas": [
         1080,
@@ -146,7 +199,22 @@
         "fgScale": 1.02,
         "cutoutHandle": "@project/cutout/vertigo_cutout.mov"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/vertigo --format mov --output broll/<Project>/vertigo.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/vertigo --format mov --output broll/<Project>/vertigo.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "vertigo",
+          "approx_source_second": 13.98
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@green-screen",
@@ -157,6 +225,7 @@
       "title": "Person-Cutout Background Replacement + Flash Wipe",
       "composition_path": "animations/_fx_library/green-screen/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -170,7 +239,22 @@
         "cutoutHandle": "@project/cutout/greenscreen_cutout.mov",
         "vignetteOpacity": 0.45
       },
-      "render_command": "npx hyperframes render animations/_fx_library/green-screen --format mov --output broll/<Project>/green-screen.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/green-screen --format mov --output broll/<Project>/green-screen.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "green screen",
+          "approx_source_second": 10.74
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@phone-mockup",
@@ -181,6 +265,7 @@
       "title": "3D Tilted iPhone Mockup Slide-In + Scrolling Screen Capture",
       "composition_path": "animations/_fx_library/phone-mockup/index.html",
       "duration_sec": 2.4,
+      "min_duration_sec": 2.4,
       "fps": 60,
       "canvas": [
         1080,
@@ -196,7 +281,22 @@
         "xPercent": 20.0,
         "yPercent": 50.0
       },
-      "render_command": "npx hyperframes render animations/_fx_library/phone-mockup --format mov --output broll/<Project>/phone-mockup.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/phone-mockup --format mov --output broll/<Project>/phone-mockup.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "phone mockup",
+          "approx_source_second": 4.59
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@digital-zoom",
@@ -207,6 +307,7 @@
       "title": "Camera Viewfinder HUD & Focal-Length Lens Ring (Camcorder | Lens-Ring Styles)",
       "composition_path": "animations/_fx_library/digital-zoom/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -227,7 +328,22 @@
           24
         ]
       },
-      "render_command": "npx hyperframes render animations/_fx_library/digital-zoom --format mov --output broll/<Project>/digital-zoom.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/digital-zoom --format mov --output broll/<Project>/digital-zoom.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "digital zoom",
+          "approx_source_second": 3.5
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@paper-cut",
@@ -238,6 +354,7 @@
       "title": "Stop-Motion Torn-Paper Cutout + Ransom-Note Letters + Vertical Tear Exit",
       "composition_path": "animations/_fx_library/paper-cut/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -252,7 +369,22 @@
         "cutoutHandle": "@project/cutout/papercut_cutout.mov",
         "gridTexture": "@asset/photo/textures/notebook_grid_paper.svg"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/paper-cut --format mov --output broll/<Project>/paper-cut.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/paper-cut --format mov --output broll/<Project>/paper-cut.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "paper cut",
+          "approx_source_second": 11.7
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@ui-world",
@@ -263,6 +395,7 @@
       "title": "Floating 3D Glassmorphism Editor HUD (Prompt + Timeline + Live Preview)",
       "composition_path": "animations/_fx_library/ui-world/index.html",
       "duration_sec": 2.4,
+      "min_duration_sec": 2.4,
       "fps": 60,
       "canvas": [
         1080,
@@ -275,7 +408,22 @@
         "promptText": "edit my reel",
         "previewLabel": "doodle boil"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/ui-world --format mov --output broll/<Project>/ui-world.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/ui-world --format mov --output broll/<Project>/ui-world.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "ui world",
+          "approx_source_second": 1.62
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@orbit",
@@ -286,6 +434,7 @@
       "title": "3D Carousel Ring of Vertical Reel Cards Orbiting Around Speaker Cutout",
       "composition_path": "animations/_fx_library/orbit/index.html",
       "duration_sec": 2.2,
+      "min_duration_sec": 2.2,
       "fps": 60,
       "canvas": [
         1080,
@@ -304,7 +453,22 @@
         "cutoutHandle": "@project/cutout/orbit_cutout.mov",
         "radiusPx": 420
       },
-      "render_command": "npx hyperframes render animations/_fx_library/orbit --format mov --output broll/<Project>/orbit.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/orbit --format mov --output broll/<Project>/orbit.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "orbit",
+          "approx_source_second": 0.07
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@frame-break",
@@ -315,6 +479,7 @@
       "title": "Instagram Reel Card Pull-Back + 3D Glass Shard Shatter",
       "composition_path": "animations/_fx_library/frame-break/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -327,7 +492,22 @@
         "handle": "tenfoldmarc",
         "caption": "16 video effects claude can create"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/frame-break --format mov --output broll/<Project>/frame-break.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/frame-break --format mov --output broll/<Project>/frame-break.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "frame break",
+          "approx_source_second": 2.69
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@doodle-boil",
@@ -338,6 +518,7 @@
       "title": "Hand-Drawn Neon Chalk Outline + Boiling Stop-Motion Spark Bursts",
       "composition_path": "animations/_fx_library/doodle-boil/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -355,7 +536,22 @@
         ],
         "boilFps": 12
       },
-      "render_command": "npx hyperframes render animations/_fx_library/doodle-boil --format mov --output broll/<Project>/doodle-boil.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/doodle-boil --format mov --output broll/<Project>/doodle-boil.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "doodle boil",
+          "approx_source_second": 12.8
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@sticky-text",
@@ -366,6 +562,7 @@
       "title": "HUD List Detach -> Tilted Yellow Adhesive Sticker Slap",
       "composition_path": "animations/_fx_library/sticky-text/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -379,7 +576,15 @@
         "label": "sticky text",
         "tiltDeg": -5.5
       },
-      "render_command": "npx hyperframes render animations/_fx_library/sticky-text --format mov --output broll/<Project>/sticky-text.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/sticky-text --format mov --output broll/<Project>/sticky-text.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@before-after",
@@ -390,6 +595,7 @@
       "title": "Vertical Light-Leak Split Wipe + Before/After Frosted Badges",
       "composition_path": "animations/_fx_library/before-after/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -403,7 +609,15 @@
         "rightLabel": "\u2022 after",
         "beamColor": "#FFF7D6"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/before-after --format mov --output broll/<Project>/before-after.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/before-after --format mov --output broll/<Project>/before-after.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@pull-back",
@@ -414,6 +628,7 @@
       "title": "3D Perspective Pull-Back into NLE Editor Window + Checklist + Waveform",
       "composition_path": "animations/_fx_library/pull-back/index.html",
       "duration_sec": 2.4,
+      "min_duration_sec": 2.4,
       "fps": 60,
       "canvas": [
         1080,
@@ -430,7 +645,22 @@
           "export"
         ]
       },
-      "render_command": "npx hyperframes render animations/_fx_library/pull-back --format mov --output broll/<Project>/pull-back.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/pull-back --format mov --output broll/<Project>/pull-back.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "pull-back reveal",
+          "approx_source_second": 9.51
+        }
+      ],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@depth-scatter",
@@ -441,6 +671,7 @@
       "title": "Multi-Plane 3D Z-Depth Letter Scatter + Rack-Focus Blur (Behind & In Front of Head)",
       "composition_path": "animations/_fx_library/depth-scatter/index.html",
       "duration_sec": 2.2,
+      "min_duration_sec": 2.2,
       "fps": 60,
       "canvas": [
         1080,
@@ -454,7 +685,15 @@
         "wordFront": "scatter",
         "cutoutHandle": "@project/cutout/depth_scatter_cutout.mov"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/depth-scatter --format mov --output broll/<Project>/depth-scatter.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/depth-scatter --format mov --output broll/<Project>/depth-scatter.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@reel-grid",
@@ -465,6 +704,7 @@
       "title": "Unified Multi-Reel Grid (background | collapse | playing | cascade Modes)",
       "composition_path": "animations/_fx_library/reel-grid/index.html",
       "duration_sec": 2.4,
+      "min_duration_sec": 2.4,
       "fps": 60,
       "canvas": [
         1080,
@@ -480,7 +720,15 @@
         "columns": 4,
         "rows": 2
       },
-      "render_command": "npx hyperframes render animations/_fx_library/reel-grid --format mov --output broll/<Project>/reel-grid.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/reel-grid --format mov --output broll/<Project>/reel-grid.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@comment-bubble",
@@ -491,6 +739,7 @@
       "title": "Automated Social CTA Comment-to-DM Funnel (Input -> Heart Bubble -> Link Reply)",
       "composition_path": "animations/_fx_library/comment-bubble/index.html",
       "duration_sec": 2.8,
+      "min_duration_sec": 2.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -504,7 +753,15 @@
         "replyText": "Sent you the link",
         "buttonText": "\ud83d\udd17 Open link"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/comment-bubble --format mov --output broll/<Project>/comment-bubble.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/comment-bubble --format mov --output broll/<Project>/comment-bubble.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@knockout-captions",
@@ -515,6 +772,7 @@
       "title": "Editorial Cream Card with Knocked-Out Transparent Stencil Display Type",
       "composition_path": "animations/_fx_library/knockout-captions/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -529,7 +787,15 @@
         "stencilLine1": "KNOCK",
         "stencilLine2": "OUT"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/knockout-captions --format mov --output broll/<Project>/knockout-captions.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/knockout-captions --format mov --output broll/<Project>/knockout-captions.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@live-markup",
@@ -540,6 +806,7 @@
       "title": "Self-Tracing Rose-Pink Marker Circle + Handwritten Arrow Callout",
       "composition_path": "animations/_fx_library/live-markup/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -556,7 +823,15 @@
         "rx": 180,
         "ry": 220
       },
-      "render_command": "npx hyperframes render animations/_fx_library/live-markup --format mov --output broll/<Project>/live-markup.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/live-markup --format mov --output broll/<Project>/live-markup.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@film-look",
@@ -567,6 +842,7 @@
       "title": "Top-to-Bottom Horizontal Scanline Film Grade Wipe + 16mm Grain",
       "composition_path": "animations/_fx_library/film-look/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -579,7 +855,15 @@
         "lineColor": "#F0EADE",
         "grainOverlay": "@asset/video/overlays/film_grain_16mm.mov"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/film-look --format mov --output broll/<Project>/film-look.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/film-look --format mov --output broll/<Project>/film-look.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@jiggle-delete",
@@ -590,6 +874,7 @@
       "title": "iOS Edit-Mode Jiggling Competitor App Icons + Sequential Pop Delete",
       "composition_path": "animations/_fx_library/jiggle-delete/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -618,7 +903,15 @@
           }
         ]
       },
-      "render_command": "npx hyperframes render animations/_fx_library/jiggle-delete --format mov --output broll/<Project>/jiggle-delete.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/jiggle-delete --format mov --output broll/<Project>/jiggle-delete.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@screenplay-page",
@@ -629,6 +922,7 @@
       "title": "Courier Screenplay Page Slide-In + Yellow Highlighter Sweep",
       "composition_path": "animations/_fx_library/screenplay-page/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -643,7 +937,15 @@
         "parenthetical": "(to camera)",
         "highlightedLine": "Screenplay page."
       },
-      "render_command": "npx hyperframes render animations/_fx_library/screenplay-page --format mov --output broll/<Project>/screenplay-page.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/screenplay-page --format mov --output broll/<Project>/screenplay-page.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@contact-sheet-hook",
@@ -654,6 +956,7 @@
       "title": "Forest-Green Numbered 4x5 Contact Sheet + Sequential Frame Stamp",
       "composition_path": "animations/_fx_library/contact-sheet-hook/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -668,7 +971,15 @@
         "subtitle": "HOOK",
         "thumbAssets": []
       },
-      "render_command": "npx hyperframes render animations/_fx_library/contact-sheet-hook --format mov --output broll/<Project>/contact-sheet-hook.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/contact-sheet-hook --format mov --output broll/<Project>/contact-sheet-hook.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@keycaps",
@@ -679,6 +990,7 @@
       "title": "3D Tactile Mac Keyboard Shortcuts Raining & Bouncing Above Head",
       "composition_path": "animations/_fx_library/keycaps/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -698,7 +1010,15 @@
           "L"
         ]
       },
-      "render_command": "npx hyperframes render animations/_fx_library/keycaps --format mov --output broll/<Project>/keycaps.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/keycaps --format mov --output broll/<Project>/keycaps.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@nle-timeline",
@@ -709,6 +1029,7 @@
       "title": "Floating Dark-Green NLE Multi-Clip Timeline Strip + Sweeping Playhead",
       "composition_path": "animations/_fx_library/nle-timeline/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -721,7 +1042,15 @@
         "timecode": "00:00:15:08",
         "clipCount": 14
       },
-      "render_command": "npx hyperframes render animations/_fx_library/nle-timeline --format mov --output broll/<Project>/nle-timeline.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/nle-timeline --format mov --output broll/<Project>/nle-timeline.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@serif-stamp",
@@ -732,6 +1061,7 @@
       "title": "Editorial Gold Italic Prefix + Letter-by-Letter Giant Cream Serif Stamp",
       "composition_path": "animations/_fx_library/serif-stamp/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -744,7 +1074,15 @@
         "prefix": "serif",
         "word": "STAMP"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/serif-stamp --format mov --output broll/<Project>/serif-stamp.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/serif-stamp --format mov --output broll/<Project>/serif-stamp.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "custom"
+      ]
     },
     {
       "shortcut": "@icon-strike",
@@ -755,6 +1093,7 @@
       "title": "Competitor App Icons Slashed with Rose-Pink X-Strike + Gravity Drop",
       "composition_path": "animations/_fx_library/icon-strike/index.html",
       "duration_sec": 1.8,
+      "min_duration_sec": 1.8,
       "fps": 60,
       "canvas": [
         1080,
@@ -770,7 +1109,15 @@
         ],
         "strikeWord": "strike."
       },
-      "render_command": "npx hyperframes render animations/_fx_library/icon-strike --format mov --output broll/<Project>/icon-strike.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/icon-strike --format mov --output broll/<Project>/icon-strike.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@grease-pencil",
@@ -781,6 +1128,7 @@
       "title": "3-Row Film Strip Contact Sheet + Red Grease-Pencil Dead-Air X Slash",
       "composition_path": "animations/_fx_library/grease-pencil/index.html",
       "duration_sec": 2.0,
+      "min_duration_sec": 2.0,
       "fps": 60,
       "canvas": [
         1080,
@@ -793,7 +1141,15 @@
         "header": "dead air",
         "strokeColor": "#C06672"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/grease-pencil --format mov --output broll/<Project>/grease-pencil.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/grease-pencil --format mov --output broll/<Project>/grease-pencil.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
     },
     {
       "shortcut": "@video-card",
@@ -804,6 +1160,7 @@
       "title": "Split Floating Video Preview Card + Forest-Green Chapter Selector",
       "composition_path": "animations/_fx_library/video-card/index.html",
       "duration_sec": 2.2,
+      "min_duration_sec": 2.2,
       "fps": 60,
       "canvas": [
         1080,
@@ -818,7 +1175,442 @@
         "chapter2": "02 The finished reel",
         "previewAsset": "@asset/photo/thumbnails/chapter_split.png"
       },
-      "render_command": "npx hyperframes render animations/_fx_library/video-card --format mov --output broll/<Project>/video-card.mov"
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/video-card --format mov --output broll/<Project>/video-card.mov",
+      "pack": "packs-2-and-3",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "top"
+      ]
+    },
+    {
+      "shortcut": "@couch-wall",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "couch-wall",
+      "rule": "Reference Pack Def9pj5TWtA",
+      "title": "Layered reel wall behind a seated subject",
+      "composition_path": "animations/_fx_library/couch-wall/index.html",
+      "duration_sec": 3.0,
+      "min_duration_sec": 1.6,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "",
+      "variables": {
+        "cards": [],
+        "subjectAsset": "",
+        "heading": "Your work, in context",
+        "spread": 1.0
+      },
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/couch-wall --format mov --output broll/<Project>/couch-wall.mov",
+      "pack": "reference-def9pj5twta",
+      "aliases": [],
+      "required_media_variables": [
+        "cards",
+        "subjectAsset"
+      ],
+      "fidelity_notes": "Real media cards and a supplied alpha subject. Does not segment people or generate missing background pixels.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "couch wall",
+          "approx_source_second": 0.9
+        }
+      ],
+      "occupies_zones": [
+        "background"
+      ]
+    },
+    {
+      "shortcut": "@chart-grow",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "chart-grow",
+      "rule": "Reference Pack Def9pj5TWtA",
+      "title": "Data-backed animated line chart",
+      "composition_path": "animations/_fx_library/chart-grow/index.html",
+      "duration_sec": 3.0,
+      "min_duration_sec": 2.6,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "",
+      "variables": {
+        "title": "Example data",
+        "labels": [
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri"
+        ],
+        "values": [
+          10,
+          20,
+          16,
+          35,
+          48
+        ],
+        "unit": "units",
+        "accent": "#F6E478",
+        "yPercent": 14
+      },
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/chart-grow --format mov --output broll/<Project>/chart-grow.mov",
+      "pack": "reference-def9pj5twta",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Chart geometry follows explicit values, labels and units. Defaults are labeled example data, never inferred performance metrics.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "chart grow",
+          "approx_source_second": 8.77
+        }
+      ],
+      "occupies_zones": [
+        "top"
+      ]
+    },
+    {
+      "shortcut": "@cover-story",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "cover-story",
+      "rule": "Reference Pack Def9pj5TWtA",
+      "title": "Magazine masthead behind subject with cover furniture",
+      "composition_path": "animations/_fx_library/cover-story/index.html",
+      "duration_sec": 3.0,
+      "min_duration_sec": 1.3,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": true,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "",
+      "variables": {
+        "masthead": "EDIT",
+        "subjectAsset": "",
+        "backgroundAsset": "",
+        "issue": "ISSUE 01",
+        "coverLine": "A story worth sharing",
+        "accent": "#D4AF37",
+        "mastheadY": 16
+      },
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/cover-story --format mov --output broll/<Project>/cover-story.mov",
+      "pack": "reference-def9pj5twta",
+      "aliases": [
+        "magazine cover"
+      ],
+      "required_media_variables": [
+        "subjectAsset"
+      ],
+      "fidelity_notes": "Actual behind/foreground/front layers with supplied aligned alpha media. Barcode is decorative. Does not create segmentation masks.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "cover story",
+          "approx_source_second": 14.73
+        }
+      ],
+      "occupies_zones": [
+        "top"
+      ]
+    },
+    {
+      "shortcut": "@glass-type",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "glass-type",
+      "rule": "Reference Pack Def9pj5TWtA",
+      "title": "Translucent embossed display type",
+      "composition_path": "animations/_fx_library/glass-type/index.html",
+      "duration_sec": 2.6,
+      "min_duration_sec": 2.2,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "",
+      "variables": {
+        "text": "DESIGN",
+        "yPercent": 25,
+        "tint": "#EAF2FF",
+        "subjectAsset": "",
+        "fontSize": 210
+      },
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/glass-type --format mov --output broll/<Project>/glass-type.mov",
+      "pack": "reference-def9pj5twta",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "Embossed/translucent CSS treatment, not physically accurate background refraction. Optional alpha subject creates depth.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "glass type",
+          "approx_source_second": 15.68
+        }
+      ],
+      "occupies_zones": [
+        "top"
+      ]
+    },
+    {
+      "shortcut": "@checklist",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "checklist",
+      "rule": "Reference Pack Def9pj5TWtA",
+      "title": "Timed glass task checklist with progress",
+      "composition_path": "animations/_fx_library/checklist/index.html",
+      "duration_sec": 3.0,
+      "min_duration_sec": 1.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": true,
+      "default_sfx_handle": "",
+      "variables": {
+        "title": "A clear workflow",
+        "items": [
+          "Choose the take",
+          "Add visual proof",
+          "Review the reel"
+        ],
+        "completeTimes": [
+          0.6,
+          1.2,
+          1.8
+        ],
+        "accent": "#F6E478",
+        "yPercent": 16
+      },
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/checklist --format mov --output broll/<Project>/checklist.mov",
+      "pack": "reference-def9pj5twta",
+      "aliases": [],
+      "required_media_variables": [],
+      "fidelity_notes": "In-player or standalone task checklist; distinct from the effect-index HUD. Completion times are explicit composition-local seconds.",
+      "reference_anchors": [
+        {
+          "source": "examples/igexport-Def9pj5TWtA.mp4",
+          "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+          "label": "checklist",
+          "approx_source_second": 5.41
+        }
+      ],
+      "occupies_zones": [
+        "top"
+      ]
+    },
+    {
+      "shortcut": "@proof-player",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "proof-player",
+      "rule": "Reference Pack Def9pj5TWtA",
+      "title": "Synchronized media proof player, counter and effect index",
+      "composition_path": "animations/_fx_library/proof-player/index.html",
+      "duration_sec": 4.5,
+      "min_duration_sec": 1.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "",
+      "variables": {
+        "title": "Show the effect",
+        "sequence": [
+          {
+            "label": "First effect",
+            "start": 0.3,
+            "duration": 1.2,
+            "src": ""
+          },
+          {
+            "label": "Second effect",
+            "start": 1.5,
+            "duration": 1.2,
+            "src": ""
+          },
+          {
+            "label": "Third effect",
+            "start": 2.7,
+            "duration": 1.2,
+            "src": ""
+          }
+        ],
+        "accent": "#F6E478"
+      },
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/proof-player --format mov --output broll/<Project>/proof-player.mov",
+      "pack": "reference-def9pj5twta",
+      "aliases": [
+        "showcase player",
+        "effect showcase"
+      ],
+      "required_media_variables": [
+        "sequence"
+      ],
+      "fidelity_notes": "One sequence drives visible clip, highlighted row, counter and progress. Main presenter remains the base video; child clips use their own local media offsets. Not a phone screen recording generator.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "center"
+      ]
+    },
+    {
+      "shortcut": "@profile-card",
+      "status": "experimental-demo",
+      "unbound_variables": [],
+      "slug": "profile-card",
+      "rule": "Reference Pack Def9pj5TWtA",
+      "title": "Screenshot-backed social profile CTA",
+      "composition_path": "animations/_fx_library/profile-card/index.html",
+      "duration_sec": 2.8,
+      "min_duration_sec": 1.0,
+      "fps": 60,
+      "canvas": [
+        1080,
+        1920
+      ],
+      "requires_person_cutout": false,
+      "occupies_top_zone": false,
+      "default_sfx_handle": "",
+      "variables": {
+        "profileAsset": "",
+        "creatorHandle": "yourhandle",
+        "cta": "Follow for more",
+        "yPercent": 46,
+        "widthPercent": 48
+      },
+      "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/profile-card --format mov --output broll/<Project>/profile-card.mov",
+      "pack": "reference-def9pj5twta",
+      "aliases": [],
+      "required_media_variables": [
+        "profileAsset"
+      ],
+      "fidelity_notes": "Uses a supplied profile screenshot; does not invent follower counts, follow users, or send DMs.",
+      "reference_anchors": [],
+      "occupies_zones": [
+        "center"
+      ]
+    }
+  ],
+  "reference_catalogues": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "effect_count": 17,
+      "effects": [
+        {
+          "label": "orbit",
+          "slug": "orbit",
+          "approx_source_second": 0.07
+        },
+        {
+          "label": "couch wall",
+          "slug": "couch-wall",
+          "approx_source_second": 0.9
+        },
+        {
+          "label": "ui world",
+          "slug": "ui-world",
+          "approx_source_second": 1.62
+        },
+        {
+          "label": "frame break",
+          "slug": "frame-break",
+          "approx_source_second": 2.69
+        },
+        {
+          "label": "digital zoom",
+          "slug": "digital-zoom",
+          "approx_source_second": 3.5
+        },
+        {
+          "label": "phone mockup",
+          "slug": "phone-mockup",
+          "approx_source_second": 4.59
+        },
+        {
+          "label": "checklist",
+          "slug": "checklist",
+          "approx_source_second": 5.41
+        },
+        {
+          "label": "headline wall",
+          "slug": "headline-wall",
+          "approx_source_second": 6.36
+        },
+        {
+          "label": "zoom-through cut",
+          "slug": "zoom-through",
+          "approx_source_second": 7.4
+        },
+        {
+          "label": "chart grow",
+          "slug": "chart-grow",
+          "approx_source_second": 8.77
+        },
+        {
+          "label": "pull-back reveal",
+          "slug": "pull-back",
+          "approx_source_second": 9.51
+        },
+        {
+          "label": "green screen",
+          "slug": "green-screen",
+          "approx_source_second": 10.74
+        },
+        {
+          "label": "paper cut",
+          "slug": "paper-cut",
+          "approx_source_second": 11.7
+        },
+        {
+          "label": "doodle boil",
+          "slug": "doodle-boil",
+          "approx_source_second": 12.8
+        },
+        {
+          "label": "vertigo",
+          "slug": "vertigo",
+          "approx_source_second": 13.98
+        },
+        {
+          "label": "cover story",
+          "slug": "cover-story",
+          "approx_source_second": 14.73
+        },
+        {
+          "label": "glass type",
+          "slug": "glass-type",
+          "approx_source_second": 15.68
+        }
+      ]
     }
   ]
 }

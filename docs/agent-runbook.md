@@ -44,6 +44,10 @@ Keep the feedback event, fix it in a child revision, compare before/after and sa
 
 Lessons default to project scope. Promote only with evidence to `category:talking_head` or `universal`; `--supersedes <lesson-id>` retires a conflicting lesson. The next render records relevant lesson IDs; the next agent's handoff includes them. Mechanical constraints belong in validation/tests as well as memory. This is persistent agent context, not weight training.
 
+## Reuse the effect stockpile
+
+`editor stockpile` lists the 38 compositions. `editor stockpile --effect "chart grow"` resolves canonical names and reference aliases, exposes parameters and required media, and reports fidelity limits. `--output <new-project-directory>` prepares an isolated copy with locally copied/hashed assets; `--variables` accepts JSON or a JSON file. Use the explicit `@hyperframes` EDL entry printed by the command. Never put a stockpile lookup alias directly into an EDL as though it were a native renderer capability. Recipes and all 17 reference mappings are in `docs/effect-stockpile.md`.
+
 ## Optional effects and providers
 
 Run `npm ci` for pinned HyperFrames/GSAP. Use an explicit `@hyperframes` effect with `composition`, `variables` and source interval; it renders an isolated copy. Library scenes additionally require `demo: true` and remain experimental. The registry lists unbound parameters, which the adapter rejects if supplied. Arrays/objects are serialized to the scene variable format. Use `@asset/...` handles for media-valued variables; dependencies are copied into the instance. Do not call a blank placeholder a completed effect.

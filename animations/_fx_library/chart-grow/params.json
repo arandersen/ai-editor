@@ -1,0 +1,55 @@
+{
+  "shortcut": "@chart-grow",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "chart-grow",
+  "rule": "Reference Pack Def9pj5TWtA",
+  "title": "Data-backed animated line chart",
+  "composition_path": "animations/_fx_library/chart-grow/index.html",
+  "duration_sec": 3.0,
+  "min_duration_sec": 2.6,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "",
+  "variables": {
+    "title": "Example data",
+    "labels": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+    ],
+    "values": [
+      10,
+      20,
+      16,
+      35,
+      48
+    ],
+    "unit": "units",
+    "accent": "#F6E478",
+    "yPercent": 14
+  },
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/chart-grow --format mov --output broll/<Project>/chart-grow.mov",
+  "pack": "reference-def9pj5twta",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Chart geometry follows explicit values, labels and units. Defaults are labeled example data, never inferred performance metrics.",
+  "reference_anchors": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "label": "chart grow",
+      "approx_source_second": 8.77
+    }
+  ],
+  "occupies_zones": [
+    "top"
+  ]
+}

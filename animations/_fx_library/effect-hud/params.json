@@ -7,6 +7,7 @@
   "title": "On-Screen Effect Checklist HUD (Split-Dark & Sidebar-Green Themes)",
   "composition_path": "animations/_fx_library/effect-hud/index.html",
   "duration_sec": 3.0,
+  "min_duration_sec": 3.0,
   "fps": 60,
   "canvas": [
     1080,
@@ -41,5 +42,13 @@
       "16 comment bubble"
     ]
   },
-  "render_command": "npx hyperframes render animations/_fx_library/effect-hud --format mov --output broll/<Project>/effect-hud.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/effect-hud --format mov --output broll/<Project>/effect-hud.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "top"
+  ]
 }

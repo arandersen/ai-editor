@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@couch-wall — Layered reel wall behind a seated subject</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+#stockpile-root{position:absolute;inset:0}.wall{position:absolute;left:4%;top:10%;width:92%;height:52%;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;perspective:1600px}
+          .wall-card{height:100%;min-height:0;overflow:hidden;border-radius:22px;border:3px solid #FFFFFF55;background:#102323;box-shadow:0 18px 48px #0008;opacity:0}
+          .subject{position:absolute;inset:0;z-index:2}.subject img,.subject video{object-fit:contain!important}
+          .wall-heading{position:absolute;left:8%;right:8%;top:70%;text-align:center;color:#FFF;font-size:68px;font-weight:800;text-shadow:0 6px 20px #000;z-index:3}  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="3.0"
+       data-composition-variables='[{"id": "cards", "type": "string", "label": "cards", "default": "[]"}, {"id": "subjectAsset", "type": "string", "label": "subjectAsset", "default": ""}, {"id": "heading", "type": "string", "label": "heading", "default": "Your work, in context"}, {"id": "spread", "type": "number", "label": "spread", "default": 1.0}]'>
+<div id="stockpile-root"><div id="wall" class="wall"></div><div id="subject" class="subject"></div><div id="wall-heading" class="wall-heading"></div></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"cards": [], "subjectAsset": "", "heading": "Your work, in context", "spread": 1.0};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+    const stage = document.getElementById('stage');
+    const stageDuration = Number(stage.dataset.duration);
+    const $ = selector => document.querySelector(selector);
+    const all = selector => Array.from(document.querySelectorAll(selector));
+    function assert(ok, message) { if (!ok) throw new Error(message); }
+    function finite(n) { return typeof n === 'number' && Number.isFinite(n); }
+    function make(tag, cls, value) {
+      const el = document.createElement(tag); el.className = cls;
+      if (value !== undefined) el.textContent = String(value);
+      return el;
+    }
+    function mount(parent, asset, timing = {}) {
+      if (!asset) return null;
+      const config = typeof asset === 'string' ? {src:asset} : asset;
+      assert(typeof config.src === 'string' && config.src.length > 0, 'Media needs src');
+      assert(!config.src.startsWith('@'), 'Resolve media handles with editor stockpile --output or the EDL adapter');
+      const isVideo = config.kind === 'video' || /\.(mp4|mov|webm)(?:\?|$)/i.test(config.src);
+      const el = document.createElement(isVideo ? 'video' : 'img');
+      el.src = config.src; el.alt = config.alt || '';
+      Object.assign(el.style,{width:'100%',height:'100%',objectFit:config.fit || 'cover',display:'block'});
+      el.dataset.start = String(timing.start ?? 0);
+      el.dataset.duration = String(timing.duration ?? stageDuration);
+      if (isVideo) {
+        el.muted = true; el.playsInline = true;
+        el.dataset.mediaStart = String(config.mediaStart ?? 0);
+      }
+      parent.append(el); return el;
+    }
+    function exit(tl, target, lead=0.25) {
+      tl.to(target,{opacity:0,y:-12,duration:lead,ease:'power2.in'},stageDuration-lead-0.05);
+    }
+
+    assert(Array.isArray(vars.cards) && vars.cards.length <= 9,'cards must contain at most 9 media entries');
+    assert(finite(vars.spread) && vars.spread>=0.5 && vars.spread<=1.5,'spread must be 0.5..1.5');
+    vars.cards.forEach((asset,i)=>{const card=make('div','wall-card');card.style.transform='rotate('+(i%2?3:-3)+'deg)';mount(card,asset);$('#wall').append(card);});
+    $('#wall').style.transform='scale('+vars.spread+')';
+    $('#wall').style.gridTemplateRows='repeat('+Math.max(1,Math.ceil(vars.cards.length/3))+',1fr)';
+    mount($('#subject'),vars.subjectAsset);$('#wall-heading').textContent=vars.heading;
+
+    const tl = gsap.timeline({ paused: true });
+tl.fromTo('.wall-card',{opacity:0,y:60,rotationY:-12},{opacity:1,y:0,rotationY:0,duration:0.42,stagger:0.06,ease:'power3.out'},0)
+      .fromTo('#wall-heading',{opacity:0,y:20},{opacity:1,y:0,duration:0.3},0.25);exit(tl,'#stockpile-root');
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

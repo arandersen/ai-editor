@@ -7,6 +7,7 @@
   "title": "Competitor App Icons Slashed with Rose-Pink X-Strike + Gravity Drop",
   "composition_path": "animations/_fx_library/icon-strike/index.html",
   "duration_sec": 1.8,
+  "min_duration_sec": 1.8,
   "fps": 60,
   "canvas": [
     1080,
@@ -22,5 +23,13 @@
     ],
     "strikeWord": "strike."
   },
-  "render_command": "npx hyperframes render animations/_fx_library/icon-strike --format mov --output broll/<Project>/icon-strike.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/icon-strike --format mov --output broll/<Project>/icon-strike.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "top"
+  ]
 }

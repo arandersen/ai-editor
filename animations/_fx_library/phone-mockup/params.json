@@ -7,6 +7,7 @@
   "title": "3D Tilted iPhone Mockup Slide-In + Scrolling Screen Capture",
   "composition_path": "animations/_fx_library/phone-mockup/index.html",
   "duration_sec": 2.4,
+  "min_duration_sec": 2.4,
   "fps": 60,
   "canvas": [
     1080,
@@ -22,5 +23,20 @@
     "xPercent": 20.0,
     "yPercent": 50.0
   },
-  "render_command": "npx hyperframes render animations/_fx_library/phone-mockup --format mov --output broll/<Project>/phone-mockup.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/phone-mockup --format mov --output broll/<Project>/phone-mockup.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "label": "phone mockup",
+      "approx_source_second": 4.59
+    }
+  ],
+  "occupies_zones": [
+    "custom"
+  ]
 }

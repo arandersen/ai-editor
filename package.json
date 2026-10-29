@@ -1,7 +1,8 @@
 {
   "devDependencies": {
     "gsap": "3.12.5",
-    "hyperframes": "0.8.214"
+    "hyperframes": "0.8.214",
+    "puppeteer-core": "25.16.0"
   },
   "name": "ai-video-editor",
   "version": "0.1.0",

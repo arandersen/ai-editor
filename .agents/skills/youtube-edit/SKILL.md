@@ -13,6 +13,8 @@ Read `AGENTS.md`, `docs/agent-runbook.md` and `docs/architecture.md` at reposito
 4. Validate assets and EDL; render a new revision filename. Inspect actual output; technical QC does not replace creative review.
 5. Record feedback, rejected decisions and resolutions through history commands. Fix in a child revision. Store scoped evidence-backed lessons and regression checks.
 
-Read relevant `references/editing-rules-*.md` for creative preferences. Historical rules and the catalogue are not proof of executable effect support. The 31 library scenes remain experimental; use explicit compositions with `demo: true`. Do not silently substitute a demo for a requested source-video effect.
+Read relevant `references/editing-rules-*.md` for creative preferences. Historical rules and the catalogue are not proof of executable effect support. The 38 library scenes remain experimental; use explicit compositions with `demo: true`. Do not silently substitute a demo for a requested source-video effect.
+
+Use `python3 -m editor stockpile --effect "<reference label>"` to find canonical compositions and required inputs. Prepare copies with `stockpile --output`; add the printed explicit `@hyperframes` effect to the storyboard/EDL. See `docs/effect-stockpile.md` for the seven-effect third-reference pack and fidelity limits.
 
 The master feedback changelog remains historical evidence. New revisions belong in project history and scoped memory; this persists context rather than training model weights. Delegate QC to an independent reviewer when authorized and available; otherwise record review as pending.

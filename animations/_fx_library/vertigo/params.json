@@ -7,6 +7,7 @@
   "title": "Dolly-Zoom (Contrazoom) Background Expansion Behind Locked Person Cutout",
   "composition_path": "animations/_fx_library/vertigo/index.html",
   "duration_sec": 1.4,
+  "min_duration_sec": 1.4,
   "fps": 60,
   "canvas": [
     1080,
@@ -21,5 +22,20 @@
     "fgScale": 1.02,
     "cutoutHandle": "@project/cutout/vertigo_cutout.mov"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/vertigo --format mov --output broll/<Project>/vertigo.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/vertigo --format mov --output broll/<Project>/vertigo.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "label": "vertigo",
+      "approx_source_second": 13.98
+    }
+  ],
+  "occupies_zones": [
+    "custom"
+  ]
 }

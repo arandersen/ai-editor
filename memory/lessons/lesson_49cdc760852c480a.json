@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "lesson_id": "lesson_49cdc760852c480a",
+  "text": "Resolve reference labels to canonical stockpile entries before creating duplicate effects. Instantiate copies with actual media and preserve fidelity limits.",
+  "scope": "project:reference-def9pj5twta-6a3f390a",
+  "status": "active",
+  "evidence_project": "reference-def9pj5twta-6a3f390a",
+  "evidence_event": "evt_a1545b0232ef48d2",
+  "actor": {
+    "role": "engineer",
+    "model": "Codex (session model unspecified)"
+  },
+  "created_at": "2026-10-29T19:38:21.882387+00:00",
+  "supersedes": null
+}

@@ -7,6 +7,7 @@
   "title": "Automated Social CTA Comment-to-DM Funnel (Input -> Heart Bubble -> Link Reply)",
   "composition_path": "animations/_fx_library/comment-bubble/index.html",
   "duration_sec": 2.8,
+  "min_duration_sec": 2.8,
   "fps": 60,
   "canvas": [
     1080,
@@ -20,5 +21,13 @@
     "replyText": "Sent you the link",
     "buttonText": "\ud83d\udd17 Open link"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/comment-bubble --format mov --output broll/<Project>/comment-bubble.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/comment-bubble --format mov --output broll/<Project>/comment-bubble.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "custom"
+  ]
 }

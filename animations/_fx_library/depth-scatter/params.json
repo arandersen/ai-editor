@@ -7,6 +7,7 @@
   "title": "Multi-Plane 3D Z-Depth Letter Scatter + Rack-Focus Blur (Behind & In Front of Head)",
   "composition_path": "animations/_fx_library/depth-scatter/index.html",
   "duration_sec": 2.2,
+  "min_duration_sec": 2.2,
   "fps": 60,
   "canvas": [
     1080,
@@ -20,5 +21,13 @@
     "wordFront": "scatter",
     "cutoutHandle": "@project/cutout/depth_scatter_cutout.mov"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/depth-scatter --format mov --output broll/<Project>/depth-scatter.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/depth-scatter --format mov --output broll/<Project>/depth-scatter.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "top"
+  ]
 }

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@chart-grow — Data-backed animated line chart</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+#stockpile-root{position:absolute;inset:0}.chart{position:absolute;left:7%;width:86%;top:14%;background:#101716ed;border:2px solid #FFFFFF30;border-radius:26px;padding:34px;box-shadow:0 20px 60px #0008}
+          #chart-title{font-size:42px;font-weight:800;color:#F0EADE;margin-bottom:20px}#plot{width:100%;height:auto;display:block}  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="3.0"
+       data-composition-variables='[{"id": "title", "type": "string", "label": "title", "default": "Example data"}, {"id": "labels", "type": "string", "label": "labels", "default": "[\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"]"}, {"id": "values", "type": "string", "label": "values", "default": "[10, 20, 16, 35, 48]"}, {"id": "unit", "type": "string", "label": "unit", "default": "units"}, {"id": "accent", "type": "string", "label": "accent", "default": "#F6E478"}, {"id": "yPercent", "type": "number", "label": "yPercent", "default": 14}]'>
+<div id="stockpile-root"><div id="chart" class="chart"><div id="chart-title"></div><svg id="plot" viewBox="0 0 900 520" role="img" aria-label="Animated data chart"></svg></div></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"title": "Example data", "labels": ["Mon", "Tue", "Wed", "Thu", "Fri"], "values": [10, 20, 16, 35, 48], "unit": "units", "accent": "#F6E478", "yPercent": 14};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+    const stage = document.getElementById('stage');
+    const stageDuration = Number(stage.dataset.duration);
+    const $ = selector => document.querySelector(selector);
+    const all = selector => Array.from(document.querySelectorAll(selector));
+    function assert(ok, message) { if (!ok) throw new Error(message); }
+    function finite(n) { return typeof n === 'number' && Number.isFinite(n); }
+    function make(tag, cls, value) {
+      const el = document.createElement(tag); el.className = cls;
+      if (value !== undefined) el.textContent = String(value);
+      return el;
+    }
+    function mount(parent, asset, timing = {}) {
+      if (!asset) return null;
+      const config = typeof asset === 'string' ? {src:asset} : asset;
+      assert(typeof config.src === 'string' && config.src.length > 0, 'Media needs src');
+      assert(!config.src.startsWith('@'), 'Resolve media handles with editor stockpile --output or the EDL adapter');
+      const isVideo = config.kind === 'video' || /\.(mp4|mov|webm)(?:\?|$)/i.test(config.src);
+      const el = document.createElement(isVideo ? 'video' : 'img');
+      el.src = config.src; el.alt = config.alt || '';
+      Object.assign(el.style,{width:'100%',height:'100%',objectFit:config.fit || 'cover',display:'block'});
+      el.dataset.start = String(timing.start ?? 0);
+      el.dataset.duration = String(timing.duration ?? stageDuration);
+      if (isVideo) {
+        el.muted = true; el.playsInline = true;
+        el.dataset.mediaStart = String(config.mediaStart ?? 0);
+      }
+      parent.append(el); return el;
+    }
+    function exit(tl, target, lead=0.25) {
+      tl.to(target,{opacity:0,y:-12,duration:lead,ease:'power2.in'},stageDuration-lead-0.05);
+    }
+
+    assert(Array.isArray(vars.values)&&vars.values.length>=2&&vars.values.length<=12&&vars.values.every(finite),'values needs 2..12 finite numbers');
+    assert(Array.isArray(vars.labels)&&vars.labels.length===vars.values.length,'One label per value required');
+    assert(finite(vars.yPercent)&&vars.yPercent>=5&&vars.yPercent<=55,'yPercent must be 5..55');
+    $('#chart-title').textContent=vars.title;$('#chart').style.top=vars.yPercent+'%';
+    const svg=$('#plot'),ns='http://www.w3.org/2000/svg';
+    function svgEl(tag,attrs,text){const el=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,String(v)));if(text!==undefined)el.textContent=text;svg.append(el);return el;}
+    const min=Math.min(0,...vars.values),max=Math.max(0,...vars.values),span=max-min||1;
+    const points=vars.values.map((v,i)=>[90+i*760/(vars.values.length-1),410-(v-min)/span*340]);
+    [0,0.5,1].forEach(f=>{const y=410-f*340;svgEl('line',{x1:90,x2:850,y1:y,y2:y,stroke:'#FFFFFF24'});svgEl('text',{x:76,y:y+7,fill:'#F0EADE','font-size':23,'text-anchor':'end'},String(Math.round((min+f*span)*100)/100));});
+    vars.labels.forEach((v,i)=>svgEl('text',{x:points[i][0],y:455,fill:'#F0EADE','font-size':Math.max(17,26-vars.labels.length/3),'text-anchor':'middle'},v));
+    svgEl('text',{x:90,y:505,fill:'#F0EADE','font-size':24},vars.unit);
+    const line=svgEl('path',{id:'growth-line',d:points.map((p,i)=>(i?'L':'M')+p.join(',')).join(' '),fill:'none',stroke:vars.accent,'stroke-width':7,'stroke-linecap':'round','stroke-linejoin':'round'});
+    const length=line.getTotalLength();line.style.strokeDasharray=String(length);line.style.strokeDashoffset=String(length);
+    points.forEach((p,i)=>svgEl('circle',{class:'data-dot',cx:p[0],cy:p[1],r:8,fill:vars.accent,opacity:0}));
+
+    const tl = gsap.timeline({ paused: true });
+tl.fromTo('#chart',{opacity:0,y:26},{opacity:1,y:0,duration:0.3},0)
+      .to('#growth-line',{strokeDashoffset:0,duration:1.65,ease:'none'},0.35)
+      .to('.data-dot',{opacity:1,duration:0.1,stagger:1.65/(vars.values.length-1)},0.35);exit(tl,'#chart');
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

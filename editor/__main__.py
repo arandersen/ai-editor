@@ -45,6 +45,12 @@ def parser():
     inspect.add_argument("--table-crop", action="store_true")
     inspect.add_argument("--proxy-max-mb", type=float, default=14)
     sub.add_parser("capabilities", help="List executable effects and experimental scenes")
+    stockpile = sub.add_parser("stockpile", help="Find and instantiate reusable effect compositions")
+    stockpile.add_argument("--effect", help="Shortcut, slug or reference label")
+    stockpile.add_argument("--output", help="New project-local composition directory")
+    stockpile.add_argument("--variables", help="JSON object or JSON file of parameter overrides")
+    stockpile.add_argument("--project", default="Default")
+    stockpile.add_argument("--duration", type=float, help="Composition-local duration, 1..120 seconds")
     init = sub.add_parser("init", help="Create project metadata and an unapproved EDL")
     init.add_argument("--project", required=True)
     init.add_argument("--source", required=True)
@@ -99,10 +105,27 @@ def main(argv=None):
         if args.command == "inspect":
             from .inspect import inspect_video
             result = inspect_video(args.source, args.project, args.table_crop, args.proxy_max_mb)
+        elif args.command == "stockpile":
+            from .stockpile import catalogue, find_effect, instantiate
+            if args.output:
+                if not args.effect:
+                    raise ValueError("--output requires --effect")
+                variables = {}
+                if args.variables:
+                    variables = json.loads(args.variables if args.variables.lstrip().startswith("{") else Path(args.variables).read_text())
+                result = instantiate(args.effect,args.output,variables,project=args.project,duration=args.duration)
+            elif args.effect:
+                result = find_effect(args.effect)
+            else:
+                data = catalogue()
+                result = {"total_templates":len(data["templates"]),
+                          "templates":[{k:e[k] for k in ("shortcut","title","status","pack","aliases")} for e in data["templates"]],
+                          "reference_catalogues":data.get("reference_catalogues",[])}
         elif args.command == "capabilities":
             registry = ROOT / "animations/_fx_library/registry.json"
             result = {"schema_version": 1, "effects": SUPPORTED,
-                      "library_scenes": [{"shortcut": e["shortcut"], "status": "experimental-demo",
+                      "library_scenes": [{"shortcut": e["shortcut"], "status": e["status"],
+                                          "aliases":e.get("aliases",[]),"pack":e.get("pack"),
                                           "composition": e["composition_path"]}
                                          for e in json.loads(registry.read_text())["templates"]] if registry.exists() else []}
         elif args.command == "init":

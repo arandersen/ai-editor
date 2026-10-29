@@ -3,7 +3,7 @@
 scripts/build_fx_library.py
 Builds:
 1. Canonical starter assets in `assets/` (SVG app logos, device mockups, paper/grain textures, manifest.json, README.md)
-2. All 31 Reusable HyperFrames Motion Graphics Templates in `animations/_fx_library/<slug>/`
+2. All 38 Reusable HyperFrames Motion Graphics Templates in `animations/_fx_library/<slug>/`
    (each with deterministic GSAP `index.html` + `params.json` documenting all inputs & Dual-Handle asset paths).
 """
 
@@ -13,7 +13,8 @@ import shutil
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from editor.scene_bindings import binding_script
+from editor.scene_bindings import binding_script, COMMON
+from editor.reference_pack import REFERENCE_SPECS, REFERENCE_EFFECTS, SOURCE
 
 REFRESH_SCENES = False
 
@@ -1396,8 +1397,10 @@ def to_hf_var_schema(default_vars: dict) -> list:
 def build_fx_templates():
     os.makedirs(FX_LIB_DIR, exist_ok=True)
     index_manifest = []
+    evidence = Path(ROOT)/"docs/reference/Def9pj5TWtA-evidence/analysis-manifest.json"
+    reference_sha = json.loads(evidence.read_text())["source_sha256"] if evidence.exists() else None
 
-    for spec in FX_SPECS:
+    for spec in FX_SPECS + REFERENCE_SPECS:
         slug = spec["slug"]
         comp_dir = os.path.join(FX_LIB_DIR, slug)
         os.makedirs(comp_dir, exist_ok=True)
@@ -1410,6 +1413,7 @@ def build_fx_templates():
         hf_schema = to_hf_var_schema(spec["default_vars"])
         vars_json_attr = json.dumps(hf_schema).replace("'", "&#39;")
         dur = spec["duration"]
+        bindings = COMMON + spec["binding_js"] if "binding_js" in spec else binding_script(slug)
 
         html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -1452,7 +1456,7 @@ def build_fx_templates():
     const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
       ? window.__hyperframes.getVariables()
       : {json.dumps(spec["default_vars"])};
-{binding_script(slug)}
+{bindings}
     const tl = gsap.timeline({{ paused: true }});
 {spec["gsap_js"]}
     window.__timelines["main"] = tl;
@@ -1466,29 +1470,42 @@ def build_fx_templates():
         params_doc = {
             "shortcut": spec["shortcut"],
             "status": "experimental-demo",
-            "unbound_variables": [k for k in spec["default_vars"] if "vars." + k not in binding_script(slug) + spec["gsap_js"]],
+            "unbound_variables": [k for k in spec["default_vars"] if "vars." + k not in bindings + spec["gsap_js"]],
             "slug": slug,
             "rule": spec["rule"],
             "title": spec["title"],
             "composition_path": f"animations/_fx_library/{slug}/index.html",
             "duration_sec": dur,
+            "min_duration_sec": spec.get("min_duration_sec",dur),
             "fps": 60,
             "canvas": [1080, 1920],
             "requires_person_cutout": spec["requires_cutout"],
             "occupies_top_zone": spec["top_zone"],
             "default_sfx_handle": spec["sfx"],
             "variables": spec["default_vars"],
-            "render_command": f"npx hyperframes render animations/_fx_library/{slug} --format mov --output broll/<Project>/{slug}.mov"
+            "render_command": f"./node_modules/.bin/hyperframes render animations/_fx_library/{slug} --format mov --output broll/<Project>/{slug}.mov",
+            "pack": spec.get("pack", "packs-2-and-3"),
+            "aliases": spec.get("aliases", []),
+            "required_media_variables": spec.get("required_media_variables", []),
+            "fidelity_notes": spec.get("fidelity_notes", "Experimental reference demonstration; source-video fidelity not certified."),
+            "reference_anchors": [{"source":SOURCE,"source_sha256":reference_sha,"label":label,"approx_source_second":time}
+                                  for label,canonical,time in REFERENCE_EFFECTS if canonical == slug],
+            "occupies_zones": spec.get("occupies_zones", ["top"] if spec["top_zone"] else ["custom"])
         }
         write_text(os.path.join(comp_dir, "params.json"), json.dumps(params_doc, indent=2))
         index_manifest.append(params_doc)
 
-    # Also record the original 14 Notion effects + full index in animations/_fx_library/registry.json
+    # Canonical stockpile entries and reference provenance, without duplicating aliases.
     write_text(os.path.join(FX_LIB_DIR, "registry.json"), json.dumps({
-        "total_pack_2_and_3_templates": len(index_manifest),
-        "templates": index_manifest
+        "schema_version": 2,
+        "total_pack_2_and_3_templates": len(FX_SPECS),
+        "total_templates": len(index_manifest),
+        "templates": index_manifest,
+        "reference_catalogues": [{"source":SOURCE,"source_sha256":reference_sha,"effect_count":len(REFERENCE_EFFECTS),
+                                   "effects":[{"label":label,"slug":slug,"approx_source_second":time}
+                                              for label,slug,time in REFERENCE_EFFECTS]}]
     }, indent=2))
-    print(f"✅ Built {len(index_manifest)} HyperFrames templates in {FX_LIB_DIR} and starter assets in {ASSETS_DIR}")
+    print(f"✅ Prepared {len(index_manifest)} HyperFrames stockpile entries in {FX_LIB_DIR}")
 
 
 if __name__ == "__main__":

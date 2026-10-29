@@ -7,6 +7,7 @@
   "title": "Hand-Drawn Neon Chalk Outline + Boiling Stop-Motion Spark Bursts",
   "composition_path": "animations/_fx_library/doodle-boil/index.html",
   "duration_sec": 2.0,
+  "min_duration_sec": 2.0,
   "fps": 60,
   "canvas": [
     1080,
@@ -24,5 +25,20 @@
     ],
     "boilFps": 12
   },
-  "render_command": "npx hyperframes render animations/_fx_library/doodle-boil --format mov --output broll/<Project>/doodle-boil.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/doodle-boil --format mov --output broll/<Project>/doodle-boil.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "label": "doodle boil",
+      "approx_source_second": 12.8
+    }
+  ],
+  "occupies_zones": [
+    "custom"
+  ]
 }

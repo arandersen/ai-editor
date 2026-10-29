@@ -317,7 +317,7 @@ class Renderer:
             if unbound:
                 raise ValueError(f"Scene parameters are not implemented: {sorted(unbound)}")
             def resolve_variable(value):
-                if isinstance(value, str) and value.startswith("@"):
+                if isinstance(value, str) and value.startswith(("@asset/", "@project/")):
                     from .core import resolve_asset
                     resolved = resolve_asset(value, self.history.project, self.history.root)
                     if not resolved.is_file():

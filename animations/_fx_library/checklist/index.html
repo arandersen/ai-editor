@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@checklist — Timed glass task checklist with progress</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+#stockpile-root{position:absolute;inset:0}#check-card{position:absolute;left:8%;right:8%;top:16%;border:2px solid #FFFFFF35;border-radius:26px;padding:30px;background:#101614ed;box-shadow:0 18px 60px #0008;opacity:0}
+          .check-heading{display:flex;justify-content:space-between;gap:24px;color:#F0EADE;font-size:24px;letter-spacing:0.03em;margin-bottom:28px}
+          .task-row{display:flex;gap:24px;align-items:center;min-height:86px;color:#FFF;font-size:38px;opacity:0.48}.task-circle{flex-shrink:0;width:38px;height:38px;border:2px solid #FFFFFF70;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
+          .task-check{opacity:0}.check-track{height:5px;background:#FFFFFF20;margin-top:26px}#check-progress{height:100%;width:100%;transform:scaleX(0);transform-origin:left center;background:#F6E478}  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="3.0"
+       data-composition-variables='[{"id": "title", "type": "string", "label": "title", "default": "A clear workflow"}, {"id": "items", "type": "string", "label": "items", "default": "[\"Choose the take\", \"Add visual proof\", \"Review the reel\"]"}, {"id": "completeTimes", "type": "string", "label": "completeTimes", "default": "[0.6, 1.2, 1.8]"}, {"id": "accent", "type": "string", "label": "accent", "default": "#F6E478"}, {"id": "yPercent", "type": "number", "label": "yPercent", "default": 16}]'>
+<div id="stockpile-root"><div id="check-card"><div class="check-heading"><span id="check-title"></span><span id="check-count"></span></div><div id="check-items"></div><div class="check-track"><div id="check-progress"></div></div></div></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"title": "A clear workflow", "items": ["Choose the take", "Add visual proof", "Review the reel"], "completeTimes": [0.6, 1.2, 1.8], "accent": "#F6E478", "yPercent": 16};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+    const stage = document.getElementById('stage');
+    const stageDuration = Number(stage.dataset.duration);
+    const $ = selector => document.querySelector(selector);
+    const all = selector => Array.from(document.querySelectorAll(selector));
+    function assert(ok, message) { if (!ok) throw new Error(message); }
+    function finite(n) { return typeof n === 'number' && Number.isFinite(n); }
+    function make(tag, cls, value) {
+      const el = document.createElement(tag); el.className = cls;
+      if (value !== undefined) el.textContent = String(value);
+      return el;
+    }
+    function mount(parent, asset, timing = {}) {
+      if (!asset) return null;
+      const config = typeof asset === 'string' ? {src:asset} : asset;
+      assert(typeof config.src === 'string' && config.src.length > 0, 'Media needs src');
+      assert(!config.src.startsWith('@'), 'Resolve media handles with editor stockpile --output or the EDL adapter');
+      const isVideo = config.kind === 'video' || /\.(mp4|mov|webm)(?:\?|$)/i.test(config.src);
+      const el = document.createElement(isVideo ? 'video' : 'img');
+      el.src = config.src; el.alt = config.alt || '';
+      Object.assign(el.style,{width:'100%',height:'100%',objectFit:config.fit || 'cover',display:'block'});
+      el.dataset.start = String(timing.start ?? 0);
+      el.dataset.duration = String(timing.duration ?? stageDuration);
+      if (isVideo) {
+        el.muted = true; el.playsInline = true;
+        el.dataset.mediaStart = String(config.mediaStart ?? 0);
+      }
+      parent.append(el); return el;
+    }
+    function exit(tl, target, lead=0.25) {
+      tl.to(target,{opacity:0,y:-12,duration:lead,ease:'power2.in'},stageDuration-lead-0.05);
+    }
+
+    assert(Array.isArray(vars.items)&&vars.items.length>0&&vars.items.length<=8,'items needs 1..8 labels');
+    assert(Array.isArray(vars.completeTimes)&&vars.completeTimes.length===vars.items.length,'One completion time per item required');
+    assert(vars.completeTimes.every((t,i)=>finite(t)&&t>=0.3&&t<stageDuration-0.3&&(i===0||t>vars.completeTimes[i-1])),'Completion times must increase within the hold interval');
+    $('#check-title').textContent=vars.title;$('#check-count').textContent='0 of '+vars.items.length;$('#check-card').style.top=vars.yPercent+'%';$('#check-progress').style.background=vars.accent;
+    vars.items.forEach((label,i)=>{const row=make('div','task-row');row.id='task-'+i;const circle=make('span','task-circle');circle.id='tick-'+i;circle.append(make('span','task-check','✓'));row.append(circle,make('span','task-label',label));$('#check-items').append(row);});
+
+    const tl = gsap.timeline({ paused: true });
+tl.fromTo('#check-card',{opacity:0,y:30},{opacity:1,y:0,duration:0.3,ease:'power3.out'},0);
+      vars.completeTimes.forEach((time,i)=>{tl.set('#task-'+i,{opacity:1},time).set('#tick-'+i,{backgroundColor:vars.accent,color:'#121414'},time).set('#tick-'+i+' .task-check',{opacity:1},time)
+        .set('#check-count',{textContent:(i+1)+' of '+vars.items.length},time).to('#check-progress',{scaleX:(i+1)/vars.items.length,duration:0.15},time);});exit(tl,'#check-card');
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

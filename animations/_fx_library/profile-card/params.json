@@ -1,0 +1,37 @@
+{
+  "shortcut": "@profile-card",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "profile-card",
+  "rule": "Reference Pack Def9pj5TWtA",
+  "title": "Screenshot-backed social profile CTA",
+  "composition_path": "animations/_fx_library/profile-card/index.html",
+  "duration_sec": 2.8,
+  "min_duration_sec": 1.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "",
+  "variables": {
+    "profileAsset": "",
+    "creatorHandle": "yourhandle",
+    "cta": "Follow for more",
+    "yPercent": 46,
+    "widthPercent": 48
+  },
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/profile-card --format mov --output broll/<Project>/profile-card.mov",
+  "pack": "reference-def9pj5twta",
+  "aliases": [],
+  "required_media_variables": [
+    "profileAsset"
+  ],
+  "fidelity_notes": "Uses a supplied profile screenshot; does not invent follower counts, follow users, or send DMs.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "center"
+  ]
+}

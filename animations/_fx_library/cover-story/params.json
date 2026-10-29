@@ -1,0 +1,48 @@
+{
+  "shortcut": "@cover-story",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "cover-story",
+  "rule": "Reference Pack Def9pj5TWtA",
+  "title": "Magazine masthead behind subject with cover furniture",
+  "composition_path": "animations/_fx_library/cover-story/index.html",
+  "duration_sec": 3.0,
+  "min_duration_sec": 1.3,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": true,
+  "default_sfx_handle": "",
+  "variables": {
+    "masthead": "EDIT",
+    "subjectAsset": "",
+    "backgroundAsset": "",
+    "issue": "ISSUE 01",
+    "coverLine": "A story worth sharing",
+    "accent": "#D4AF37",
+    "mastheadY": 16
+  },
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/cover-story --format mov --output broll/<Project>/cover-story.mov",
+  "pack": "reference-def9pj5twta",
+  "aliases": [
+    "magazine cover"
+  ],
+  "required_media_variables": [
+    "subjectAsset"
+  ],
+  "fidelity_notes": "Actual behind/foreground/front layers with supplied aligned alpha media. Barcode is decorative. Does not create segmentation masks.",
+  "reference_anchors": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "label": "cover story",
+      "approx_source_second": 14.73
+    }
+  ],
+  "occupies_zones": [
+    "top"
+  ]
+}

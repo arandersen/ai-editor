@@ -7,6 +7,7 @@
   "title": "Dual-Theme Hook/CTA Keyword Captions (Yellow-Glow & White-Pill-Stack)",
   "composition_path": "animations/_fx_library/keyword-captions/index.html",
   "duration_sec": 2.4,
+  "min_duration_sec": 2.4,
   "fps": 60,
   "canvas": [
     1080,
@@ -21,5 +22,13 @@
     "keyword": "effects?",
     "yPercent": 52.0
   },
-  "render_command": "npx hyperframes render animations/_fx_library/keyword-captions --format mov --output broll/<Project>/keyword-captions.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/keyword-captions --format mov --output broll/<Project>/keyword-captions.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "custom"
+  ]
 }

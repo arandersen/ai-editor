@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@cover-story — Magazine masthead behind subject with cover furniture</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+#stockpile-root{position:absolute;inset:0}.cover-layer{position:absolute;inset:0}.cover-layer img,.cover-layer video{object-fit:contain!important}
+          #masthead{position:absolute;left:5%;right:5%;top:16%;text-align:center;font-family:Georgia,serif;font-size:270px;letter-spacing:-0.05em;color:#F4F4F2;z-index:1}
+          #cover-person{z-index:2}#cover-front{position:absolute;inset:8% 6% 10%;border:4px solid #D4AF37;z-index:3;opacity:0}
+          #issue{position:absolute;left:24px;top:24px;font-size:28px;color:#F0EADE}#cover-line{position:absolute;left:28px;right:28px;bottom:140px;font-family:Georgia,serif;font-size:70px;line-height:1.08;color:#FFF;text-shadow:0 5px 16px #000}
+          #barcode{position:absolute;left:28px;bottom:30px;width:160px;height:80px;background:#FFF;padding:8px}  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="3.0"
+       data-composition-variables='[{"id": "masthead", "type": "string", "label": "masthead", "default": "EDIT"}, {"id": "subjectAsset", "type": "string", "label": "subjectAsset", "default": ""}, {"id": "backgroundAsset", "type": "string", "label": "backgroundAsset", "default": ""}, {"id": "issue", "type": "string", "label": "issue", "default": "ISSUE 01"}, {"id": "coverLine", "type": "string", "label": "coverLine", "default": "A story worth sharing"}, {"id": "accent", "type": "string", "label": "accent", "default": "#D4AF37"}, {"id": "mastheadY", "type": "number", "label": "mastheadY", "default": 16}]'>
+<div id="stockpile-root"><div id="cover-bg" class="cover-layer"></div><div id="masthead"></div><div id="cover-person" class="cover-layer"></div><div id="cover-front"><span id="issue"></span><span id="cover-line"></span><svg id="barcode" viewBox="0 0 160 80" aria-label="Decorative cover barcode"></svg></div></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"masthead": "EDIT", "subjectAsset": "", "backgroundAsset": "", "issue": "ISSUE 01", "coverLine": "A story worth sharing", "accent": "#D4AF37", "mastheadY": 16};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+    const stage = document.getElementById('stage');
+    const stageDuration = Number(stage.dataset.duration);
+    const $ = selector => document.querySelector(selector);
+    const all = selector => Array.from(document.querySelectorAll(selector));
+    function assert(ok, message) { if (!ok) throw new Error(message); }
+    function finite(n) { return typeof n === 'number' && Number.isFinite(n); }
+    function make(tag, cls, value) {
+      const el = document.createElement(tag); el.className = cls;
+      if (value !== undefined) el.textContent = String(value);
+      return el;
+    }
+    function mount(parent, asset, timing = {}) {
+      if (!asset) return null;
+      const config = typeof asset === 'string' ? {src:asset} : asset;
+      assert(typeof config.src === 'string' && config.src.length > 0, 'Media needs src');
+      assert(!config.src.startsWith('@'), 'Resolve media handles with editor stockpile --output or the EDL adapter');
+      const isVideo = config.kind === 'video' || /\.(mp4|mov|webm)(?:\?|$)/i.test(config.src);
+      const el = document.createElement(isVideo ? 'video' : 'img');
+      el.src = config.src; el.alt = config.alt || '';
+      Object.assign(el.style,{width:'100%',height:'100%',objectFit:config.fit || 'cover',display:'block'});
+      el.dataset.start = String(timing.start ?? 0);
+      el.dataset.duration = String(timing.duration ?? stageDuration);
+      if (isVideo) {
+        el.muted = true; el.playsInline = true;
+        el.dataset.mediaStart = String(config.mediaStart ?? 0);
+      }
+      parent.append(el); return el;
+    }
+    function exit(tl, target, lead=0.25) {
+      tl.to(target,{opacity:0,y:-12,duration:lead,ease:'power2.in'},stageDuration-lead-0.05);
+    }
+
+    assert(typeof vars.masthead==='string'&&vars.masthead.length>0&&vars.masthead.length<=24,'masthead needs 1..24 characters');
+    mount($('#cover-bg'),vars.backgroundAsset);mount($('#cover-person'),vars.subjectAsset);
+    $('#masthead').textContent=vars.masthead;$('#masthead').style.top=vars.mastheadY+'%';
+    $('#masthead').style.fontSize=Math.min(270,1500/vars.masthead.length)+'px';
+    $('#issue').textContent=vars.issue;$('#cover-line').textContent=vars.coverLine;$('#cover-front').style.borderColor=vars.accent;
+    const ns='http://www.w3.org/2000/svg';let bx=0;for(let i=0;i<34;i++){const rect=document.createElementNS(ns,'rect');const width=1+(i*7%3);rect.setAttribute('x',bx);rect.setAttribute('width',width);rect.setAttribute('height',64);rect.setAttribute('fill','#161616');$('#barcode').append(rect);bx+=width+2;}
+
+    const tl = gsap.timeline({ paused: true });
+tl.fromTo('#masthead',{opacity:0,y:35},{opacity:1,y:0,duration:0.35,ease:'power3.out'},0)
+      .to('#cover-front',{opacity:1,duration:0.3},0.2);exit(tl,'#stockpile-root');
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

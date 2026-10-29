@@ -7,6 +7,7 @@
   "title": "Vertical Light-Leak Split Wipe + Before/After Frosted Badges",
   "composition_path": "animations/_fx_library/before-after/index.html",
   "duration_sec": 2.0,
+  "min_duration_sec": 2.0,
   "fps": 60,
   "canvas": [
     1080,
@@ -20,5 +21,13 @@
     "rightLabel": "\u2022 after",
     "beamColor": "#FFF7D6"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/before-after --format mov --output broll/<Project>/before-after.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/before-after --format mov --output broll/<Project>/before-after.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "custom"
+  ]
 }

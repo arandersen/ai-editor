@@ -7,6 +7,7 @@
   "title": "Editorial Cream Card with Knocked-Out Transparent Stencil Display Type",
   "composition_path": "animations/_fx_library/knockout-captions/index.html",
   "duration_sec": 1.8,
+  "min_duration_sec": 1.8,
   "fps": 60,
   "canvas": [
     1080,
@@ -21,5 +22,13 @@
     "stencilLine1": "KNOCK",
     "stencilLine2": "OUT"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/knockout-captions --format mov --output broll/<Project>/knockout-captions.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/knockout-captions --format mov --output broll/<Project>/knockout-captions.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "top"
+  ]
 }

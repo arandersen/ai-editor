@@ -1,0 +1,44 @@
+{
+  "shortcut": "@couch-wall",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "couch-wall",
+  "rule": "Reference Pack Def9pj5TWtA",
+  "title": "Layered reel wall behind a seated subject",
+  "composition_path": "animations/_fx_library/couch-wall/index.html",
+  "duration_sec": 3.0,
+  "min_duration_sec": 1.6,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": true,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "",
+  "variables": {
+    "cards": [],
+    "subjectAsset": "",
+    "heading": "Your work, in context",
+    "spread": 1.0
+  },
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/couch-wall --format mov --output broll/<Project>/couch-wall.mov",
+  "pack": "reference-def9pj5twta",
+  "aliases": [],
+  "required_media_variables": [
+    "cards",
+    "subjectAsset"
+  ],
+  "fidelity_notes": "Real media cards and a supplied alpha subject. Does not segment people or generate missing background pixels.",
+  "reference_anchors": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "label": "couch wall",
+      "approx_source_second": 0.9
+    }
+  ],
+  "occupies_zones": [
+    "background"
+  ]
+}

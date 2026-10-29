@@ -1,0 +1,57 @@
+{
+  "shortcut": "@proof-player",
+  "status": "experimental-demo",
+  "unbound_variables": [],
+  "slug": "proof-player",
+  "rule": "Reference Pack Def9pj5TWtA",
+  "title": "Synchronized media proof player, counter and effect index",
+  "composition_path": "animations/_fx_library/proof-player/index.html",
+  "duration_sec": 4.5,
+  "min_duration_sec": 1.0,
+  "fps": 60,
+  "canvas": [
+    1080,
+    1920
+  ],
+  "requires_person_cutout": false,
+  "occupies_top_zone": false,
+  "default_sfx_handle": "",
+  "variables": {
+    "title": "Show the effect",
+    "sequence": [
+      {
+        "label": "First effect",
+        "start": 0.3,
+        "duration": 1.2,
+        "src": ""
+      },
+      {
+        "label": "Second effect",
+        "start": 1.5,
+        "duration": 1.2,
+        "src": ""
+      },
+      {
+        "label": "Third effect",
+        "start": 2.7,
+        "duration": 1.2,
+        "src": ""
+      }
+    ],
+    "accent": "#F6E478"
+  },
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/proof-player --format mov --output broll/<Project>/proof-player.mov",
+  "pack": "reference-def9pj5twta",
+  "aliases": [
+    "showcase player",
+    "effect showcase"
+  ],
+  "required_media_variables": [
+    "sequence"
+  ],
+  "fidelity_notes": "One sequence drives visible clip, highlighted row, counter and progress. Main presenter remains the base video; child clips use their own local media offsets. Not a phone screen recording generator.",
+  "reference_anchors": [],
+  "occupies_zones": [
+    "center"
+  ]
+}

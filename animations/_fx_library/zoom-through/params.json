@@ -7,6 +7,7 @@
   "title": "Camera Zoom-Through Punch Transition + 2-Frame Warm White Flash",
   "composition_path": "animations/_fx_library/zoom-through/index.html",
   "duration_sec": 0.65,
+  "min_duration_sec": 0.65,
   "fps": 60,
   "canvas": [
     1080,
@@ -19,5 +20,20 @@
     "peakScale": 6.5,
     "flashColor": "#FFFDF5"
   },
-  "render_command": "npx hyperframes render animations/_fx_library/zoom-through --format mov --output broll/<Project>/zoom-through.mov"
+  "render_command": "./node_modules/.bin/hyperframes render animations/_fx_library/zoom-through --format mov --output broll/<Project>/zoom-through.mov",
+  "pack": "packs-2-and-3",
+  "aliases": [],
+  "required_media_variables": [],
+  "fidelity_notes": "Experimental reference demonstration; source-video fidelity not certified.",
+  "reference_anchors": [
+    {
+      "source": "examples/igexport-Def9pj5TWtA.mp4",
+      "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+      "label": "zoom-through cut",
+      "approx_source_second": 7.4
+    }
+  ],
+  "occupies_zones": [
+    "custom"
+  ]
 }

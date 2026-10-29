@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>@profile-card — Screenshot-backed social profile CTA</title>
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #FFFFFF;
+    }
+    #stage {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+    }
+#stockpile-root{position:absolute;inset:0}#profile-cta{position:absolute;top:12%;left:10%;right:10%;text-align:center;font-size:68px;font-weight:850;color:#FFF;text-shadow:0 6px 20px #000;opacity:0}
+          #profile-card{position:absolute;top:46%;left:26%;width:48%;height:37%;border:2px solid #FFFFFF70;border-radius:26px;background:#111;overflow:hidden;box-shadow:0 20px 60px #0009;opacity:0}
+          #profile-media{position:absolute;inset:0 0 58px}#profile-handle{position:absolute;left:12px;right:12px;bottom:14px;color:#FFF;font-size:24px;text-align:center}  </style>
+</head>
+<body>
+  <div id="stage"
+       data-composition-id="main"
+       data-composition
+       data-start="0"
+       data-width="1080"
+       data-height="1920"
+       data-fps="60"
+       data-duration="2.8"
+       data-composition-variables='[{"id": "profileAsset", "type": "string", "label": "profileAsset", "default": ""}, {"id": "creatorHandle", "type": "string", "label": "creatorHandle", "default": "yourhandle"}, {"id": "cta", "type": "string", "label": "cta", "default": "Follow for more"}, {"id": "yPercent", "type": "number", "label": "yPercent", "default": 46}, {"id": "widthPercent", "type": "number", "label": "widthPercent", "default": 48}]'>
+<div id="stockpile-root"><div id="profile-cta"></div><div id="profile-card"><div id="profile-media"></div><div id="profile-handle"></div></div></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const vars = (window.__hyperframes && typeof window.__hyperframes.getVariables === 'function')
+      ? window.__hyperframes.getVariables()
+      : {"profileAsset": "", "creatorHandle": "yourhandle", "cta": "Follow for more", "yPercent": 46, "widthPercent": 48};
+
+    function text(selector, value) {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = String(value ?? ''); el.style.whiteSpace = 'pre-line';
+      });
+    }
+    function style(selector, values) {
+      document.querySelectorAll(selector).forEach(el => Object.assign(el.style, values));
+    }
+    function items(selector, values, tag, cls) {
+      const parent = document.querySelector(selector); if (!parent) return;
+      parent.replaceChildren(...values.map(value => {
+        const el = document.createElement(tag); el.className = cls;
+        el.textContent = String(value); return el;
+      }));
+    }
+    function media(selector, value) {
+      if (!value || value.startsWith('@')) return;
+      document.querySelectorAll(selector).forEach(parent => {
+        parent.style.position ||= 'relative';
+        const video = /\.(mp4|mov|webm)(?:\?|$)/i.test(value);
+        const el = document.createElement(video ? 'video' : 'img');
+        el.src = value; el.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        if (video) { el.muted = true; el.setAttribute('playsinline',''); el.dataset.start='0'; el.dataset.duration=document.querySelector('#stage').dataset.duration; }
+        if (parent.id==='stage') parent.prepend(el); else parent.replaceChildren(el);
+      });
+    }
+    function foreground(value) {
+      if (!value || value.startsWith('@')) return;
+      let parent = document.getElementById('subject-layer');
+      if (!parent) { parent = document.createElement('div'); parent.id='subject-layer';
+        parent.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:2;';
+        document.getElementById('stage').append(parent); }
+      media('#subject-layer', value);
+    }
+    Object.keys(vars).forEach(key => {
+      if (typeof vars[key] === 'string' && /^[\[{]/.test(vars[key])) {
+        try { vars[key] = JSON.parse(vars[key]); } catch (_) {}
+      }
+    });
+
+    const stage = document.getElementById('stage');
+    const stageDuration = Number(stage.dataset.duration);
+    const $ = selector => document.querySelector(selector);
+    const all = selector => Array.from(document.querySelectorAll(selector));
+    function assert(ok, message) { if (!ok) throw new Error(message); }
+    function finite(n) { return typeof n === 'number' && Number.isFinite(n); }
+    function make(tag, cls, value) {
+      const el = document.createElement(tag); el.className = cls;
+      if (value !== undefined) el.textContent = String(value);
+      return el;
+    }
+    function mount(parent, asset, timing = {}) {
+      if (!asset) return null;
+      const config = typeof asset === 'string' ? {src:asset} : asset;
+      assert(typeof config.src === 'string' && config.src.length > 0, 'Media needs src');
+      assert(!config.src.startsWith('@'), 'Resolve media handles with editor stockpile --output or the EDL adapter');
+      const isVideo = config.kind === 'video' || /\.(mp4|mov|webm)(?:\?|$)/i.test(config.src);
+      const el = document.createElement(isVideo ? 'video' : 'img');
+      el.src = config.src; el.alt = config.alt || '';
+      Object.assign(el.style,{width:'100%',height:'100%',objectFit:config.fit || 'cover',display:'block'});
+      el.dataset.start = String(timing.start ?? 0);
+      el.dataset.duration = String(timing.duration ?? stageDuration);
+      if (isVideo) {
+        el.muted = true; el.playsInline = true;
+        el.dataset.mediaStart = String(config.mediaStart ?? 0);
+      }
+      parent.append(el); return el;
+    }
+    function exit(tl, target, lead=0.25) {
+      tl.to(target,{opacity:0,y:-12,duration:lead,ease:'power2.in'},stageDuration-lead-0.05);
+    }
+
+    assert(finite(vars.widthPercent)&&vars.widthPercent>=25&&vars.widthPercent<=80,'widthPercent must be 25..80');
+    mount($('#profile-media'),vars.profileAsset);$('#profile-handle').textContent='@'+vars.creatorHandle.replace(/^@/,'');$('#profile-cta').textContent=vars.cta;
+    Object.assign($('#profile-card').style,{width:vars.widthPercent+'%',left:(100-vars.widthPercent)/2+'%',top:vars.yPercent+'%'});
+
+    const tl = gsap.timeline({ paused: true });
+tl.fromTo('#profile-cta',{opacity:0,y:16},{opacity:1,y:0,duration:0.25},0)
+      .fromTo('#profile-card',{opacity:0,y:45,scale:0.94},{opacity:1,y:0,scale:1,duration:0.35,ease:'power3.out'},0.15);exit(tl,'#stockpile-root');
+    window.__timelines["main"] = tl;
+    window.__hyperframes_timeline = tl;
+  </script>
+</body>
+</html>

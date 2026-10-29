@@ -68,3 +68,8 @@ This is a showcase format. A normal educational talking-head reel should borrow 
 4. Only then compare an entire recreated reel against the reference with audiovisual review.
 
 No new effect implementations or production render were created as part of this analysis. Project history records this reference review separately from creator edits; no new universal style lessons were promoted automatically.
+
+
+## Stockpile implementation follow-up
+
+The subsequent stockpile task added seven reusable compositions and canonical mappings for all 17 labels. See [effect stockpile](../effect-stockpile.md) and [generated preview sheet](Def9pj5TWtA-evidence/stockpile-previews.jpg). The original analysis above remains a record of the state before that implementation; the added glass treatment is an approximation, and mask-dependent effects require supplied alpha media.
