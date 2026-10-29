@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source": "examples/igexport-Def9pj5TWtA.mp4",
+  "source_sha256": "6425351ef215f857f4d17d7663262d8f64a9aaae1f7de9678f4109b4ac5d2868",
+  "duration": 27.327029,
+  "resolution": [
+    720,
+    1280
+  ],
+  "fps": 30,
+  "method": "Local faster-whisper transcript plus full-duration contact sheet and selected original-resolution frames; not continuous playback/audio or exact transition certification",
+  "sampled_detail_times": [
+    0.5,
+    1.5,
+    2.5,
+    3.5,
+    4.5,
+    5.5,
+    6.5,
+    7.5,
+    8.5,
+    9.5,
+    10.5,
+    11.5,
+    12.5,
+    13.5,
+    14.5,
+    15.5,
+    16.5,
+    17.5,
+    22.8,
+    25.8
+  ],
+  "transcript": "transcripts/examples/igexport-Def9pj5TWtA_acoustic.json",
+  "reviewed_corrections": [
+    {
+      "asr": "Phone Markup",
+      "reviewed_visual_label": "phone mockup",
+      "source_time_approx": 4.6
+    }
+  ],
+  "proxy_bytes": 11902117,
+  "timings": "ASR-derived estimates; not frame-accurate effect in/out points"
+}

@@ -48,7 +48,7 @@ The 31 catalogue scenes now bind editable text/layout parameters and use local G
 
 ## Guides and checks
 
-Read [the agent runbook](docs/agent-runbook.md), [architecture](docs/architecture.md), [effect status](docs/effect-status.md), [the audit](docs/audits/2026-10-29-system-audit.md), and [the historical creative catalogue](docs/reference/creative-catalogue.md).
+Read [the step-by-step flow diagram](docs/editing-flow-explained.md), [the third reference analysis](docs/reference/Def9pj5TWtA-analysis.md), [the agent runbook](docs/agent-runbook.md), [architecture](docs/architecture.md), [effect status](docs/effect-status.md), [the audit](docs/audits/2026-10-29-system-audit.md), and [the historical creative catalogue](docs/reference/creative-catalogue.md).
 
 ```bash
 python3 -m unittest discover -s tests -v

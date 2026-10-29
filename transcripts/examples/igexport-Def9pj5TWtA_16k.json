@@ -1,0 +1,564 @@
+{
+  "text": "Orbit, Couch Wall, UI World, Frame Break, Digital Zoom, Phone Markup, Checklist, Headline Wall, Zoom Through Cut, Chart Grow, Pullback Reveal, Green Screen, Paper Cut, Doodle Boil, Vertigo, Cover Story, Glass Type. I'm going to release 26 different Claude video effects in the next few days and the last time that I did, it broke the internet. But if you want it, then just comment Studio and I'll send you the waitlist. I want to make sure to follow for more AI tips like this.",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 7.04,
+      "text": " Orbit, Couch Wall, UI World, Frame Break, Digital Zoom, Phone Markup, Checklist, Headline Wall,",
+      "words": [
+        {
+          "word": " Orbit,",
+          "start": 0.0,
+          "end": 0.44,
+          "probability": 0.717
+        },
+        {
+          "word": " Couch",
+          "start": 0.9,
+          "end": 0.96,
+          "probability": 0.741
+        },
+        {
+          "word": " Wall,",
+          "start": 0.96,
+          "end": 1.32,
+          "probability": 0.161
+        },
+        {
+          "word": " UI",
+          "start": 1.56,
+          "end": 1.88,
+          "probability": 0.908
+        },
+        {
+          "word": " World,",
+          "start": 1.88,
+          "end": 2.26,
+          "probability": 0.809
+        },
+        {
+          "word": " Frame",
+          "start": 2.58,
+          "end": 2.86,
+          "probability": 0.843
+        },
+        {
+          "word": " Break,",
+          "start": 2.86,
+          "end": 3.16,
+          "probability": 0.869
+        },
+        {
+          "word": " Digital",
+          "start": 3.5,
+          "end": 3.72,
+          "probability": 0.973
+        },
+        {
+          "word": " Zoom,",
+          "start": 3.72,
+          "end": 4.16,
+          "probability": 0.973
+        },
+        {
+          "word": " Phone",
+          "start": 4.6,
+          "end": 4.7,
+          "probability": 0.94
+        },
+        {
+          "word": " Markup,",
+          "start": 4.7,
+          "end": 5.2,
+          "probability": 0.674
+        },
+        {
+          "word": " Checklist,",
+          "start": 5.4,
+          "end": 6.02,
+          "probability": 0.979
+        },
+        {
+          "word": " Headline",
+          "start": 6.36,
+          "end": 6.64,
+          "probability": 0.958
+        },
+        {
+          "word": " Wall,",
+          "start": 6.64,
+          "end": 7.04,
+          "probability": 0.941
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "start": 7.4,
+      "end": 14.38,
+      "text": " Zoom Through Cut, Chart Grow, Pullback Reveal, Green Screen, Paper Cut, Doodle Boil, Vertigo,",
+      "words": [
+        {
+          "word": " Zoom",
+          "start": 7.4,
+          "end": 7.64,
+          "probability": 0.991
+        },
+        {
+          "word": " Through",
+          "start": 7.64,
+          "end": 7.94,
+          "probability": 0.815
+        },
+        {
+          "word": " Cut,",
+          "start": 7.94,
+          "end": 8.24,
+          "probability": 0.924
+        },
+        {
+          "word": " Chart",
+          "start": 8.78,
+          "end": 8.86,
+          "probability": 0.947
+        },
+        {
+          "word": " Grow,",
+          "start": 8.86,
+          "end": 9.16,
+          "probability": 0.838
+        },
+        {
+          "word": " Pullback",
+          "start": 9.46,
+          "end": 9.86,
+          "probability": 0.88
+        },
+        {
+          "word": " Reveal,",
+          "start": 9.86,
+          "end": 10.42,
+          "probability": 0.987
+        },
+        {
+          "word": " Green",
+          "start": 10.74,
+          "end": 10.96,
+          "probability": 0.75
+        },
+        {
+          "word": " Screen,",
+          "start": 10.96,
+          "end": 11.3,
+          "probability": 0.948
+        },
+        {
+          "word": " Paper",
+          "start": 11.7,
+          "end": 11.84,
+          "probability": 0.991
+        },
+        {
+          "word": " Cut,",
+          "start": 11.84,
+          "end": 12.2,
+          "probability": 0.722
+        },
+        {
+          "word": " Doodle",
+          "start": 12.8,
+          "end": 12.9,
+          "probability": 0.719
+        },
+        {
+          "word": " Boil,",
+          "start": 12.9,
+          "end": 13.48,
+          "probability": 0.741
+        },
+        {
+          "word": " Vertigo,",
+          "start": 13.98,
+          "end": 14.38,
+          "probability": 0.976
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "start": 14.72,
+      "end": 17.98,
+      "text": " Cover Story, Glass Type. I'm going to release 26 different",
+      "words": [
+        {
+          "word": " Cover",
+          "start": 14.72,
+          "end": 15.02,
+          "probability": 0.934
+        },
+        {
+          "word": " Story,",
+          "start": 15.02,
+          "end": 15.5,
+          "probability": 0.965
+        },
+        {
+          "word": " Glass",
+          "start": 15.68,
+          "end": 15.98,
+          "probability": 0.975
+        },
+        {
+          "word": " Type.",
+          "start": 15.98,
+          "end": 16.3,
+          "probability": 0.917
+        },
+        {
+          "word": " I'm",
+          "start": 16.6,
+          "end": 16.66,
+          "probability": 0.99
+        },
+        {
+          "word": " going",
+          "start": 16.66,
+          "end": 16.8,
+          "probability": 0.993
+        },
+        {
+          "word": " to",
+          "start": 16.8,
+          "end": 16.96,
+          "probability": 0.998
+        },
+        {
+          "word": " release",
+          "start": 16.96,
+          "end": 17.16,
+          "probability": 0.998
+        },
+        {
+          "word": " 26",
+          "start": 17.16,
+          "end": 17.62,
+          "probability": 0.986
+        },
+        {
+          "word": " different",
+          "start": 17.62,
+          "end": 17.98,
+          "probability": 0.993
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "start": 17.98,
+      "end": 21.74,
+      "text": " Claude video effects in the next few days and the last time that I did, it broke the internet.",
+      "words": [
+        {
+          "word": " Claude",
+          "start": 17.98,
+          "end": 18.22,
+          "probability": 0.008
+        },
+        {
+          "word": " video",
+          "start": 18.22,
+          "end": 18.48,
+          "probability": 0.739
+        },
+        {
+          "word": " effects",
+          "start": 18.48,
+          "end": 18.74,
+          "probability": 0.973
+        },
+        {
+          "word": " in",
+          "start": 18.74,
+          "end": 18.94,
+          "probability": 0.979
+        },
+        {
+          "word": " the",
+          "start": 18.94,
+          "end": 19.04,
+          "probability": 0.994
+        },
+        {
+          "word": " next",
+          "start": 19.04,
+          "end": 19.18,
+          "probability": 0.999
+        },
+        {
+          "word": " few",
+          "start": 19.18,
+          "end": 19.34,
+          "probability": 0.998
+        },
+        {
+          "word": " days",
+          "start": 19.34,
+          "end": 19.54,
+          "probability": 0.999
+        },
+        {
+          "word": " and",
+          "start": 19.54,
+          "end": 19.8,
+          "probability": 0.409
+        },
+        {
+          "word": " the",
+          "start": 19.8,
+          "end": 19.92,
+          "probability": 0.984
+        },
+        {
+          "word": " last",
+          "start": 19.92,
+          "end": 20.12,
+          "probability": 0.998
+        },
+        {
+          "word": " time",
+          "start": 20.12,
+          "end": 20.3,
+          "probability": 0.992
+        },
+        {
+          "word": " that",
+          "start": 20.3,
+          "end": 20.44,
+          "probability": 0.932
+        },
+        {
+          "word": " I",
+          "start": 20.44,
+          "end": 20.58,
+          "probability": 0.993
+        },
+        {
+          "word": " did,",
+          "start": 20.58,
+          "end": 20.76,
+          "probability": 0.998
+        },
+        {
+          "word": " it",
+          "start": 20.84,
+          "end": 20.98,
+          "probability": 0.992
+        },
+        {
+          "word": " broke",
+          "start": 20.98,
+          "end": 21.3,
+          "probability": 0.998
+        },
+        {
+          "word": " the",
+          "start": 21.3,
+          "end": 21.5,
+          "probability": 0.997
+        },
+        {
+          "word": " internet.",
+          "start": 21.5,
+          "end": 21.74,
+          "probability": 0.72
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "start": 21.96,
+      "end": 24.9,
+      "text": " But if you want it, then just comment Studio and I'll send you the waitlist.",
+      "words": [
+        {
+          "word": " But",
+          "start": 21.96,
+          "end": 22.0,
+          "probability": 0.992
+        },
+        {
+          "word": " if",
+          "start": 22.0,
+          "end": 22.12,
+          "probability": 0.97
+        },
+        {
+          "word": " you",
+          "start": 22.12,
+          "end": 22.26,
+          "probability": 0.999
+        },
+        {
+          "word": " want",
+          "start": 22.26,
+          "end": 22.42,
+          "probability": 0.875
+        },
+        {
+          "word": " it,",
+          "start": 22.42,
+          "end": 22.58,
+          "probability": 0.962
+        },
+        {
+          "word": " then",
+          "start": 22.6,
+          "end": 22.7,
+          "probability": 0.653
+        },
+        {
+          "word": " just",
+          "start": 22.7,
+          "end": 22.86,
+          "probability": 0.95
+        },
+        {
+          "word": " comment",
+          "start": 22.86,
+          "end": 23.1,
+          "probability": 0.388
+        },
+        {
+          "word": " Studio",
+          "start": 23.1,
+          "end": 23.44,
+          "probability": 0.367
+        },
+        {
+          "word": " and",
+          "start": 23.44,
+          "end": 23.98,
+          "probability": 0.737
+        },
+        {
+          "word": " I'll",
+          "start": 23.98,
+          "end": 24.1,
+          "probability": 0.99
+        },
+        {
+          "word": " send",
+          "start": 24.1,
+          "end": 24.24,
+          "probability": 0.996
+        },
+        {
+          "word": " you",
+          "start": 24.24,
+          "end": 24.38,
+          "probability": 0.997
+        },
+        {
+          "word": " the",
+          "start": 24.38,
+          "end": 24.5,
+          "probability": 0.928
+        },
+        {
+          "word": " waitlist.",
+          "start": 24.5,
+          "end": 24.9,
+          "probability": 0.694
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "start": 25.14,
+      "end": 27.04,
+      "text": " I want to make sure to follow for more AI tips like this.",
+      "words": [
+        {
+          "word": " I",
+          "start": 25.14,
+          "end": 25.16,
+          "probability": 0.402
+        },
+        {
+          "word": " want",
+          "start": 25.16,
+          "end": 25.24,
+          "probability": 0.669
+        },
+        {
+          "word": " to",
+          "start": 25.24,
+          "end": 25.3,
+          "probability": 0.971
+        },
+        {
+          "word": " make",
+          "start": 25.3,
+          "end": 25.42,
+          "probability": 0.992
+        },
+        {
+          "word": " sure",
+          "start": 25.42,
+          "end": 25.56,
+          "probability": 0.999
+        },
+        {
+          "word": " to",
+          "start": 25.56,
+          "end": 25.68,
+          "probability": 0.992
+        },
+        {
+          "word": " follow",
+          "start": 25.68,
+          "end": 25.86,
+          "probability": 0.999
+        },
+        {
+          "word": " for",
+          "start": 25.86,
+          "end": 26.08,
+          "probability": 0.975
+        },
+        {
+          "word": " more",
+          "start": 26.08,
+          "end": 26.24,
+          "probability": 0.996
+        },
+        {
+          "word": " AI",
+          "start": 26.24,
+          "end": 26.44,
+          "probability": 0.941
+        },
+        {
+          "word": " tips",
+          "start": 26.44,
+          "end": 26.62,
+          "probability": 0.972
+        },
+        {
+          "word": " like",
+          "start": 26.62,
+          "end": 26.8,
+          "probability": 0.993
+        },
+        {
+          "word": " this.",
+          "start": 26.8,
+          "end": 27.04,
+          "probability": 0.998
+        }
+      ]
+    }
+  ],
+  "language": "en"
+}
